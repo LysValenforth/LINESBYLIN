@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personal portfolio and blog - CS student sharing code, creativity, and photography">
+    <title>HOME</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="#home" class="logo">LINESBYLIN</a>
+                
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#about" class="nav-link">ABOUT</a></li>
+                    <li class="nav-dropdown">
+                        <button class="nav-link dropdown-btn" id="worksDropdown">
+                            WORKS
+                            <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
+                                <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </button>
+                        <ul class="dropdown-menu" id="dropdownMenu">
+                            <li><a href="pages/blog1.html">Blogs</a></li>
+                            <li><a href="pages/poems.html">Poems</a></li>
+                            <li><a href="pages/stories.html">Stories</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#gallery" class="nav-link">GALLERY</a></li>
+                    <li><a href="#contact" class="nav-link">CONTACT</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="container">
+                <div class="hero-content">
+                    <span class="hero-label">Computer Science Student</span>
+                    <h1 class="hero-title">Creative Mind, Technical Skills</h1>
+                    <p class="hero-description">
+                        Combining code with creativity. I build applications, write stories, 
+                        and capture moments through photography.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#about" class="btn btn-primary">About Me</a>
+                        <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section" id="about">
+            <div class="container">
+                <a href="pages/biography.html" style="text-decoration: none; color: inherit; display: block;">
+                    <div class="about-grid">
+                        <div class="about-image">
+                            <img src="https://via.placeholder.com/500x500?text=Your+Photo+Here" alt="Profile Picture" class="about-profile-img">
+                        </div>
+                        <div class="about-content">
+                            <span class="section-label">ABOUT ME</span>
+                            <h2 class="section-title">Bridging Technology & Art</h2>
+                            <p class="about-text">
+                                This website is a small space on the internet where I try to make sense of my thoughts by turning them into words. 
+                                Here, you'll find a collection of my writing, from dreamy poems to pieces I like to think of as “literature.”
+                            </p>
+                            <p class="about-text">
+                                A little digital escape where I can overthink, romanticize everyday things, and sometimes pretend I’ve got it all figured out through writing. 
+                                Whether it came from a late-night burst of inspiration or a quiet moment, if it meant something to me, it might show up here.
+                            </p>
+                            <p class="about-text" style="color: var(--color-accent-dark); font-weight: 600; margin-top: 1rem;">
+                                Click to read my full biography →
+                            </p>
+                            <div class="about-stats">
+                                <div class="stat-item">
+                                    <span class="stat-number">3</span>
+                                    <span class="stat-label">Blogs</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number">33</span>
+                                    <span class="stat-label">Photos</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Featured Works Section -->
+        <section class="featured-works-section">
+            <div class="container">
+                <span class="section-label">BLOG</span>
+                <h2 class="section-title">Featured Post</h2>
+                <p class="section-description">
+                    Sharing my thoughts, experiences, and stories.
+                </p>
+
+                <div class="featured-works-grid">
+                    
+                    <article class="featured-work-card blog-card">
+                        <div class="work-image">
+                            <a href="assets/blog1.jpg" class="lightbox-trigger" data-lightbox="blogs" data-caption="Blog 1: The Beginning">
+                                <img src="assets/blog1.jpg" alt="Blog 1 Thumbnail" class="blog-thumbnail">
+                            </a>
+                        </div>
+                        <div class="work-content">
+                            <span class="work-category">BLOG POST</span>
+                            <h3 class="work-title">
+                                <a href="pages/blog1.html" class="blog-title-link">Blog 1: From Space Suits to Syntax Errors</a>
+                            </h3>
+                            <p class="work-description">
+                                My processor just overheated. I sat there staring at the test paper...
+                            </p>
+                            <a href="pages/blog1.html" class="read-more-link">Read More →</a>
+                        </div>
+                    </article>
+
+                    <article class="featured-work-card blog-card">
+                        <div class="work-image">
+                            <a href="assets/blog2.jpg" class="lightbox-trigger" data-lightbox="blogs" data-caption="Blog 2: Finding Inspiration">
+                                <img src="assets/blog2.jpg" alt="Blog 2 Thumbnail" class="blog-thumbnail">
+                            </a>
+                        </div>
+                        <div class="work-content">
+                            <span class="work-category">BLOG POST</span>
+                            <h3 class="work-title">
+                                <a href="pages/blog2.html" class="blog-title-link">Blog 2: Where the Rainbow Ends</a>
+                            </h3>
+                            <p class="work-description">
+                                Looking back, my childhood in the province wasn't just good...
+                            </p>
+                            <a href="pages/blog2.html" class="read-more-link">Read More →</a>
+                        </div>
+                    </article>
+
+                    <article class="featured-work-card blog-card">
+                        <div class="work-image">
+                            <a href="assets/blog3.jpg" class="lightbox-trigger" data-lightbox="blogs" data-caption="Blog 3: Tech & Creativity">
+                                <img src="assets/blog3.jpg" alt="Blog 3 Thumbnail" class="blog-thumbnail">
+                            </a>
+                        </div>
+                        <div class="work-content">
+                            <span class="work-category">BLOG POST</span>
+                            <h3 class="work-title">
+                                <a href="pages/blog3.html" class="blog-title-link">Blog 3: My Toxic Love Triangle</a>
+                            </h3>
+                            <p class="work-description">
+                                My complicated relationship with AI and traditional learning.
+                            </p>
+                            <a href="pages/blog3.html" class="read-more-link">Read More →</a>
+                        </div>
+                    </article>
+                    
+                </div>
+            </div>
+        </section>
+
+        <!-- Photo Gallery Section -->
+        <section class="gallery-section" id="gallery">
+            <div class="container">
+                <span class="section-label">PHOTOGRAPHY</span>
+                <h2 class="section-title">Photo Collections</h2>
+                <p class="section-description">
+                    Explore my photography organized into thematic collections. 
+                    Click on any collection to view the full gallery.
+                </p>
+
+                <!-- Gallery Collections Links -->
+                <div class="collections-grid">
+    
+                    <a href="#nature-collection" class="collection-card" data-collection="nature">
+                        <div class="work-image">
+                            <img src="assets/nature1.jpg" alt="Nature Photography" class="collection-thumbnail">
+                        </div>
+                        <div class="work-content">
+                            <span class="work-category">PHOTOGRAPHY</span>
+                            <h3 class="work-title">Nature & Landscapes</h3>
+                            <p class="work-description">A collection of scenic outdoor shots, from lush forests and waterfalls to sweeping mountain views.</p>
+                            <div class="work-tags">
+                                <span class="work-tag">6 Photos</span>
+                                <span class="work-tag">Outdoors</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="#urban-collection" class="collection-card" data-collection="urban">
+                        <div class="work-image">
+                            <img src="assets/urban1.jpg" alt="Urban Life" class="collection-thumbnail">
+                        </div>
+                        <div class="work-content">
+                            <span class="work-category">PHOTOGRAPHY</span>
+                            <h3 class="work-title">Urban Life</h3>
+                            <p class="work-description">Capturing the hustle and bustle of city life, featuring architecture, street art, and neon lights.</p>
+                            <div class="work-tags">
+                                <span class="work-tag">5 Photos</span>
+                                <span class="work-tag">Cityscape</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="#tech-collection" class="collection-card" data-collection="tech">
+                        <div class="work-image">
+                            <img src="https://via.placeholder.com/400x300.png?text=Tech+Workspace" alt="Tech Workspace" class="collection-thumbnail">
+                        </div>
+                        <div class="work-content">
+                            <span class="work-category">PHOTOGRAPHY</span>
+                            <h3 class="work-title">Tech & Workspace</h3>
+                            <p class="work-description">A look into my development environment, mechanical keyboards, and late-night coding sessions.</p>
+                            <div class="work-tags">
+                                <span class="work-tag">5 Photos</span>
+                                <span class="work-tag">Setup</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="#abstract-collection" class="collection-card" data-collection="abstract">
+                        <div class="work-image">
+                            <img src="https://via.placeholder.com/400x300.png?text=Abstract+Patterns" alt="Abstract Patterns" class="collection-thumbnail">
+                        </div>
+                        <div class="work-content">
+                            <span class="work-category">PHOTOGRAPHY</span>
+                            <h3 class="work-title">Abstract & Patterns</h3>
+                            <p class="work-description">Exploring geometric shapes, symmetry, textures, and minimalist compositions.</p>
+                            <div class="work-tags">
+                                <span class="work-tag">6 Photos</span>
+                                <span class="work-tag">Creative</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="#travel-collection" class="collection-card" data-collection="travel">
+                        <div class="work-image">
+                            <img src="https://via.placeholder.com/400x300.png?text=Travel+Adventure" alt="Travel Adventure" class="collection-thumbnail">
+                        </div>
+                        <div class="work-content">
+                            <span class="work-category">PHOTOGRAPHY</span>
+                            <h3 class="work-title">Travel & Adventure</h3>
+                            <p class="work-description">Moments captured from around the globe, from airport terminals to ancient ruins and local markets.</p>
+                            <div class="work-tags">
+                                <span class="work-tag">6 Photos</span>
+                                <span class="work-tag">Journey</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="#people-collection" class="collection-card" data-collection="people">
+                        <div class="work-image">
+                            <img src="https://via.placeholder.com/400x300.png?text=People+Portraits" alt="People Portraits" class="collection-thumbnail">
+                        </div>
+                        <div class="work-content">
+                            <span class="work-category">PHOTOGRAPHY</span>
+                            <h3 class="work-title">People & Portraits</h3>
+                            <p class="work-description">Candid moments, professional studio shots, and street photography focusing on human connections.</p>
+                            <div class="work-tags">
+                                <span class="work-tag">5 Photos</span>
+                                <span class="work-tag">Portraits</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <!-- Individual Collections (Hidden by default) -->
+                
+                <!-- Nature Collection -->
+                <div class="gallery-collection" id="nature-collection">
+                    <div class="collection-header">
+                        <h3>Nature & Landscapes</h3>
+                        <button class="close-collection" aria-label="Close collection">&times;</button>
+                    </div>
+                    <div class="gallery-grid">
+                        <div class="gallery-item" data-index="0">
+                            <div class="gallery-placeholder nature-bg">
+                                <span class="placeholder-text">Mountain Vista</span>
+                            </div>
+                            <p class="gallery-caption">Sunrise over the mountain peaks</p>
+                        </div>
+                        <div class="gallery-item" data-index="1">
+                            <div class="gallery-placeholder nature-bg">
+                                <span class="placeholder-text">Forest Path</span>
+                            </div>
+                            <p class="gallery-caption">Wandering through ancient woods</p>
+                        </div>
+                        <div class="gallery-item" data-index="2">
+                            <div class="gallery-placeholder nature-bg">
+                                <span class="placeholder-text">Ocean Waves</span>
+                            </div>
+                            <p class="gallery-caption">Endless horizon at sunset</p>
+                        </div>
+                        <div class="gallery-item" data-index="3">
+                            <div class="gallery-placeholder nature-bg">
+                                <span class="placeholder-text">Desert Dunes</span>
+                            </div>
+                            <p class="gallery-caption">Golden sands under blue sky</p>
+                        </div>
+                        <div class="gallery-item" data-index="4">
+                            <div class="gallery-placeholder nature-bg">
+                                <span class="placeholder-text">Waterfall</span>
+                            </div>
+                            <p class="gallery-caption">Cascading water in the valley</p>
+                        </div>
+                        <div class="gallery-item" data-index="5">
+                            <div class="gallery-placeholder nature-bg">
+                                <span class="placeholder-text">Lake Mirror</span>
+                            </div>
+                            <p class="gallery-caption">Perfect reflections at dawn</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Urban Collection -->
+                <div class="gallery-collection" id="urban-collection">
+                    <div class="collection-header">
+                        <h3>Urban Life</h3>
+                        <button class="close-collection" aria-label="Close collection">&times;</button>
+                    </div>
+                    <div class="gallery-grid">
+                        <div class="gallery-item" data-index="0">
+                            <div class="gallery-placeholder urban-bg">
+                                <span class="placeholder-text">City Skyline</span>
+                            </div>
+                            <p class="gallery-caption">Downtown at twilight</p>
+                        </div>
+                        <div class="gallery-item" data-index="1">
+                            <div class="gallery-placeholder urban-bg">
+                                <span class="placeholder-text">Street Art</span>
+                            </div>
+                            <p class="gallery-caption">Vibrant murals in the alley</p>
+                        </div>
+                        <div class="gallery-item" data-index="2">
+                            <div class="gallery-placeholder urban-bg">
+                                <span class="placeholder-text">Subway</span>
+                            </div>
+                            <p class="gallery-caption">Rush hour underground</p>
+                        </div>
+                        <div class="gallery-item" data-index="3">
+                            <div class="gallery-placeholder urban-bg">
+                                <span class="placeholder-text">Night Lights</span>
+                            </div>
+                            <p class="gallery-caption">Neon reflections on wet pavement</p>
+                        </div>
+                        <div class="gallery-item" data-index="4">
+                            <div class="gallery-placeholder urban-bg">
+                                <span class="placeholder-text">Architecture</span>
+                            </div>
+                            <p class="gallery-caption">Modern geometric buildings</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tech Collection -->
+                <div class="gallery-collection" id="tech-collection">
+                    <div class="collection-header">
+                        <h3>Tech & Workspace</h3>
+                        <button class="close-collection" aria-label="Close collection">&times;</button>
+                    </div>
+                    <div class="gallery-grid">
+                        <div class="gallery-item" data-index="0">
+                            <div class="gallery-placeholder tech-bg">
+                                <span class="placeholder-text">Code Editor</span>
+                            </div>
+                            <p class="gallery-caption">Late night coding session</p>
+                        </div>
+                        <div class="gallery-item" data-index="1">
+                            <div class="gallery-placeholder tech-bg">
+                                <span class="placeholder-text">Setup</span>
+                            </div>
+                            <p class="gallery-caption">My development workspace</p>
+                        </div>
+                        <div class="gallery-item" data-index="2">
+                            <div class="gallery-placeholder tech-bg">
+                                <span class="placeholder-text">Circuit Board</span>
+                            </div>
+                            <p class="gallery-caption">Electronics and components</p>
+                        </div>
+                        <div class="gallery-item" data-index="3">
+                            <div class="gallery-placeholder tech-bg">
+                                <span class="placeholder-text">Keyboard</span>
+                            </div>
+                            <p class="gallery-caption">Mechanical keys in action</p>
+                        </div>
+                        <div class="gallery-item" data-index="4">
+                            <div class="gallery-placeholder tech-bg">
+                                <span class="placeholder-text">Server Rack</span>
+                            </div>
+                            <p class="gallery-caption">Where the magic happens</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Abstract Collection -->
+                <div class="gallery-collection" id="abstract-collection">
+                    <div class="collection-header">
+                        <h3>Abstract & Patterns</h3>
+                        <button class="close-collection" aria-label="Close collection">&times;</button>
+                    </div>
+                    <div class="gallery-grid">
+                        <div class="gallery-item" data-index="0">
+                            <div class="gallery-placeholder abstract-bg">
+                                <span class="placeholder-text">Color Waves</span>
+                            </div>
+                            <p class="gallery-caption">Flowing gradients and motion</p>
+                        </div>
+                        <div class="gallery-item" data-index="1">
+                            <div class="gallery-placeholder abstract-bg">
+                                <span class="placeholder-text">Geometric</span>
+                            </div>
+                            <p class="gallery-caption">Shapes and symmetry</p>
+                        </div>
+                        <div class="gallery-item" data-index="2">
+                            <div class="gallery-placeholder abstract-bg">
+                                <span class="placeholder-text">Texture</span>
+                            </div>
+                            <p class="gallery-caption">Surface details macro shot</p>
+                        </div>
+                        <div class="gallery-item" data-index="3">
+                            <div class="gallery-placeholder abstract-bg">
+                                <span class="placeholder-text">Light Play</span>
+                            </div>
+                            <p class="gallery-caption">Shadows and highlights</p>
+                        </div>
+                        <div class="gallery-item" data-index="4">
+                            <div class="gallery-placeholder abstract-bg">
+                                <span class="placeholder-text">Reflection</span>
+                            </div>
+                            <p class="gallery-caption">Mirror worlds and doubles</p>
+                        </div>
+                        <div class="gallery-item" data-index="5">
+                            <div class="gallery-placeholder abstract-bg">
+                                <span class="placeholder-text">Minimalist</span>
+                            </div>
+                            <p class="gallery-caption">Less is more composition</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Travel Collection -->
+                <div class="gallery-collection" id="travel-collection">
+                    <div class="collection-header">
+                        <h3>Travel & Adventure</h3>
+                        <button class="close-collection" aria-label="Close collection">&times;</button>
+                    </div>
+                    <div class="gallery-grid">
+                        <div class="gallery-item" data-index="0">
+                            <div class="gallery-placeholder travel-bg">
+                                <span class="placeholder-text">Airport Terminal</span>
+                            </div>
+                            <p class="gallery-caption">Beginning of a new journey</p>
+                        </div>
+                        <div class="gallery-item" data-index="1">
+                            <div class="gallery-placeholder travel-bg">
+                                <span class="placeholder-text">Mountain Peak</span>
+                            </div>
+                            <p class="gallery-caption">Summit view from 3000m elevation</p>
+                        </div>
+                        <div class="gallery-item" data-index="2">
+                            <div class="gallery-placeholder travel-bg">
+                                <span class="placeholder-text">Beach Sunset</span>
+                            </div>
+                            <p class="gallery-caption">Tropical paradise at golden hour</p>
+                        </div>
+                        <div class="gallery-item" data-index="3">
+                            <div class="gallery-placeholder travel-bg">
+                                <span class="placeholder-text">Ancient Ruins</span>
+                            </div>
+                            <p class="gallery-caption">Historical temple architecture</p>
+                        </div>
+                        <div class="gallery-item" data-index="4">
+                            <div class="gallery-placeholder travel-bg">
+                                <span class="placeholder-text">City Rooftop</span>
+                            </div>
+                            <p class="gallery-caption">Panoramic view from above</p>
+                        </div>
+                        <div class="gallery-item" data-index="5">
+                            <div class="gallery-placeholder travel-bg">
+                                <span class="placeholder-text">Local Market</span>
+                            </div>
+                            <p class="gallery-caption">Vibrant colors of street vendors</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- People Collection -->
+                <div class="gallery-collection" id="people-collection">
+                    <div class="collection-header">
+                        <h3>People & Portraits</h3>
+                        <button class="close-collection" aria-label="Close collection">&times;</button>
+                    </div>
+                    <div class="gallery-grid">
+                        <div class="gallery-item" data-index="0">
+                            <div class="gallery-placeholder people-bg">
+                                <span class="placeholder-text">Street Portrait</span>
+                            </div>
+                            <p class="gallery-caption">Candid moment in the city</p>
+                        </div>
+                        <div class="gallery-item" data-index="1">
+                            <div class="gallery-placeholder people-bg">
+                                <span class="placeholder-text">Studio Shot</span>
+                            </div>
+                            <p class="gallery-caption">Professional portrait session</p>
+                        </div>
+                        <div class="gallery-item" data-index="2">
+                            <div class="gallery-placeholder people-bg">
+                                <span class="placeholder-text">Group Friends</span>
+                            </div>
+                            <p class="gallery-caption">Laughing together at cafe</p>
+                        </div>
+                        <div class="gallery-item" data-index="3">
+                            <div class="gallery-placeholder people-bg">
+                                <span class="placeholder-text">Musician</span>
+                            </div>
+                            <p class="gallery-caption">Street performer in action</p>
+                        </div>
+                        <div class="gallery-item" data-index="4">
+                            <div class="gallery-placeholder people-bg">
+                                <span class="placeholder-text">Generations</span>
+                            </div>
+                            <p class="gallery-caption">Family across the years</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section" id="contact">
+            <div class="container">
+                <span class="section-label">GET IN TOUCH</span>
+                <h2 class="section-title">Let's Connect</h2>
+                <p class="section-description">
+                    Have a project in mind? Want to collaborate? Or just want to say hello? 
+                    I'd love to hear from you!
+                </p>
+
+                <div class="contact-container">
+                    <!-- Contact Form -->
+                    <div class="contact-form-wrapper">
+                        <h3 class="form-title">Send Me a Message</h3>
+                        <form class="contact-form" id="contactForm">
+                            <div class="form-group">
+                                <label for="name">Full Name *</label>
+                                <input type="text" id="name" name="name" required placeholder="John Doe">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required placeholder="john@example.com">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="subject">Subject *</label>
+                                <input type="text" id="subject" name="subject" required placeholder="Project Collaboration">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message">Message *</label>
+                                <textarea id="message" name="message" rows="6" required placeholder="Tell me about your project or inquiry..."></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-submit">
+                                Send Message
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <path d="M2 21L23 12L2 3V10L17 12L2 14V21Z" fill="currentColor"/>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="contact-info-wrapper">
+                        <h3 class="info-title">Contact Information</h3>
+                        
+                        <div class="contact-details">
+                            <div class="contact-detail-item">
+                                <div class="detail-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z" fill="currentColor"/>
+                                    </svg>
+                                </div>
+                                <div class="detail-content">
+                                    <h4>Email</h4>
+                                    <a href="/cdn-cgi/l/email-protection#b8c1d7cdcaddd5d9d1d4f8ddc0d9d5c8d4dd96dbd7d5"><span class="__cf_email__" data-cfemail="b5ccdac0c7d0d8d4dcd9f5d0cdd4d8c5d9d09bd6dad8">dinawanao.lixternino@ue.edu.ph</span></a>
+                                </div>
+                            </div>
+
+                            <div class="contact-detail-item">
+                                <div class="detail-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5C13.38 6.5 14.5 7.62 14.5 9C14.5 10.38 13.38 11.5 12 11.5Z" fill="currentColor"/>
+                                    </svg>
+                                </div>
+                                <div class="detail-content">
+                                    <h4>Location</h4>
+                                    <p>Caloocan City, Philippines</p>
+                                </div>
+                            </div>
+
+                            <div class="contact-detail-item">
+                                <div class="detail-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M20.01 15.38C18.78 15.38 17.59 15.18 16.48 14.82C16.13 14.7 15.74 14.79 15.47 15.06L13.9 17.03C11.07 15.68 8.42 13.13 7.01 10.2L8.96 8.54C9.23 8.26 9.31 7.87 9.2 7.52C8.83 6.41 8.64 5.22 8.64 3.99C8.64 3.45 8.19 3 7.65 3H4.19C3.65 3 3 3.24 3 3.99C3 13.28 10.73 21 20.01 21C20.72 21 21 20.37 21 19.82V16.37C21 15.83 20.55 15.38 20.01 15.38Z" fill="currentColor"/>
+                                    </svg>
+                                </div>
+                                <div class="detail-content">
+                                    <h4>Phone</h4>
+                                    <a href="tel:+1234567890">(+63) 919 383 6894</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="social-links">
+                            <h4>Follow Me</h4>
+                            <div class="social-icons">
+                                <a href="https://github.com/LysValenforth" target="_blank" rel="noopener" class="social-icon" aria-label="GitHub">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2C6.477 2 2 6.477 2 12C2 16.418 4.865 20.166 8.839 21.489C9.339 21.579 9.521 21.269 9.521 21.004C9.521 20.769 9.513 20.146 9.508 19.318C6.726 19.91 6.139 17.846 6.139 17.846C5.685 16.699 5.029 16.39 5.029 16.39C4.121 15.784 5.098 15.797 5.098 15.797C6.101 15.867 6.629 16.814 6.629 16.814C7.521 18.341 8.97 17.896 9.539 17.641C9.631 16.993 9.889 16.548 10.175 16.299C7.955 16.048 5.62 15.204 5.62 11.349C5.62 10.263 6.01 9.373 6.649 8.674C6.546 8.423 6.204 7.434 6.747 6.067C6.747 6.067 7.586 5.798 9.497 7.066C10.31 6.849 11.16 6.74 12.01 6.736C12.86 6.74 13.71 6.849 14.524 7.066C16.434 5.798 17.272 6.067 17.272 6.067C17.816 7.434 17.474 8.423 17.371 8.674C18.011 9.373 18.398 10.263 18.398 11.349C18.398 15.214 16.058 16.045 13.832 16.292C14.191 16.604 14.512 17.219 14.512 18.156C14.512 19.507 14.5 20.596 14.5 21.004C14.5 21.271 14.679 21.584 15.186 21.488C19.158 20.163 22 16.417 22 12C22 6.477 17.523 2 12 2Z"/>
+                                    </svg>
+                                </a>
+                                <a href="https://www.facebook.com/lixverino" target="_blank" rel="noopener" class="social-icon" aria-label="Facebook">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
+                                    </svg>
+                                </a>
+                                <a href="https://www.instagram.com/lixverino/" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M7.8 2H16.2C19.4 2 22 4.6 22 7.8V16.2C22 17.7383 21.3889 19.2135 20.3012 20.3012C19.2135 21.3889 17.7383 22 16.2 22H7.8C4.6 22 2 19.4 2 16.2V7.8C2 6.26174 2.61107 4.78649 3.69878 3.69878C4.78649 2.61107 6.26174 2 7.8 2ZM7.6 4C6.64522 4 5.72955 4.37928 5.05442 5.05442C4.37928 5.72955 4 6.64522 4 7.6V16.4C4 18.39 5.61 20 7.6 20H16.4C17.3548 20 18.2705 19.6207 18.9456 18.9456C19.6207 18.2705 20 17.3548 20 16.4V7.6C20 5.61 18.39 4 16.4 4H7.6ZM17.25 5.5C17.5815 5.5 17.8995 5.6317 18.1339 5.86612C18.3683 6.10054 18.5 6.41848 18.5 6.75C18.5 7.08152 18.3683 7.39946 18.1339 7.63388C17.8995 7.8683 17.5815 8 17.25 8C16.9185 8 16.6005 7.8683 16.3661 7.63388C16.1317 7.39946 16 7.08152 16 6.75C16 6.41848 16.1317 6.10054 16.3661 5.86612C16.6005 5.6317 16.9185 5.5 17.25 5.5ZM12 7C13.3261 7 14.5979 7.52678 15.5355 8.46447C16.4732 9.40215 17 10.6739 17 12C17 13.3261 16.4732 14.5979 15.5355 15.5355C14.5979 16.4732 13.3261 17 12 17C10.6739 17 9.40215 16.4732 8.46447 15.5355C7.52678 14.5979 7 13.3261 7 12C7 10.6739 7.52678 9.40215 8.46447 8.46447C9.40215 7.52678 10.6739 7 12 7ZM12 9C11.2044 9 10.4413 9.31607 9.87868 9.87868C9.31607 10.4413 9 11.2044 9 12C9 12.7956 9.31607 13.5587 9.87868 14.1213C10.4413 14.6839 11.2044 15 12 15C12.7956 15 13.5587 14.6839 14.1213 14.1213C14.6839 13.5587 15 12.7956 15 12C15 11.2044 14.6839 10.4413 14.1213 9.87868C13.5587 9.31607 12.7956 9 12 9Z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="response-time">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM12.5 7H11V13L16.25 16.15L17 14.92L12.5 12.25V7Z" fill="currentColor"/>
+                            </svg>
+                            <p>I typically respond within 24-48 hours</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Lines By Lin. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Image Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Close lightbox">&times;</button>
+        <button class="lightbox-prev" id="lightboxPrev" aria-label="Previous image">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+                <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2"/>
+            </svg>
+        </button>
+        <button class="lightbox-next" id="lightboxNext" aria-label="Next image">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+                <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2"/>
+            </svg>
+        </button>
+        <div class="lightbox-content">
+            <div class="lightbox-image" id="lightboxImage"></div>
+            <p class="lightbox-caption" id="lightboxCaption"></p>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <span>Back to top</span>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <path d="M12 19V5M12 5L5 12M12 5L19 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+</button>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
