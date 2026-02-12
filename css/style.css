@@ -1494,3 +1494,32 @@ button:focus-visible {
     letter-spacing: 0.5px;
     text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
+
+/* BLOB SVG ANIMATION */
+.blob-svg {
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    overflow: visible;
+}
+
+#blobClip path {
+    transform-origin: center;
+}
+
+.text-content {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    fill: var(--color-primary);
+    transition: all 0.5s ease;
+}
+
+.blob-svg:hover .text-content {
+    fill: var(--color-accent); 
+    text-shadow: 0 0 5px rgba(255,255,255,0.5); 
+}
