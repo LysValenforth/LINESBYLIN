@@ -1,11 +1,10 @@
-/* ===================================
-   js/script.js
-   =================================== */
-
 document.addEventListener('DOMContentLoaded', function() {
     initMobileMenu();
     initDropdown();
-    initBackToTop();
+    
+    // CORRECTION: Function name must match the one defined below
+    initProgressBackToTop(); 
+    
     initSmoothScroll();
     initGalleryCollections();
     initLightbox();
@@ -13,12 +12,11 @@ document.addEventListener('DOMContentLoaded', function() {
     initAnimations();
 });
 
-// ===================================
+
 // 1. MOBILE MENU TOGGLE
-// ===================================
 function initMobileMenu() {
-    const mobileToggle = document.getElementById('mobileToggle');
-    const navMenu = document.getElementById('navMenu');
+    const mobileToggle = document.getElementById('mobileToggle'); // Ensure ID exists in index.html
+    const navMenu = document.getElementById('navMenu'); // Ensure ID exists in index.html
     
     if (!mobileToggle || !navMenu) return;
     
@@ -32,7 +30,6 @@ function initMobileMenu() {
     const navLinks = navMenu.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
-            // Don't close if it's the dropdown trigger
             if (!this.classList.contains('dropdown-btn') && window.innerWidth <= 768) {
                 mobileToggle.classList.remove('active');
                 navMenu.classList.remove('active');
@@ -49,9 +46,8 @@ function initMobileMenu() {
     });
 }
 
-// ===================================
+
 // 2. DROPDOWN MENU
-// ===================================
 function initDropdown() {
     const dropdownBtn = document.getElementById('worksDropdown');
     const dropdownMenu = document.getElementById('dropdownMenu');
@@ -61,7 +57,7 @@ function initDropdown() {
     // Toggle on click
     dropdownBtn.addEventListener('click', function(e) {
         e.preventDefault();
-        e.stopPropagation(); // Prevent event bubbling
+        e.stopPropagation();
         
         this.classList.toggle('active');
         dropdownMenu.classList.toggle('active');
@@ -76,25 +72,47 @@ function initDropdown() {
     });
 }
 
-// ===================================
-// 3. BACK TO TOP BUTTON
-// ===================================
-function initBackToTop() {
-    const backToTopBtn = document.getElementById('backToTop');
-    
-    if (!backToTopBtn) return;
-    
-    // Show button after scrolling down 500px
+
+// 3. PROGRESS BACK TO TOP BUTTON (Circular Scroll)
+function initProgressBackToTop() {
+    const progressWrap = document.getElementById('progressWrap');
+    if (!progressWrap) return;
+
+    // A. Setup SVG Path for animation
+    const progressPath = progressWrap.querySelector('path');
+    const pathLength = progressPath.getTotalLength();
+
+    // Reset styles to prepare for animation
+    progressPath.style.transition = 'none';
+    progressPath.style.strokeDasharray = pathLength + ' ' + pathLength;
+    progressPath.style.strokeDashoffset = pathLength;
+    progressPath.getBoundingClientRect(); // Trigger layout
+    progressPath.style.transition = 'stroke-dashoffset 10ms linear';
+
+    // B. Calculate scroll percentage
+    const updateProgress = function() {
+        const scroll = window.scrollY;
+        const height = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = pathLength - (scroll * pathLength / height);
+        progressPath.style.strokeDashoffset = progress;
+    }
+
+    updateProgress();
+    window.addEventListener('scroll', updateProgress);
+
+    // C. Show/Hide button based on scroll position
+    const offset = 50; 
     window.addEventListener('scroll', function() {
-        if (window.pageYOffset > 500) {
-            backToTopBtn.classList.add('visible');
+        if (window.scrollY > offset) {
+            progressWrap.classList.add('active-progress');
         } else {
-            backToTopBtn.classList.remove('visible');
+            progressWrap.classList.remove('active-progress');
         }
     });
-    
-    // Smooth scroll to top on click
-    backToTopBtn.addEventListener('click', function() {
+
+    // D. Click to Scroll Up
+    progressWrap.addEventListener('click', function(event) {
+        event.preventDefault();
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
@@ -102,9 +120,8 @@ function initBackToTop() {
     });
 }
 
-// ===================================
+
 // 4. SMOOTH SCROLLING FOR ANCHOR LINKS
-// ===================================
 function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -135,15 +152,14 @@ function initSmoothScroll() {
     });
 }
 
-// ===================================
+
 // 5. GALLERY COLLECTIONS LOGIC
-// ===================================
 function initGalleryCollections() {
     const collectionCards = document.querySelectorAll('.collection-card');
     const collections = document.querySelectorAll('.gallery-collection');
     const closeButtons = document.querySelectorAll('.close-collection');
     
-    // Handle clicking a collection card (e.g., "Nature", "Urban")
+    // Handle clicking a collection card 
     collectionCards.forEach(card => {
         card.addEventListener('click', function(e) {
             e.preventDefault();
@@ -192,9 +208,8 @@ function initGalleryCollections() {
     });
 }
 
-// ===================================
+
 // 6. LIGHTBOX (IMAGE VIEWER)
-// ===================================
 function initLightbox() {
     const lightbox = document.getElementById('lightbox');
     const lightboxImage = document.getElementById('lightboxImage');
@@ -206,8 +221,8 @@ function initLightbox() {
     if (!lightbox) return;
     
     let currentImageIndex = 0;
-    let currentGalleryItems = []; // Stores items of the currently active collection
-    let isDataLightbox = false; // Flag to know which type of item is open
+    let currentGalleryItems = []; 
+    let isDataLightbox = false; 
 
     // --- Event Delegation ---
     document.body.addEventListener('click', function(e) {
@@ -297,7 +312,7 @@ function initLightbox() {
             const img = document.createElement('img');
             img.src = largeImageSrc;
             img.style.maxWidth = '100%';
-            img.style.maxHeight = '80vh'; // Prevent it from being too tall
+            img.style.maxHeight = '80vh'; 
             img.style.borderRadius = '8px';
             img.style.boxShadow = '0 10px 40px rgba(0,0,0,0.5)';
             
@@ -327,17 +342,14 @@ function initLightbox() {
     }
 }
 
-// ===================================
+
 // 7. CONTACT FORM HANDLER
-// ===================================
 function initContactForm() {
     const form = document.getElementById('contactForm');
     if (!form) return;
     
     form.addEventListener('submit', function(e) {
         e.preventDefault();
-        
-        // Simulate form submission
         const submitBtn = form.querySelector('.btn-submit');
         const originalText = submitBtn.innerHTML;
         
@@ -353,16 +365,14 @@ function initContactForm() {
     });
 }
 
-// ===================================
-// 8. SCROLL ANIMATIONS (INTERSECTION OBSERVER)
-// ===================================
+
+// 8. SCROLL ANIMATIONS
 function initAnimations() {
-    // Only run if browser supports IntersectionObserver
     if (!('IntersectionObserver' in window)) return;
 
     const observerOptions = {
-        threshold: 0.1, // Trigger when 10% of element is visible
-        rootMargin: '0px 0px -50px 0px' // Trigger slightly before it comes into view
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
     };
     
     const observer = new IntersectionObserver((entries) => {
@@ -370,18 +380,15 @@ function initAnimations() {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
-                observer.unobserve(entry.target); // Only animate once
+                observer.unobserve(entry.target); 
             }
         });
     }, observerOptions);
-    
-    // Elements to animate
     const animateElements = document.querySelectorAll(
         '.about-grid, .featured-work-card, .collection-card, .contact-container'
     );
     
     animateElements.forEach((el) => {
-        // Set initial state via JS so it degrades gracefully if JS fails
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
         el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';

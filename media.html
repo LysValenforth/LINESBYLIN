@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Media Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/media.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+    <nav class="nav">
+        <a href="#" class="logo">Media<span>Hub</span></a>
+        <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme">
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="mobile-toggle" onclick="toggleMobileNav()" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="index.html" class="nav-link">HOME</a></li>
+            <li><button class="nav-link active" data-page="beats" onclick="switchPage('beats')">BEATS<span class="nav-badge" id="badge-beats">0</span></button></li>
+            <li><button class="nav-link" data-page="movies" onclick="switchPage('movies')">MOVIES<span class="nav-badge" id="badge-movies">0</span></button></li>
+            <li><button class="nav-link" data-page="tvshows" onclick="switchPage('tvshows')">TV SHOWS<span class="nav-badge" id="badge-tvshows">0</span></button></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="main-content">
+
+<!-- ===== PAGE 1: BEATS ===== -->
+<section class="page active" id="page-beats">
+    <div class="page-header">
+        <div class="page-label"><svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg> Music Collection</div>
+        <h1>Fav Songs</h1>
+        <p>A curated collection of favorite tracks organized by genre, ready to play</p>
+        <div class="page-divider"></div>
+    </div>
+    <div class="search-bar"><svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" class="search-input" data-target="beats" placeholder="Search songs, artists, genres..."></div>
+
+    <!-- OPM -->
+    <div class="genre-section">
+        <div class="genre-title"><div class="genre-icon hip-hop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg></div><h2>OPM</h2><span class="count">3 tracks</span></div>
+        <div class="card-grid">
+            <div class="beat-card genre-border-opm" data-genre="opm">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-image"><img src="assets/liwanag.png" alt="Liwanag"></div>
+                <div class="card-body">
+                    <a href="https://open.spotify.com/artist/5J8oDvMc65JFCewBYS60nA?si=ZNxpaPOkQcyMFKxQdnXHYA" class="artist-name" target="_blank" rel="noopener">Magiliw Street</a>
+                    <a href="https://open.spotify.com/track/5hZhsesizIAUphzK8WKuCz?si=6dd58cda57eb47b9" class="song-title" target="_blank" rel="noopener">Liwanag</a>
+                    <div class="song-info">The song has this gentle, nostalgic sound that instantly calms me down, but it's the lyrics that truly resonate</div>
+                    <div class="source-links">
+                        <span class="source-label">Listen on</span>
+                        <div class="source-icons">
+                            <a href="https://open.spotify.com/track/5hZhsesizIAUphzK8WKuCz?si=6dd58cda57eb47b9" target="_blank" rel="noopener" class="source-btn spotify" title="Spotify"><svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></a>
+                            <a href="https://www.youtube.com/watch?v=V4OB8cJc6-0" target="_blank" rel="noopener" class="source-btn youtube" title="YouTube Music"><svg viewBox="0 0 24 24"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm4.872 13.344l-6.336 4.08c-.456.312-1.08.024-1.08-.528V7.104c0-.552.624-.84 1.08-.528l6.336 4.08c.408.264.408.888 0 1.152v.536z"/></svg></a>
+                        </div>
+                    </div>
+                    <div class="audio-player"><audio controls preload="none"><source src="assets/audio/Liwanag.mp3" type="audio/mpeg"></audio></div>
+                </div>
+            </div>
+
+            <div class="beat-card genre-border-opm" data-genre="opm">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-image"><img src="assets/Paruparu.png"></div>
+                <div class="card-body">
+                    <a href="https://open.spotify.com/artist/61OfH8eB8aJIc9T98cecNT?si=9z9PuiM3TWaFPoS4kDuflw" class="artist-name" target="_blank" rel="noopener">Sugarcane</a>
+                    <a href="https://open.spotify.com/track/6LnIHraJReN4rPHgGWwSss?si=b2804de382b54f9c" class="song-title" target="_blank" rel="noopener">Paruparu</a>
+                    <div class="song-info">I like this song since it focus on the belief that regardless of life's challenges, you are destined to meet your "other half" or soulmate</div>
+                    <div class="source-links">
+                        <span class="source-label">Listen on</span>
+                        <div class="source-icons">
+                            <a href="https://open.spotify.com/track/6LnIHraJReN4rPHgGWwSss?si=b2804de382b54f9c" target="_blank" rel="noopener" class="source-btn spotify" title="Spotify"><svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></a>
+                            <a href="https://music.youtube.com/watch?v=_GdOhSZNlMU&si=UmmW2A2Jt_vcrPpt" target="_blank" rel="noopener" class="source-btn youtube" title="YouTube Music"><svg viewBox="0 0 24 24"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm4.872 13.344l-6.336 4.08c-.456.312-1.08.024-1.08-.528V7.104c0-.552.624-.84 1.08-.528l6.336 4.08c.408.264.408.888 0 1.152v.536z"/></svg></a>
+                        </div>
+                    </div>
+                    <div class="audio-player"><div class="placeholder-audio-label"></div><audio controls preload="none"><source src="assets/audio/Paruparo.mp3" type="audio/mpeg"></audio></div>
+                </div>
+            </div>
+
+            <div class="beat-card genre-border-opm" data-genre="opm">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-image"><img src="assets/planeta.png"></div>
+                <div class="card-body">
+                    <a href="https://open.spotify.com/artist/5xPS5Chr0YYtb1VmZJqz38?si=4c3fdb9f103e46ea" class="artist-name" target="_blank" rel="noopener">Matt Wilson</a>
+                    <a href="https://open.spotify.com/track/2eEhVtTmFatHUMdnqhrAAW?si=3ba0d155447b4fa2" class="song-title" target="_blank" rel="noopener">Planeta</a>
+                    <div class="song-info">this song explores intense admiration and the desire to keep a loved one close, often referencing them as a "planet" or a world of their own"</div>
+                    <div class="source-links">
+                        <span class="source-label">Listen on</span>
+                        <div class="source-icons">
+                            <a href="https://open.spotify.com/track/2eEhVtTmFatHUMdnqhrAAW?si=3ba0d155447b4fa2" target="_blank" rel="noopener" class="source-btn spotify" title="Spotify"><svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></a>
+                            <a href="#" target="_blank" rel="noopener" class="source-btn youtube" title="YouTube Music"><svg viewBox="0 0 24 24"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm4.872 13.344l-6.336 4.08c-.456.312-1.08.024-1.08-.528V7.104c0-.552.624-.84 1.08-.528l6.336 4.08c.408.264.408.888 0 1.152v.536z"/></svg></a>
+                        </div>
+                    </div>
+                    <div class="audio-player"><div class="placeholder-audio-label"></div><audio controls preload="none"><source src="assets/audio/Planeta.mp3" type="audio/mpeg"></audio></div>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="genre-top-link" onclick="scrollToPageTop(event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg> Back to top</a>
+    </div>
+
+    <!-- POP -->
+    <div class="genre-section">
+        <div class="genre-title"><div class="genre-icon pop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div><h2>Pop</h2><span class="count">2 tracks</span></div>
+        <div class="card-grid">
+            <div class="beat-card genre-border-pop" data-genre="pop">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-image"><img src="assets/stay.png"></div>
+                <div class="card-body">
+                    <a href="https://open.spotify.com/artist/1qwVM2JnEMXbKgvZESGsRn?si=0e60b17be40c4017" class="artist-name" target="_blank" rel="noopener">Leroy Sanchez</a>
+                    <a href="https://open.spotify.com/track/0ozZWeW9V1s3U3staxET7y?si=1dffe9aa599d4a26" class="song-title" target="_blank" rel="noopener">I'll Stay</a>
+                    <div class="song-info">A song about unwavering commitment and support, promising to be a "shelter" and a "light" during difficult times</div>
+                    <div class="source-links">
+                        <span class="source-label">Listen on</span>
+                        <div class="source-icons">
+                            <a href="https://open.spotify.com/track/0ozZWeW9V1s3U3staxET7y?si=a6ad8240365e42d6" target="_blank" rel="noopener" class="source-btn spotify" title="Spotify"><svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></a>
+                            <a href="#" target="_blank" rel="noopener" class="source-btn youtube" title="YouTube Music"><svg viewBox="0 0 24 24"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm4.872 13.344l-6.336 4.08c-.456.312-1.08.024-1.08-.528V7.104c0-.552.624-.84 1.08-.528l6.336 4.08c.408.264.408.888 0 1.152v.536z"/></svg></a>
+                        </div>
+                    </div>
+                    <div class="audio-player"><div class="placeholder-audio-label"></div><audio controls preload="none"><source src="assets/audio/Stay.mp3" type="audio/mpeg"></audio></div>
+                </div>
+            </div>
+            <div class="beat-card genre-border-pop" data-genre="pop">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-image"><img src="assets/crazier.png"></div>
+                <div class="card-body">
+                    <a href="#" class="artist-name" target="_blank" rel="noopener">Taylor Swift</a>
+                    <a href="#" class="song-title" target="_blank" rel="noopener">Crazier</a>
+                    <div class="song-info">A dreamy, romantic pop song capturing the feeling of falling helplessly in love and being swept away into something beautiful and uncharted</div>
+                    <div class="source-links">
+                        <span class="source-label">Listen on</span>
+                        <div class="source-icons">
+                            <a href="#" target="_blank" rel="noopener" class="source-btn spotify" title="Spotify"><svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></a>
+                            <a href="#" target="_blank" rel="noopener" class="source-btn youtube" title="YouTube Music"><svg viewBox="0 0 24 24"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm4.872 13.344l-6.336 4.08c-.456.312-1.08.024-1.08-.528V7.104c0-.552.624-.84 1.08-.528l6.336 4.08c.408.264.408.888 0 1.152v.536z"/></svg></a>
+                        </div>
+                    </div>
+                    <div class="audio-player"><div class="placeholder-audio-label"></div><audio controls preload="none"><source src="assets/audio/Crazier.mp3" type="audio/mpeg"></audio></div>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="genre-top-link" onclick="scrollToPageTop(event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg> Back to top</a>
+    </div>
+
+    <!-- R&B -->
+    <div class="genre-section">
+        <div class="genre-title"><div class="genre-icon rnb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><h2>R&amp;B / Soul</h2><span class="count">2 tracks</span></div>
+        <div class="card-grid">
+            <div class="beat-card genre-border-rnb" data-genre="rnb">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-image"><img src="assets/weak.png"></div>
+                <div class="card-body">
+                    <a href="https://open.spotify.com/artist/30DIeQNV9s1HEXyuCpGF4l?si=9ecd45da335a4c95" class="artist-name" target="_blank" rel="noopener">Khel Pangilinan</a>
+                    <a href="https://open.spotify.com/track/06cUybZMETs4i3yQO1f7p3?si=7edd93890b3d43a5" class="song-title" target="_blank" rel="noopener">Weak</a>
+                    <div class="song-info">A cover of the SWV hit, focusing on the overwhelming, uncontrollable physical and emotional vulnerability caused by intense romantic love</div>
+                    <div class="source-links">
+                        <span class="source-label">Listen on</span>
+                        <div class="source-icons">
+                            <a href="https://open.spotify.com/track/06cUybZMETs4i3yQO1f7p3?si=7edd93890b3d43a5" target="_blank" rel="noopener" class="source-btn spotify" title="Spotify"><svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></a>
+                            <a href="#" target="_blank" rel="noopener" class="source-btn youtube" title="YouTube Music"><svg viewBox="0 0 24 24"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm4.872 13.344l-6.336 4.08c-.456.312-1.08.024-1.08-.528V7.104c0-.552.624-.84 1.08-.528l6.336 4.08c.408.264.408.888 0 1.152v.536z"/></svg></a>
+                        </div>
+                    </div>
+                    <div class="audio-player"><div class="placeholder-audio-label"></div><audio controls preload="none"><source src="assets/audio/Weak.mp3" type="audio/mpeg"></audio></div>
+                </div>
+            </div>
+
+            <div class="beat-card genre-border-rnb" data-genre="rnb">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-image"><img src="assets/incomplete.png"></div>
+                <div class="card-body">
+                    <a href="https://open.spotify.com/artist/6x9QLdzo6eBZxJ1bHsDkjg?si=16e432ecc93f45d9" class="artist-name" target="_blank" rel="noopener">Sisqo</a>
+                    <a href="https://open.spotify.com/track/3w8Mw9GHYepoTWOSdiyosj?si=0259544f6b4e41c1" class="song-title" target="_blank" rel="noopener">Incomplete</a>
+                    <div class="song-info">A cover of the SWV hit, focusing on the overwhelming, uncontrollable physical and emotional vulnerability caused by intense romantic love</div>
+                    <div class="source-links">
+                        <span class="source-label">Listen on</span>
+                        <div class="source-icons">
+                            <a href="https://open.spotify.com/track/3w8Mw9GHYepoTWOSdiyosj?si=0259544f6b4e41c1" target="_blank" rel="noopener" class="source-btn spotify" title="Spotify"><svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></a>
+                            <a href="" target="_blank" rel="noopener" class="source-btn youtube" title="YouTube Music"><svg viewBox="0 0 24 24"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm4.872 13.344l-6.336 4.08c-.456.312-1.08.024-1.08-.528V7.104c0-.552.624-.84 1.08-.528l6.336 4.08c.408.264.408.888 0 1.152v.536z"/></svg></a>
+                        </div>
+                    </div>
+                    <div class="audio-player"><div class="placeholder-audio-label"></div><audio controls preload="none"><source src="assets/audio/Incomplete.mp3" type="audio/mpeg"></audio></div>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="genre-top-link" onclick="scrollToPageTop(event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg> Back to top</a>
+    </div>
+</section>
+
+<!-- ===== PAGE 2: MOVIES ===== -->
+<section class="page" id="page-movies">
+    <div class="page-header"><div class="page-label"><svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg> Film Collection</div><h1>My Film Movies</h1><p>Handpicked cinema favorites from comedies to heart-pounding action</p><div class="page-divider"></div></div>
+    <div class="search-bar"><svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" class="search-input" data-target="movies" placeholder="Search movies, directors, genres..."></div>
+
+    <!-- COMEDY -->
+    <div class="genre-section">
+        <div class="genre-title"><div class="genre-icon comedy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div><h2>Comedy</h2><span class="count">3 films</span></div>
+        <div class="card-grid" id="grid-comedy-movies">
+
+            <!-- Three Idiots -->
+            <div class="film-card genre-border-comedy" data-genre="comedy" data-title="Three Idiots">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-poster">
+                    <img src="https://www.meinstyn.com/wp-content/uploads/2017/01/3-Idiots-Movie-Poster-Aamir-Khan-Kareena-Kapoor-R-Madhavan-Sharman-Joshi-Full-HD-Desktop-Wallpaper.jpg">
+                    <div class="placeholder-overlay"><div class="placeholder-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="2"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg></div><div class="placeholder-label">Replace Poster Here</div></div>
+                </div>
+                <div class="card-body">
+                    <a href="https://www.imdb.com/title/tt1187043/" class="film-title-link" target="_blank" rel="noopener">Three Idiots</a>
+                    <div class="film-meta"><span class="meta-tag">Comedy</span><span class="meta-tag">2009</span></div>
+                    <div class="synopsis">Two friends embark on a quest to find their long-lost college companion and reminisce about their unconventional, rebellious friend who challenged India's oppressive engineering education system with joy and brilliance.</div>
+                    <div class="personal-review"><span class="review-label">My Take:</span> <span class="review-text">One of Bollywood's greatest — funny, heartfelt, and surprisingly profound. "All is well" genuinely hits different every single rewatch.</span></div>
+                    <div class="credits"><strong>Director:</strong> Rajkumar Hirani<br><strong>Stars:</strong> Aamir Khan, R. Madhavan, Sharman Joshi</div>
+                    <div class="watch-sources"><span class="watch-label">Where to watch:</span>
+                        <a href="https://www.primevideo.com/detail/3-Idiots/0IMQLIS5J8EC6OLJBZAIAWY0XF" class="watch-btn" target="_blank" rel="noopener">Prime</a>
+                    </div>
+                    <button class="trailer-btn" data-trailer-url="https://www.youtube.com/embed/lbCRtrrMvSw?si=tgkozAqP_nFH7tjB" onclick="openTrailer(this)"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch Trailer</button>
+                </div>
+            </div>
+
+            <!-- White Chicks -->
+            <div class="film-card genre-border-comedy" data-genre="comedy" data-title="White Chicks">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-poster">
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/pv-target-images/f6c8e863d6f61012f70c08a6f2acb705116d2b10386d0a6d5f6fdbbf455d45b9._RI_V_TTW_.jpg">
+                    <div class="placeholder-overlay"><div class="placeholder-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="2"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg></div><div class="placeholder-label">Replace Poster Here</div></div>
+                </div>
+                <div class="card-body">
+                    <a href="https://www.imdb.com/title/tt0381707/" class="film-title-link" target="_blank" rel="noopener">White Chicks</a>
+                    <div class="film-meta"><span class="meta-tag">Comedy</span><span class="meta-tag">2004</span></div>
+                    <div class="synopsis">Two Black FBI agents go undercover as two wealthy white women to foil a kidnapping plot, leading to a series of hilariously escalating mishaps in the glamorous Hamptons social scene.</div>
+                    <div class="personal-review"><span class="review-label">My Take:</span> <span class="review-text">Absolutely ridiculous, absolutely iconic. The Marlon and Shawn Wayans energy is unmatched and the A Thousand Miles scene is cinema history.</span></div>
+                    <div class="credits"><strong>Director:</strong> Keenen Ivory Wayans<br><strong>Stars:</strong> Shawn Wayans, Marlon Wayans, Jaime King</div>
+                    <div class="watch-sources"><span class="watch-label">Where to watch:</span>
+                        <a href="https://www.primevideo.com/detail/White-Chicks/0IIDK2OKX1LUX7GVYA0THKD7AS" class="watch-btn" target="_blank" rel="noopener">Prime</a>
+                    </div>
+                    <button class="trailer-btn" data-trailer-url="https://www.youtube.com/embed/ywgFa00pG7s?si=yZpOq0DWjT-7WxVq" onclick="openTrailer(this)"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch Trailer</button>
+                </div>
+            </div>
+
+            <!-- Rush Hour -->
+            <div class="film-card genre-border-comedy" data-genre="comedy" data-title="Rush Hour">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-poster">
+                    <img src="https://citizenside.com/wp-content/uploads/2023/10/how-to-watch-rush-hour-on-netflix-1697267190.jpg">
+                    <div class="placeholder-overlay"><div class="placeholder-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="2"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg></div><div class="placeholder-label">Replace Poster Here</div></div>
+                </div>
+                <div class="card-body">
+                    <a href="https://www.imdb.com/title/tt0120812/" class="film-title-link" target="_blank" rel="noopener">Rush Hour</a>
+                    <div class="film-meta"><span class="meta-tag">Comedy</span><span class="meta-tag">1998</span></div>
+                    <div class="synopsis">A fast-talking LAPD detective is reluctantly paired with a Hong Kong detective to solve the kidnapping of a Chinese diplomat's daughter, creating the most chaotic and hilarious odd-couple duo ever.</div>
+                    <div class="personal-review"><span class="review-label">My Take:</span> <span class="review-text">Jackie Chan's physical comedy plus Chris Tucker's motormouth energy is a match made in heaven. Still laugh-out-loud funny decades later.</span></div>
+                    <div class="credits"><strong>Director:</strong> Brett Ratner<br><strong>Stars:</strong> Jackie Chan, Chris Tucker, Tom Wilkinson</div>
+                    <div class="watch-sources"><span class="watch-label">Where to watch:</span>
+                        <a href="https://www.primevideo.com/detail/Rush-Hour/0PYX2POO4EPJCUMMZ4HAQ5ZAPG" class="watch-btn" target="_blank" rel="noopener">Prime</a>
+                    </div>
+                    <button class="trailer-btn" data-trailer-url="https://www.youtube.com/embed/JMiFsFQcFLE?si=nrYvaCHSKv7XnNY3" onclick="openTrailer(this)"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch Trailer</button>
+                </div>
+            </div>
+
+        </div>
+        <a href="#" class="genre-top-link" onclick="scrollToPageTop(event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg> Back to top</a>
+    </div>
+
+    <!-- ROMANCE -->
+    <div class="genre-section">
+        <div class="genre-title"><div class="genre-icon romance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><h2>Romance</h2><span class="count">3 films</span></div>
+        <div class="card-grid" id="grid-romance-movies">
+
+            <!-- Pride & Prejudice -->
+            <div class="film-card genre-border-romance" data-genre="romance" data-title="Pride & Prejudice">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-poster">
+                    <img src="https://static1.srcdn.com/wordpress/wp-content/uploads/2024/05/pride-and-prejudice-1995.jpg" data-fallback="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600'%3E%3Crect fill='%23f5b8c8' width='400' height='600'/%3E%3C/svg%3E" onerror="this.onerror=null;this.src=this.getAttribute('data-fallback');" alt="Pride & Prejudice Poster">
+                    <div class="placeholder-overlay"><div class="placeholder-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="2"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg></div><div class="placeholder-label">Replace Poster Here</div></div>
+                </div>
+                <div class="card-body">
+                    <a href="https://www.imdb.com/title/tt0414387/" class="film-title-link" target="_blank" rel="noopener">Pride &amp; Prejudice</a>
+                    <div class="film-meta"><span class="meta-tag">Romance</span><span class="meta-tag">2005</span></div>
+                    <div class="synopsis">Sparks fly between the sharp-witted Elizabeth Bennet and the proud Mr. Darcy in Regency-era England, as misunderstandings and social pressures test their growing feelings for each other.</div>
+                    <div class="personal-review"><span class="review-label">My Take:</span> <span class="review-text">Keira Knightley and Matthew Macfadyen have such palpable chemistry — the Darcy rain scene alone is cinematic gold that I keep going back to.</span></div>
+                    <div class="credits"><strong>Director:</strong> Joe Wright<br><strong>Stars:</strong> Keira Knightley, Matthew Macfadyen, Judi Dench</div>
+                    <div class="watch-sources"><span class="watch-label">Where to watch:</span>
+                        <a href="https://www.primevideo.com/detail/Pride-and-Prejudice/0HY5T01XZC5LC64F8EVRC23RRY" class="watch-btn" target="_blank" rel="noopener">Prime</a>
+                    </div>
+                    <button class="trailer-btn" data-trailer-url="https://www.youtube.com/embed/Ur_DIHs92NM?si=Erxqdo-GZ55O6sMk" onclick="openTrailer(this)"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch Trailer</button>
+                </div>
+            </div>
+
+            <!-- La La Land -->
+            <div class="film-card genre-border-romance" data-genre="romance" data-title="La La Land">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-poster">
+                    <img src="https://image.tmdb.org/t/p/original/UjBNUCtRdgNvR5IkZEfrBqL3jv.jpg" data-fallback="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600'%3E%3Crect fill='%23d4b0e0' width='400' height='600'/%3E%3C/svg%3E" onerror="this.onerror=null;this.src=this.getAttribute('data-fallback');" alt="La La Land Poster">
+                    <div class="placeholder-overlay"><div class="placeholder-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="2"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg></div><div class="placeholder-label">Replace Poster Here</div></div>
+                </div>
+                <div class="card-body">
+                    <a href="https://www.imdb.com/title/tt3783958/" class="film-title-link" target="_blank" rel="noopener">La La Land</a>
+                    <div class="film-meta"><span class="meta-tag">Romance</span><span class="meta-tag">2016</span></div>
+                    <div class="synopsis">A jazz pianist and an aspiring actress fall in love while chasing their dreams in Los Angeles, but success and ambition begin to slowly pull them in different directions.</div>
+                    <div class="personal-review"><span class="review-label">My Take:</span> <span class="review-text">Bittersweet, visually stunning, and the kind of film that settles into your chest and stays there long after the credits roll.</span></div>
+                    <div class="credits"><strong>Director:</strong> Damien Chazelle<br><strong>Stars:</strong> Ryan Gosling, Emma Stone, John Legend</div>
+                        <a href="https://www.primevideo.com/detail/La-La-Land/0GQK5UKAMEDC0TSWTLFVZI1Z3Z" class="watch-btn" target="_blank" rel="noopener">Prime</a>
+                    </div>
+                    <button class="trailer-btn" data-trailer-url="https://www.youtube.com/embed/0pdqf4P9MB8" onclick="openTrailer(this)"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch Trailer</button>
+                </div>
+            </div>
+
+            <!-- Titanic -->
+            <div class="film-card genre-border-romance" data-genre="romance" data-title="Titanic">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-poster">
+                    <img src="https://image.tmdb.org/t/p/w500/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg" data-fallback="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600'%3E%3Crect fill='%23a0c8e8' width='400' height='600'/%3E%3C/svg%3E" onerror="this.onerror=null;this.src=this.getAttribute('data-fallback');" alt="Titanic Poster">
+                    <div class="placeholder-overlay"><div class="placeholder-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="2"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg></div><div class="placeholder-label">Replace Poster Here</div></div>
+                </div>
+                <div class="card-body">
+                    <a href="https://www.imdb.com/title/tt0120338/" class="film-title-link" target="_blank" rel="noopener">Titanic</a>
+                    <div class="film-meta"><span class="meta-tag">Romance</span><span class="meta-tag">1997</span></div>
+                    <div class="synopsis">A privileged young woman and a penniless artist fall into a passionate, star-crossed love aboard the ill-fated RMS Titanic, their romance unfolding against one of history's greatest tragedies.</div>
+                    <div class="personal-review"><span class="review-label">My Take:</span> <span class="review-text">Still absolutely devastating after all these years. Leo and Kate's chemistry is timeless, and yes, he could have fit on that door. I will die on this hill.</span></div>
+                    <div class="credits"><strong>Director:</strong> James Cameron<br><strong>Stars:</strong> Leonardo DiCaprio, Kate Winslet, Billy Zane</div>
+                    <div class="watch-sources"><span class="watch-label">Where to watch:</span>
+                        <a href="https://www.primevideo.com/detail/Titanic/0STDF0IUOBZW3OMB47K5TNTOO0" class="watch-btn" target="_blank" rel="noopener">Prime</a>
+                    </div>
+                    <button class="trailer-btn" data-trailer-url="https://www.youtube.com/embed/kVrqfYjkTdQ" onclick="openTrailer(this)"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch Trailer</button>
+                </div>
+            </div>
+
+        </div>
+        <a href="#" class="genre-top-link" onclick="scrollToPageTop(event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg> Back to top</a>
+    </div>
+
+    <!-- ACTION -->
+    <div class="genre-section">
+        <div class="genre-title"><div class="genre-icon action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div><h2>Action</h2><span class="count">2 films</span></div>
+        <div class="card-grid" id="grid-action-movies">
+
+            <!-- John Wick -->
+            <div class="film-card genre-border-action" data-genre="action" data-title="John Wick">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-poster">
+                    <img src="https://cdn.firstcuriosity.com/wp-content/uploads/2023/01/29221358/IMG_COM_20230129_2212_44_7111.jpg" data-fallback="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600'%3E%3Crect fill='%232a2a3e' width='400' height='600'/%3E%3C/svg%3E" onerror="this.onerror=null;this.src=this.getAttribute('data-fallback');" alt="John Wick Poster">
+                    <div class="placeholder-overlay"><div class="placeholder-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="2"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg></div><div class="placeholder-label">Replace Poster Here</div></div>
+                </div>
+                <div class="card-body">
+                    <a href="https://www.imdb.com/title/tt2911666/" class="film-title-link" target="_blank" rel="noopener">John Wick</a>
+                    <div class="film-meta"><span class="meta-tag">Action</span><span class="meta-tag">2014</span></div>
+                    <div class="synopsis">Retired hitman John Wick emerges from the shadows seeking vengeance against the Russian mobsters who killed his puppy — a final gift from his deceased wife — and stole his prized car.</div>
+                    <div class="personal-review"><span class="review-label">My Take:</span> <span class="review-text">Redefined action choreography for a generation. Keanu Reeves is pure, controlled fury in every single frame — an absolute masterpiece of the genre.</span></div>
+                    <div class="credits"><strong>Director:</strong> Chad Stahelski<br><strong>Stars:</strong> Keanu Reeves, Michael Nyqvist, Alfie Allen</div>
+                    <div class="watch-sources"><span class="watch-label">Where to watch:</span>
+                        <a href="https://www.primevideo.com/detail/John-Wick/0LTVC3IVCLW19Y51M3N6J31UX5" class="watch-btn" target="_blank" rel="noopener">Prime</a>
+                    </div>
+                    <button class="trailer-btn" data-trailer-url="https://www.youtube.com/embed/2AUmvWm5ZDQ" onclick="openTrailer(this)"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch Trailer</button>
+                </div>
+            </div>
+
+            <!-- The Accountant -->
+            <div class="film-card genre-border-action" data-genre="action" data-title="The Accountant">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-poster">
+                    <img src="https://static1.srcdn.com/wordpress/wp-content/uploads/2025/03/the-accountant-2-poster.jpg" data-fallback="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600'%3E%3Crect fill='%23233040' width='400' height='600'/%3E%3C/svg%3E" onerror="this.onerror=null;this.src=this.getAttribute('data-fallback');" alt="The Accountant Poster">
+                    <div class="placeholder-overlay"><div class="placeholder-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="2"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg></div><div class="placeholder-label">Replace Poster Here</div></div>
+                </div>
+                <div class="card-body">
+                    <a href="https://www.imdb.com/title/tt2140479/" class="film-title-link" target="_blank" rel="noopener">The Accountant</a>
+                    <div class="film-meta"><span class="meta-tag">Action</span><span class="meta-tag">2016</span></div>
+                    <div class="synopsis">A math savant with high-functioning autism works as a freelance accountant for dangerous criminal organizations, while a Treasury agent closes in and a violent conspiracy begins to unravel around him.</div>
+                    <div class="personal-review"><span class="review-label">My Take:</span> <span class="review-text">Ben Affleck is absolutely cold and magnetic in this role. Criminally underrated — the action is tight, the mystery is layered, and the ending hits hard.</span></div>
+                    <div class="credits"><strong>Director:</strong> Gavin O'Connor<br><strong>Stars:</strong> Ben Affleck, Anna Kendrick, J.K. Simmons</div>
+                    <div class="watch-sources"><span class="watch-label">Where to watch:</span>
+                        <a href="https://www.primevideo.com/detail/The-Accountant/0SC6PCRO9HPVXE2UV4WBLUPKDL" class="watch-btn" target="_blank" rel="noopener">Prime</a>
+                    </div>
+                    <button class="trailer-btn" data-trailer-url="https://www.youtube.com/embed/DBfsgcswlYQ?si=jD8wvtZIcKDAvFTT" onclick="openTrailer(this)"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch Trailer</button>
+                </div>
+            </div>
+
+        </div>
+        <a href="#" class="genre-top-link" onclick="scrollToPageTop(event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg> Back to top</a>
+    </div>
+
+    <!-- SCI-FI / THRILLER -->
+    <div class="genre-section">
+        <div class="genre-title"><div class="genre-icon scifi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg></div><h2>Sci-Fi / Thriller</h2><span class="count">2 films</span></div>
+        <div class="card-grid" id="grid-scifi-movies">
+
+            <!-- Interstellar -->
+            <div class="film-card genre-border-scifi" data-genre="scifi" data-title="Interstellar">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-poster">
+                    <img src="https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg" data-fallback="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600'%3E%3Crect fill='%231a2a4a' width='400' height='600'/%3E%3C/svg%3E" onerror="this.onerror=null;this.src=this.getAttribute('data-fallback');" alt="Interstellar Poster">
+                    <div class="placeholder-overlay"><div class="placeholder-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="2"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg></div><div class="placeholder-label">Replace Poster Here</div></div>
+                </div>
+                <div class="card-body">
+                    <a href="https://www.imdb.com/title/tt0816692/" class="film-title-link" target="_blank" rel="noopener">Interstellar</a>
+                    <div class="film-meta"><span class="meta-tag">Sci-Fi</span><span class="meta-tag">2014</span></div>
+                    <div class="synopsis">A team of astronauts travel through a wormhole near Saturn in search of a new habitable world, while a father grapples with the impossible sacrifice of leaving his daughter behind on a dying Earth.</div>
+                    <div class="personal-review"><span class="review-label">My Take:</span> <span class="review-text">Emotionally devastating and scientifically fascinating — the docking scene and time-dilation moments are permanently burned into my brain forever.</span></div>
+                    <div class="credits"><strong>Director:</strong> Christopher Nolan<br><strong>Stars:</strong> Matthew McConaughey, Anne Hathaway, Jessica Chastain</div>
+                    <div class="watch-sources"><span class="watch-label">Where to watch:</span>
+                        <a href="https://www.primevideo.com/detail/Interstellar/0PUNMGZEWOMYFKR1XIGOLTL2YM" class="watch-btn" target="_blank" rel="noopener">Prime</a>
+                    </div>
+                    <button class="trailer-btn" data-trailer-url="https://www.youtube.com/embed/zSWdZVtXT7E" onclick="openTrailer(this)"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch Trailer</button>
+                </div>
+            </div>
+
+            <!-- Parasite -->
+            <div class="film-card genre-border-scifi" data-genre="scifi" data-title="Parasite">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-poster">
+                    <img src="https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg" data-fallback="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600'%3E%3Crect fill='%23263a28' width='400' height='600'/%3E%3C/svg%3E" onerror="this.onerror=null;this.src=this.getAttribute('data-fallback');" alt="Parasite Poster">
+                    <div class="placeholder-overlay"><div class="placeholder-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="2"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg></div><div class="placeholder-label">Replace Poster Here</div></div>
+                </div>
+                <div class="card-body">
+                    <a href="https://www.imdb.com/title/tt6751668/" class="film-title-link" target="_blank" rel="noopener">Parasite</a>
+                    <div class="film-meta"><span class="meta-tag">Thriller</span><span class="meta-tag">2019</span></div>
+                    <div class="synopsis">The impoverished Kim family ingeniously infiltrates the wealthy Park household one by one, until a shocking discovery in the basement sends everything spiraling into irreversible chaos.</div>
+                    <div class="personal-review"><span class="review-label">My Take:</span> <span class="review-text">A masterclass in genre-blending — equal parts dark comedy, thriller, and social commentary that absolutely earned every one of its Oscars and then some.</span></div>
+                    <div class="credits"><strong>Director:</strong> Bong Joon-ho<br><strong>Stars:</strong> Song Kang-ho, Lee Sun-kyun, Cho Yeo-jeong</div>
+                    <div class="watch-sources"><span class="watch-label">Where to watch:</span>
+                        <a href="https://www.primevideo.com/detail/Parasite/0J3SNODUPR0Z9VVJMWB2TM1677" class="watch-btn" target="_blank" rel="noopener">Prime</a>
+                    </div>
+                    <button class="trailer-btn" data-trailer-url="https://www.youtube.com/embed/5xH0HfJHsaY" onclick="openTrailer(this)"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch Trailer</button>
+                </div>
+            </div>
+
+        </div>
+        <a href="#" class="genre-top-link" onclick="scrollToPageTop(event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg> Back to top</a>
+    </div>
+</section>
+
+<!-- ===== PAGE 3: TV SHOWS ===== -->
+<section class="page" id="page-tvshows">
+    <div class="page-header"><div class="page-label"><svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg> Series Collection</div><h1>My Film TV Shows</h1><p>Binge-worthy series from around the world</p><div class="page-divider"></div></div>
+    <div class="search-bar"><svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" class="search-input" data-target="tvshows" placeholder="Search shows, directors, genres..."></div>
+
+    <!-- CARTOONS -->
+    <div class="genre-section">
+        <div class="genre-title"><div class="genre-icon kdrama"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div><h2>Cartoons</h2><span class="count">4 shows</span></div>
+        <div class="carousel-wrap" data-carousel>
+            <button class="carousel-btn prev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <div class="carousel-track" id="grid-cartoons-tv">
+
+            <!-- Phineas and Ferb -->
+            <div class="film-card genre-border-kdrama" data-genre="cartoon" data-title="Phineas and Ferb">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-poster">
+                    <img src="https://tse1.explicit.bing.net/th/id/OIP.L3p7AgS26W95o0ciGOslbwHaKc?cb=defcache2&defcache=1&rs=1&pid=ImgDetMain&o=7&rm=3" data-fallback="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600'%3E%3Crect fill='%23f5c842' width='400' height='600'/%3E%3C/svg%3E" onerror="this.onerror=null;this.src=this.getAttribute('data-fallback');" alt="Phineas and Ferb Poster">
+                    <div class="placeholder-overlay"><div class="placeholder-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg></div><div class="placeholder-label">Replace Poster Here</div></div>
+                </div>
+                <div class="card-body">
+                    <a href="https://www.imdb.com/title/tt0852863/?ref_=nv_sr_srsg_0_tt_8_nm_0_in_0_q_phineas%20and%20ferb" class="film-title-link" target="_blank" rel="noopener">Phineas and Ferb</a>
+                    <div class="film-meta"><span class="meta-tag">Cartoon</span><span class="meta-tag">4 Seasons</span></div>
+                    <div class="synopsis">Two creative stepbrothers spend every day of summer vacation building impossibly grand inventions — while their sister Candace desperately tries to bust them and their pet platypus leads a secret double life as a spy.</div>
+                    <div class="personal-review"><span class="review-label">My Take:</span> <span class="review-text">A perfect show — funny for kids, clever for adults, and the songs are legitimately catchy bangers. Pure childhood gold that holds up completely.</span></div>
+                    <div class="credits"><strong>Network:</strong> Disney Channel<br><strong>Stars:</strong> Vincent Martella, Thomas Brodie-Sangster, Ashley Tisdale</div>
+                    <div class="watch-sources"><span class="watch-label">Where to watch:</span>
+                        <a href="https://www.disneyplus.com/browse/entity-dd2d65ba-4473-4bec-885d-6b71ee699820" class="watch-btn" target="_blank" rel="noopener">Disney+</a>
+                    </div>
+                    <button class="trailer-btn" data-trailer-url="https://www.youtube.com/embed/NkQrKxTFARM?si=8efqx2A4aEelagCm" onclick="openTrailer(this)"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch Trailer</button>
+                </div>
+            </div>
+
+            <!-- Gravity Falls -->
+            <div class="film-card genre-border-kdrama" data-genre="cartoon" data-title="Gravity Falls">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-poster">
+                    <img src="https://tse1.mm.bing.net/th/id/OIP.Bsb5gSzWbE9jLLV-YGGY2QHaKk?cb=defcache2&defcache=1&rs=1&pid=ImgDetMain&o=7&rm=3" data-fallback="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600'%3E%3Crect fill='%232d5a3e' width='400' height='600'/%3E%3C/svg%3E" onerror="this.onerror=null;this.src=this.getAttribute('data-fallback');" alt="Gravity Falls Poster">
+                    <div class="placeholder-overlay"><div class="placeholder-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg></div><div class="placeholder-label">Replace Poster Here</div></div>
+                </div>
+                <div class="card-body">
+                    <a href="https://www.imdb.com/title/tt1865718/" class="film-title-link" target="_blank" rel="noopener">Gravity Falls</a>
+                    <div class="film-meta"><span class="meta-tag">Cartoon</span><span class="meta-tag">2 Seasons</span></div>
+                    <div class="synopsis">Twin siblings Dipper and Mabel spend the summer with their great-uncle in the mysterious Oregon town of Gravity Falls, uncovering supernatural secrets hidden deep within the forest and a cryptic journal.</div>
+                    <div class="personal-review"><span class="review-label">My Take:</span> <span class="review-text">Genuinely one of the best shows ever made for any age. The mystery, the heart, the humor — it ends perfectly and I respect it so much for that.</span></div>
+                    <div class="credits"><strong>Network:</strong> Disney Channel<br><strong>Stars:</strong> Jason Ritter, Kristen Schaal, Alex Hirsch</div>
+                    <div class="watch-sources"><span class="watch-label">Where to watch:</span>
+                        <a href="https://www.disneyplus.com/browse/entity-9995dda1-d70a-4d15-98ba-72f1d10fa406" class="watch-btn" target="_blank" rel="noopener">Disney+</a>
+                    </div>
+                    <button class="trailer-btn" data-trailer-url="https://www.youtube.com/embed/X2DUpDxFJyg?si=AG46iLmduB7T8nVz" onclick="openTrailer(this)"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch Trailer</button>
+                </div>
+            </div>
+
+            <!-- The Amazing World of Gumball -->
+            <div class="film-card genre-border-kdrama" data-genre="cartoon" data-title="The Amazing World of Gumball">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-poster">
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/pv-target-images/daf83d3996220ce252dcedb3b36cafd9c845b3fff50403dec3d2d2d9c9199d67._RI_TTW_.jpg" data-fallback="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600'%3E%3Crect fill='%234ab8e8' width='400' height='600'/%3E%3C/svg%3E" onerror="this.onerror=null;this.src=this.getAttribute('data-fallback');" alt="The Amazing World of Gumball Poster">
+                    <div class="placeholder-overlay"><div class="placeholder-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg></div><div class="placeholder-label">Replace Poster Here</div></div>
+                </div>
+                <div class="card-body">
+                    <a href="https://www.imdb.com/title/tt1942683/" class="film-title-link" target="_blank" rel="noopener">The Amazing World of Gumball</a>
+                    <div class="film-meta"><span class="meta-tag">Cartoon</span><span class="meta-tag">6 Seasons</span></div>
+                    <div class="synopsis">Gumball Watterson, a blue cat with an adopted goldfish brother, stumbles through absurd misadventures in the wildly bizarre town of Elmore where every character, medium, and animation style exists at once.</div>
+                    <div class="personal-review"><span class="review-label">My Take:</span> <span class="review-text">The most creatively unhinged cartoon ever made. It bends reality, breaks the fourth wall, and still somehow has genuine emotional depth. A total masterpiece.</span></div>
+                    <div class="credits"><strong>Network:</strong> Cartoon Network<br><strong>Stars:</strong> Jacob Hopkins, Terrell Ransom Jr., Jessica McDonald</div>
+                    <div class="watch-sources"><span class="watch-label">Where to watch:</span>
+                        <a href="https://www.disneyplus.com/browse/entity-c8b9c799-b81e-4522-a05b-40212f69e7a6" class="watch-btn" target="_blank" rel="noopener">Disney+</a>
+                    </div>
+                    <button class="trailer-btn" data-trailer-url="https://www.youtube.com/embed/LOBOJQocArs?si=pA1lJ7E3UWZdnShZ" onclick="openTrailer(this)"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch Trailer</button>
+                </div>
+            </div>
+
+            <!-- Adventure Time -->
+            <div class="film-card genre-border-kdrama" data-genre="cartoon" data-title="Adventure Time">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-poster">
+                    <img src="https://m.media-amazon.com/images/M/MV5BMGFkNGY4NGMtZjY0NC00YTI0LThiZjMtMjBmZGMzOGU3YTdmXkEyXkFqcGdeQXVyMTM0NTUzNDIy._V1_FMjpg_UX1000_.jpg" data-fallback="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600'%3E%3Crect fill='%23e87dd4' width='400' height='600'/%3E%3C/svg%3E" onerror="this.onerror=null;this.src=this.getAttribute('data-fallback');" alt="Adventure Time Poster">
+                    <div class="placeholder-overlay"><div class="placeholder-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg></div><div class="placeholder-label">Replace Poster Here</div></div>
+                </div>
+                <div class="card-body">
+                    <a href="https://www.imdb.com/title/tt1305826/" class="film-title-link" target="_blank" rel="noopener">Adventure Time</a>
+                    <div class="film-meta"><span class="meta-tag">Cartoon</span><span class="meta-tag">10 Seasons</span></div>
+                    <div class="synopsis">Finn the Human and Jake the Magic Dog explore the surreal post-apocalyptic Land of Ooo, going on wild quests that balance goofy humor with surprisingly deep storytelling about loss, identity, and growing up.</div>
+                    <div class="personal-review"><span class="review-label">My Take:</span> <span class="review-text">Started as a silly cartoon and became something profound and beautiful. The lore gets SO deep and the finale still gets me emotionally wrecked every time.</span></div>
+                    <div class="credits"><strong>Network:</strong> Cartoon Network<br><strong>Stars:</strong> Jeremy Shada, John DiMaggio, Tom Kenny</div>
+                    <div class="watch-sources"><span class="watch-label">Where to watch:</span>
+                        <a href="https://www.primevideo.com/detail/Adventure-Time/0JBYD6E5GWYL9L52FZGCGR3A0A" class="watch-btn" target="_blank" rel="noopener">Prime</a>
+                    </div>
+                    <button class="trailer-btn" data-trailer-url="https://www.youtube.com/embed/v_am43iRm-A?si=iQtJ1pr6S7io8Hrl" title="YouTube video player" onclick="openTrailer(this)"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch Trailer</button>
+                </div>
+            </div>
+
+            </div>
+            <button class="carousel-btn next" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+        <div class="carousel-dots"></div>
+        <a href="#" class="genre-top-link" onclick="scrollToPageTop(event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg> Back to top</a>
+    </div>
+
+    <!-- ACTION TV -->
+    <div class="genre-section">
+        <div class="genre-title"><div class="genre-icon action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><h2>Action</h2><span class="count">2 shows</span></div>
+        <div class="card-grid" id="grid-action-tv">
+
+            <!-- Breaking Bad -->
+            <div class="film-card genre-border-action" data-genre="action" data-title="Breaking Bad">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-poster">
+                    <img src="https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg" data-fallback="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600'%3E%3Crect fill='%23222e1a' width='400' height='600'/%3E%3C/svg%3E" onerror="this.onerror=null;this.src=this.getAttribute('data-fallback');" alt="Breaking Bad Poster">
+                    <div class="placeholder-overlay"><div class="placeholder-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg></div><div class="placeholder-label">Replace Poster Here</div></div>
+                </div>
+                <div class="card-body">
+                    <a href="https://www.imdb.com/title/tt0903747/" class="film-title-link" target="_blank" rel="noopener">Breaking Bad</a>
+                    <div class="film-meta"><span class="meta-tag">Action</span><span class="meta-tag">5 Seasons</span></div>
+                    <div class="synopsis">A mild-mannered high school chemistry teacher diagnosed with terminal cancer turns to cooking and selling methamphetamine with a former student to secure his family's financial future before he dies.</div>
+                    <div class="personal-review"><span class="review-label">My Take:</span> <span class="review-text">The greatest character transformation in TV history. Watching Walter White's descent from victim to villain is both thrilling and deeply, uncomfortably human.</span></div>
+                    <div class="credits"><strong>Network:</strong> AMC / Netflix<br><strong>Stars:</strong> Bryan Cranston, Aaron Paul, Anna Gunn</div>
+                    <div class="watch-sources"><span class="watch-label">Where to watch:</span>
+                        <a href="https://www.netflix.com/title/70143836" class="watch-btn" target="_blank" rel="noopener">Netflix</a>
+                    </div>
+                    <button class="trailer-btn" data-trailer-url="https://www.youtube.com/embed/HhesaQXLuRY" onclick="openTrailer(this)"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch Trailer</button>
+                </div>
+            </div>
+
+            <!-- The Boys -->
+            <div class="film-card genre-border-action" data-genre="action" data-title="The Boys">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-poster">
+                    <img src="https://image.tmdb.org/t/p/w500/stTEycfG9928HYGEISBFaG1ngjM.jpg" data-fallback="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600'%3E%3Crect fill='%23b82020' width='400' height='600'/%3E%3C/svg%3E" onerror="this.onerror=null;this.src=this.getAttribute('data-fallback');" alt="The Boys Poster">
+                    <div class="placeholder-overlay"><div class="placeholder-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg></div><div class="placeholder-label">Replace Poster Here</div></div>
+                </div>
+                <div class="card-body">
+                    <a href="https://www.imdb.com/title/tt1190634/" class="film-title-link" target="_blank" rel="noopener">The Boys</a>
+                    <div class="film-meta"><span class="meta-tag">Action</span><span class="meta-tag">4 Seasons</span></div>
+                    <div class="synopsis">In a world where superheroes are celebrities managed by a mega-corporation, a ragtag group of vigilantes sets out to expose and bring down the corrupt, brutal, and deeply self-serving supes.</div>
+                    <div class="personal-review"><span class="review-label">My Take:</span> <span class="review-text">Darkly hilarious, viscerally violent, and shockingly sharp political satire. Homelander is easily one of the best TV villains ever written — genuinely scary.</span></div>
+                    <div class="credits"><strong>Network:</strong> Prime Video<br><strong>Stars:</strong> Karl Urban, Jack Quaid, Antony Starr</div>
+                    <div class="watch-sources"><span class="watch-label">Where to watch:</span>
+                        <a href="https://www.primevideo.com/detail/The-Boys/0S1FYJ3LY9KTL9C7WFFAGA9F6F" class="watch-btn" target="_blank" rel="noopener">Prime</a>
+                    </div>
+                    <button class="trailer-btn" data-trailer-url="https://www.youtube.com/embed/elTgqUW-NYE?si=PdBQDH8XxDOJzQwZ" onclick="openTrailer(this)"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch Trailer</button>
+                </div>
+            </div>
+
+        </div>
+        <a href="#" class="genre-top-link" onclick="scrollToPageTop(event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg> Back to top</a>
+    </div>
+
+    <!-- ANIMATED SHOWS -->
+    <div class="genre-section">
+        <div class="genre-title"><div class="genre-icon romance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><h2>Animated Shows</h2><span class="count">6 shows</span></div>
+        <div class="carousel-wrap" data-carousel>
+            <button class="carousel-btn prev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <div class="carousel-track" id="grid-animated-tv">
+
+            <!-- Love Death + Robots -->
+            <div class="film-card genre-border-romance" data-genre="animated" data-title="Love Death + Robots">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-poster">
+                    <img src="https://ih1.redbubble.net/image.2498019727.2117/flat,750x,075,f-pad,750x1000,f8f8f8.jpg" data-fallback="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600'%3E%3Crect fill='%23111118' width='400' height='600'/%3E%3C/svg%3E" onerror="this.onerror=null;this.src=this.getAttribute('data-fallback');" alt="Love Death + Robots Poster">
+                    <div class="placeholder-overlay"><div class="placeholder-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg></div><div class="placeholder-label">Replace Poster Here</div></div>
+                </div>
+                <div class="card-body">
+                    <a href="https://www.imdb.com/title/tt9561862/" class="film-title-link" target="_blank" rel="noopener">Love Death + Robots</a>
+                    <div class="film-meta"><span class="meta-tag">Animated</span><span class="meta-tag">3 Volumes</span></div>
+                    <div class="synopsis">An adult anthology series of animated short films spanning wildly different art styles and genres — from hard sci-fi to surreal horror to dark comedy — each one a self-contained story that pushes animation to its absolute limits.</div>
+                    <div class="personal-review"><span class="review-label">My Take:</span> <span class="review-text">Every episode is a different universe. Some will break your heart, some will haunt you, some will make you laugh. "The Witness" and "Beyond the Aquila Rift" are pure masterpieces.</span></div>
+                    <div class="credits"><strong>Network:</strong> Netflix<br><strong>Creators:</strong> Tim Miller, David Fincher</div>
+                    <div class="watch-sources"><span class="watch-label">Where to watch:</span>
+                        <a href="https://www.netflix.com/title/80174608" class="watch-btn" target="_blank" rel="noopener">Netflix</a>
+                    </div>
+                    <button class="trailer-btn" data-trailer-url="https://www.youtube.com/embed/p6XL6W_7_GA?si=6t05hYM3sb86NjyO" onclick="openTrailer(this)"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch Trailer</button>
+                </div>
+            </div>
+
+            <!-- Arcane -->
+            <div class="film-card genre-border-romance" data-genre="animated" data-title="Arcane">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-poster">
+                    <img src="https://image.tmdb.org/t/p/w500/fqldf2t8ztc9aiwn3k6mlX3tvRT.jpg" data-fallback="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600'%3E%3Crect fill='%233a1a5e' width='400' height='600'/%3E%3C/svg%3E" onerror="this.onerror=null;this.src=this.getAttribute('data-fallback');" alt="Arcane Poster">
+                    <div class="placeholder-overlay"><div class="placeholder-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg></div><div class="placeholder-label">Replace Poster Here</div></div>
+                </div>
+                <div class="card-body">
+                    <a href="https://www.imdb.com/title/tt11126994/" class="film-title-link" target="_blank" rel="noopener">Arcane</a>
+                    <div class="film-meta"><span class="meta-tag">Animated</span><span class="meta-tag">2 Seasons</span></div>
+                    <div class="synopsis">Set in the League of Legends universe, two sisters from the undercity find themselves on opposite sides of a brewing war between Piltover's privileged elite and the oppressed population living in the darkness below.</div>
+                    <div class="personal-review"><span class="review-label">My Take:</span> <span class="review-text">The most visually stunning animated show ever made, full stop. The Vi and Jinx story absolutely wrecked me emotionally and I wasn't prepared at all.</span></div>
+                    <div class="credits"><strong>Network:</strong> Netflix<br><strong>Stars:</strong> Hailee Steinfeld, Ella Purnell, Kevin Alejandro</div>
+                    <div class="watch-sources"><span class="watch-label">Where to watch:</span>
+                        <a href="https://www.netflix.com/title/81435684" class="watch-btn" target="_blank" rel="noopener">Netflix</a>
+                    </div>
+                    <button class="trailer-btn" data-trailer-url="https://www.youtube.com/embed/fXmAurh012s?si=xz9xwjR2-jvs5QFk" onclick="openTrailer(this)"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch Trailer</button>
+                </div>
+            </div>
+
+            <!-- Devil May Cry -->
+            <div class="film-card genre-border-romance" data-genre="animated" data-title="Devil May Cry">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-poster">
+                    <img src="https://static.animecorner.me/2025/02/1739289822-04b2be45a69c66f4903c3c0556587912.jpg" data-fallback="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600'%3E%3Crect fill='%238a1020' width='400' height='600'/%3E%3C/svg%3E" onerror="this.onerror=null;this.src=this.getAttribute('data-fallback');" alt="Devil May Cry Poster">
+                    <div class="placeholder-overlay"><div class="placeholder-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg></div><div class="placeholder-label">Replace Poster Here</div></div>
+                </div>
+                <div class="card-body">
+                    <a href="https://www.imdb.com/title/tt15716776/?ref_=nv_sr_srsg_0_tt_8_nm_0_in_0_q_devil%20may%20cr" class="film-title-link" target="_blank" rel="noopener">Devil May Cry</a>
+                    <div class="film-meta"><span class="meta-tag">Animated</span><span class="meta-tag">Season 1</span></div>
+                    <div class="synopsis">Dante, the half-demon son of the legendary Sparda, runs a demon-hunting agency while battling otherworldly threats and uncovering dangerous truths about his own bloodline and the dark forces hunting him.</div>
+                    <div class="personal-review"><span class="review-label">My Take:</span> <span class="review-text">Stylish, bloody, and unapologetically cool. Dante is the most effortlessly badass animated protagonist and the action choreography is just *chef's kiss*.</span></div>
+                    <div class="credits"><strong>Network:</strong> Netflix<br><strong>Stars:</strong> Johnny Yong Bosch, Ramona Young</div>
+                    <div class="watch-sources"><span class="watch-label">Where to watch:</span>
+                        <a href="https://www.netflix.com/title/81506915" class="watch-btn" target="_blank" rel="noopener">Netflix</a>
+                    </div>
+                    <button class="trailer-btn" data-trailer-url="https://www.youtube.com/embed/ZtpIDJB79fg?si=ux7tlVUvlBhpUwfa" onclick="openTrailer(this)"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch Trailer</button>
+                </div>
+            </div>
+
+            <!-- Secret Level -->
+            <div class="film-card genre-border-romance" data-genre="animated" data-title="Secret Level">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-poster">
+                    <img src="https://image.tmdb.org/t/p/original/2GQq3AVe9IiRUbvJ0CRArM5YEYS.jpg" data-fallback="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600'%3E%3Crect fill='%23101820' width='400' height='600'/%3E%3C/svg%3E" onerror="this.onerror=null;this.src=this.getAttribute('data-fallback');" alt="Secret Level Poster">
+                    <div class="placeholder-overlay"><div class="placeholder-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg></div><div class="placeholder-label">Replace Poster Here</div></div>
+                </div>
+                <div class="card-body">
+                    <a href="https://www.imdb.com/title/tt33204697/" class="film-title-link" target="_blank" rel="noopener">Secret Level</a>
+                    <div class="film-meta"><span class="meta-tag">Animated</span><span class="meta-tag">Anthology</span></div>
+                    <div class="synopsis">An adult animated anthology series inspired by iconic video games — from Pac-Man to Warhammer 40,000 to Dungeons & Dragons — each episode crafted as a stunning love letter to a beloved gaming universe.</div>
+                    <div class="personal-review"><span class="review-label">My Take:</span> <span class="review-text">A dream project for any gamer. The Warhammer and Pac-Man episodes alone justify the whole thing — the creators clearly made this out of genuine love for these worlds.</span></div>
+                    <div class="credits"><strong>Network:</strong> Prime Video<br><strong>Creator:</strong> Tim Miller</div>
+                    <div class="watch-sources"><span class="watch-label">Where to watch:</span>
+                        <a href="https://www.primevideo.com/detail/Secret-Level/0IT5QD04WG06AKTABIYKVOTHYM" class="watch-btn" target="_blank" rel="noopener">Prime</a>
+                    </div>
+                    <button class="trailer-btn" data-trailer-url="https://www.youtube.com/embed/SvY9Uq7I30Y?si=lXbBBT-WyVetoaKz" onclick="openTrailer(this)"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch Trailer</button>
+                </div>
+            </div>
+
+            <!-- Blue Eye Samurai -->
+            <div class="film-card genre-border-romance" data-genre="animated" data-title="Blue Eye Samurai">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-poster">
+                    <img src="https://static1.colliderimages.com/wordpress/wp-content/uploads/2023/10/en-us_bes_teaser_watercolor_vertical_27x40_rgb_pre.jpg" data-fallback="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600'%3E%3Crect fill='%231a1a2a' width='400' height='600'/%3E%3C/svg%3E" onerror="this.onerror=null;this.src=this.getAttribute('data-fallback');" alt="Blue Eye Samurai Poster">
+                    <div class="placeholder-overlay"><div class="placeholder-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg></div><div class="placeholder-label">Replace Poster Here</div></div>
+                </div>
+                <div class="card-body">
+                    <a href="https://www.imdb.com/title/tt13309742/?ref_=fn_t_2" class="film-title-link" target="_blank" rel="noopener">Blue Eye Samurai</a>
+                    <div class="film-meta"><span class="meta-tag">Animated</span><span class="meta-tag">Season 1</span></div>
+                    <div class="synopsis">In Edo-period Japan, a mixed-race swordswoman disguised as a man pursues a singular, obsessive quest for revenge against the four foreigners who could be responsible for her shameful birth and cursed existence.</div>
+                    <div class="personal-review"><span class="review-label">My Take:</span> <span class="review-text">Absolutely gorgeous and emotionally gutting. The "Hammerhead" episode is one of the single best pieces of television animation I have ever seen. Revolutionary.</span></div>
+                    <div class="credits"><strong>Network:</strong> Netflix<br><strong>Stars:</strong> Maya Erskine, Masi Oka, Brenda Song</div>
+                    <div class="watch-sources"><span class="watch-label">Where to watch:</span>
+                        <a href="https://www.netflix.com/title/81144203" class="watch-btn" target="_blank" rel="noopener">Netflix</a>
+                    </div>
+                    <button class="trailer-btn" data-trailer-url="https://www.youtube.com/embed/Cm73ma6Ibcs?si=hfT6QfdxMsn-7lry" onclick="openTrailer(this)"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch Trailer</button>
+                </div>
+            </div>
+
+            <!-- The Dragon Prince -->
+            <div class="film-card genre-border-romance" data-genre="animated" data-title="The Dragon Prince">
+                <button class="card-favorite" aria-label="Favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                <div class="card-poster">
+                    <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQbgWhvcwuXiFl5rX2zN5y5UA-LZKjtYFhGN8HJpzvVhVBBx5S6" data-fallback="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600'%3E%3Crect fill='%231a3a5e' width='400' height='600'/%3E%3C/svg%3E" onerror="this.onerror=null;this.src=this.getAttribute('data-fallback');" alt="The Dragon Prince Poster">
+                    <div class="placeholder-overlay"><div class="placeholder-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg></div><div class="placeholder-label">Replace Poster Here</div></div>
+                </div>
+                <div class="card-body">
+                    <a href="https://www.imdb.com/title/tt8688814/?ref_=nv_sr_srsg_0_tt_8_nm_0_in_0_q_the%20dragon%20prince" class="film-title-link" target="_blank" rel="noopener">The Dragon Prince</a>
+                    <div class="film-meta"><span class="meta-tag">Animated</span><span class="meta-tag">7 Seasons</span></div>
+                    <div class="synopsis">Two human princes and an elven assassin forge an unlikely alliance to end a generations-long war between humans and magical creatures by returning a stolen dragon egg to its rightful home in the mystical lands beyond.</div>
+                    <div class="personal-review"><span class="review-label">My Take:</span> <span class="review-text">The spiritual successor to Avatar that we deserved. Deep world-building, genuine diversity, emotional storytelling — and it just keeps getting better every season.</span></div>
+                    <div class="credits"><strong>Network:</strong> Netflix<br><strong>Stars:</strong> Jack DeSena, Sasha Rojen, Paula Burrows</div>
+                    <div class="watch-sources"><span class="watch-label">Where to watch:</span>
+                        <a href="https://www.netflix.com/ph-en/title/80212245" class="watch-btn" target="_blank" rel="noopener">Netflix</a>
+                    </div>
+                    <button class="trailer-btn" data-trailer-url="https://www.youtube.com/embed/PWEtCsi3Eo8?si=8cNMRISo2AincCPj" onclick="openTrailer(this)"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch Trailer</button>
+                </div>
+            </div>
+
+            </div>
+            <button class="carousel-btn next" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+        <div class="carousel-dots"></div>
+        <a href="#" class="genre-top-link" onclick="scrollToPageTop(event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg> Back to top</a>
+    </div>
+</section>
+
+</main>
+
+<footer class="site-footer"><p>&copy; 2026 Lines By Lin. All Rights Reserved.</p></footer>
+
+<!-- NOW PLAYING BAR -->
+<div class="now-playing" id="nowPlaying">
+    <div class="np-inner">
+        <img class="np-cover" id="npCover" src="" alt="">
+        <div class="np-eq" id="npEq"><span></span><span></span><span></span><span></span></div>
+        <div class="np-info"><div class="np-title" id="npTitle">--</div><div class="np-artist" id="npArtist">--</div></div>
+        <button class="np-close" id="npClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+</div>
+
+<!-- TRAILER MODAL -->
+<div class="trailer-modal" id="trailerModal">
+    <div class="tm-backdrop"></div>
+    <div class="tm-content">
+        <button class="tm-close" id="tmClose" aria-label="Close">&times;</button>
+        <div class="tm-video" id="tmVideo"></div>
+    </div>
+</div>
+
+<!-- SCROLL PROGRESS -->
+<div class="progress-wrap" id="progressWrap">
+    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102"><path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/></svg>
+    <span class="progress-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg></span>
+</div>
+
+<script src="js/media.js"></script>
+</body>
+</html>
