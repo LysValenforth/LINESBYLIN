@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/icons/logo.svg" class="nav-icon" alt="" style="width: 50px; height: 50px;"> LINESBYLIN
+      </a>
+      <ul class="nav-menu" id="nav-menu">
+        <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
+        <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle">
+            <img src="assets/icons/work.svg" class="nav-icon" alt=""> Work
+          </a>
+          <div class="dropdown-menu">
+            <a href="blog.html" class="dropdown-item">
+              <img src="assets/icons/blog.svg" class="nav-icon" alt=""> Blog
+            </a>
+            <a href="poems.html" class="dropdown-item">
+              <img src="assets/icons/poem.svg" class="nav-icon" alt=""> Poems
+            </a>
+            <a href="stories.html" class="dropdown-item">
+              <img src="assets/icons/story.svg" class="nav-icon" alt=""> Stories
+            </a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle">
+            <img src="assets/icons/media.svg" class="nav-icon" alt=""> MediaHub
+          </a>
+          <div class="dropdown-menu">
+            <a href="beats.html" class="dropdown-item">
+              <img src="assets/icons/music.svg" class="nav-icon" alt=""> Beats
+            </a>
+            <a href="movies.html" class="dropdown-item">
+              <img src="assets/icons/movie.svg" class="nav-icon" alt=""> Movies
+            </a>
+            <a href="tvshows.html" class="dropdown-item">
+              <img src="assets/icons/tv.svg" class="nav-icon" alt=""> Shows
+            </a>
+          </div>
+        </li>
+        <li class="nav-item"><a href="dream-map.html" class="nav-link">Dreams</a></li>
+        <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-eyebrow">
+           Welcome to LINESBYLIN
+        </span>
+        <h1 class="hero-title">Stories Live in the Spaces Between Words</h1>
+        <p class="hero-subtitle">a small space on the internet where I try to make sense of my thoughts by turning them into words.</p>
+        <div class="hero-actions">
+          <a href="blog.html" class="btn btn-primary">Explore</a>
+          <a href="mediahub.html" class="btn btn-secondary">MediaHub</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="about">
+    <div class="container">
+      <div class="about-content">
+
+        <div class="about-art">
+          <img src="assets/images/art1.png" style="width:420px;height:600px;cursor:zoom-in;" alt="About Art" onclick="document.getElementById('about-art-lb').style.display='flex'">
+        </div>
+
+        <!-- Fullsize lightbox -->
+        <div id="about-art-lb" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.92);align-items:center;justify-content:center;">
+          <button onclick="document.getElementById('about-art-lb').style.display='none'" style="position:absolute;top:20px;right:24px;width:40px;height:40px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.1);color:#fff;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
+          <img src="assets/images/art1.png" style="max-width:90vw;max-height:90vh;object-fit:contain;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.6);">
+        </div>
+
+        <div class="about-text-col">
+          <span class="about-eyebrow">About the Website and Myself</span>
+          <h2 class="about-heading">Bridging Technology and Art</h2>
+          
+
+          <blockquote class="about-quote">
+            "If it meant something to me, it'll show up here."
+          </blockquote>
+
+          <p class="about-body">This website is a digital escape where I can overthink, romanticize everyday things, and sometimes pretend I've got it all figured out through writing. Whether it came from a late-night burst of inspiration or a quiet moment — if it meant something to me, it might show up here.</p>
+          <p class="about-body">Here, you'll find a collection of my writing, from dreamy poems to pieces I like to think of as "literature."</p>
+
+          <div class="about-stats">
+            <div class="about-stat">
+              <span class="stat-num">Poems</span>
+              <span class="stat-label">Written from feeling</span>
+            </div>
+            <div class="about-stat-divider"></div>
+            <div class="about-stat">
+              <span class="stat-num">Stories</span>
+              <span class="stat-label">Built from imagination</span>
+            </div>
+            <div class="about-stat-divider"></div>
+            <div class="about-stat">
+              <span class="stat-num">Essays</span>
+              <span class="stat-label">Shaped from thought</span>
+            </div>
+          </div>
+
+          <div class="about-tags">
+            <span class="about-tag">Literature</span>
+            <span class="about-tag">Music</span>
+            <span class="about-tag">Film</span>
+            <span class="about-tag">Late nights</span>
+            <span class="about-tag">Coffee</span>
+            <span class="about-tag">Philippines</span>
+          </div>
+
+          <a href="biography.html" class="btn btn-primary about-cta">Read Full Biography</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Latest Works</h2>
+      </div>
+      <div class="featured-grid" id="featured-grid">
+        <div class="loading">
+          <div class="loading-spinner"></div>
+          <p>Loading works...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section class="section" id="gallery">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Gallery</h2>
+        <p class="section-subtitle">A collection of visuals that live in my head rent-free.</p>
+      </div>
+
+      <div id="collections-grid" class="cgl-grid">
+        <!-- Dynamically populated from Firebase -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Level 2: Collection Modal -->
+  <div id="gl-modal">
+    <div id="gl-modal-inner">
+      <button id="gl-modal-close">&#x2715;</button>
+      <h2 id="gl-modal-title"></h2>
+      <div id="gl-thumb-grid"></div>
+    </div>
+  </div>
+
+  <!-- Level 3: Lightbox -->
+  <div id="gl-lb-backdrop"></div>
+  <div id="gl-lightbox">
+    <button id="gl-lb-close">&#x2715;</button>
+    <button id="gl-lb-prev">&#8592;</button>
+    <div id="gl-lb-content">
+      <div id="gl-lb-img-wrap"></div>
+      <p id="gl-lb-caption"></p>
+    </div>
+    <button id="gl-lb-next">&#8594;</button>
+  </div>
+
+  <style>
+    /* ── Gallery Grid Layout ── */
+    .cgl-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    @media (max-width: 900px) { .cgl-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .cgl-grid { grid-template-columns: 1fr; } }
+
+    /* ── Gallery Cards ── */
+    .collection-card-gl {
+      background: var(--bg-surface);
+      border: 1.5px solid var(--warm-beige);
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(.22,.68,0,1.2), box-shadow 0.3s ease, border-color 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .collection-card-gl:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+      border-color: var(--forest-green);
+    }
+
+    /* ── Image Placeholder ── */
+    .cgl-img {
+      width: 100%;
+      height: 210px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cgl-img-ph {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #e8e4da 0%, #d6d0c4 40%, #e2ddd4 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cgl-img-ph::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.45) 50%, transparent 70%);
+      background-size: 200% 100%;
+      animation: cgl-shimmer 2.4s ease-in-out infinite;
+    }
+    @keyframes cgl-shimmer {
+      0%   { background-position: -100% 0; }
+      100% { background-position: 200% 0; }
+    }
+    .cgl-ph-icon {
+      color: rgba(90,100,80,0.35);
+      z-index: 1;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+    .collection-card-gl:hover .cgl-ph-icon {
+      transform: scale(1.15);
+      color: rgba(90,100,80,0.55);
+    }
+    .cgl-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(42,58,42,0);
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 14px;
+      transition: background 0.3s ease;
+    }
+    .collection-card-gl:hover .cgl-img-overlay { background: rgba(42,58,42,0.18); }
+    .cgl-view-btn {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--forest-green);
+      background: rgba(255,255,255,0.88);
+      padding: 5px 12px;
+      border-radius: 20px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      backdrop-filter: blur(4px);
+    }
+    .collection-card-gl:hover .cgl-view-btn { opacity: 1; transform: translateY(0); }
+
+    /* ── Card Body ── */
+    .cgl-body { padding: 16px 20px 20px; }
+    .cgl-cat {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--forest-green);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.8;
+    }
+    .cgl-title { font-family: var(--font-heading); font-size: 1.15rem; color: var(--text-primary); margin: 6px 0 8px; line-height: 1.3; }
+    .cgl-desc { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 12px; opacity: 0.85; }
+    .cgl-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .cgl-tag { font-size: 0.68rem; font-weight: 700; color: var(--forest-green); background: var(--soft-blue); padding: 3px 10px; border-radius: 20px; letter-spacing: 0.04em; }
+
+    /* ── Modal ── */
+    #gl-modal {
+      position: fixed; inset: 0; z-index: 2000;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center; justify-content: center;
+      padding: var(--space-md);
+    }
+    #gl-modal.open { display: flex; }
+    #gl-modal-inner {
+      background: var(--bg-primary);
+      border-radius: var(--radius-lg);
+      border: var(--border-width) solid var(--warm-beige);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.18);
+      width: 100%; max-width: 880px; max-height: 85vh;
+      overflow-y: auto; padding: var(--space-lg);
+      position: relative;
+    }
+    #gl-modal-close {
+      position: absolute; top: var(--space-sm); right: var(--space-sm);
+      width: 36px; height: 36px; border-radius: 50%;
+      border: var(--border-width) solid var(--warm-beige);
+      background: var(--bg-surface); color: var(--text-primary);
+      font-size: 1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all var(--transition-fast);
+    }
+    #gl-modal-close:hover { background: var(--forest-green); color: var(--cream); border-color: var(--forest-green); }
+    #gl-modal-title { font-family: var(--font-heading); font-size: var(--text-3xl); color: var(--text-primary); margin-bottom: var(--space-md); padding-right: var(--space-lg); }
+    #gl-thumb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--space-sm); }
+
+    /* ── Thumbnails ── */
+    .gl-thumb {
+      border-radius: var(--radius-md); overflow: hidden;
+      aspect-ratio: 1; cursor: pointer; position: relative;
+      border: var(--border-width) solid var(--warm-beige);
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .gl-thumb:hover { transform: translateY(-2px); box-shadow: var(--shadow-floating); }
+    .gl-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .gl-thumb-ph { width: 100%; height: 100%; background: var(--warm-beige); position: absolute; top: 0; left: 0; z-index: -1; }
+    .gl-thumb-ov { position: absolute; inset: 0; background: rgba(42,58,42,0); display: flex; align-items: flex-end; padding: 8px; transition: background 0.2s; }
+    .gl-thumb:hover .gl-thumb-ov { background: rgba(42,58,42,0.65); }
+    .gl-thumb-label { font-family: var(--font-body); font-size: var(--text-sm); font-weight: 600; color: #fff; opacity: 0; transform: translateY(6px); transition: opacity 0.2s, transform 0.2s; }
+    .gl-thumb:hover .gl-thumb-label { opacity: 1; transform: translateY(0); }
+
+    /* ── Lightbox ── */
+    #gl-lb-backdrop {
+      position: fixed; inset: 0; z-index: 3000;
+      background: rgba(0,0,0,0.93);
+      display: none;
+    }
+    #gl-lb-backdrop.open { display: block; }
+    #gl-lightbox {
+      position: fixed; inset: 0; z-index: 3001;
+      display: none;
+      align-items: center; justify-content: center;
+      gap: var(--space-md);
+      padding: 60px var(--space-md) var(--space-md);
+    }
+    #gl-lightbox.open { display: flex; }
+    #gl-lb-close {
+      position: fixed; top: 18px; right: 22px;
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.1); color: #fff;
+      font-size: 1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 3002; transition: background 0.2s;
+    }
+    #gl-lb-close:hover { background: rgba(255,255,255,0.25); }
+    #gl-lb-prev, #gl-lb-next {
+      width: 48px; height: 48px; border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.08); color: #fff;
+      font-size: 1.4rem; cursor: pointer; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    #gl-lb-prev:hover, #gl-lb-next:hover { background: rgba(255,255,255,0.2); }
+    #gl-lb-content { display: flex; flex-direction: column; align-items: center; max-width: 800px; width: 100%; }
+    #gl-lb-img-wrap {
+      width: 100%; border-radius: var(--radius-lg); overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.1);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+      min-height: 200px; background: rgba(255,255,255,0.04);
+    }
+    #gl-lb-img-wrap img { width: 100%; max-height: 65vh; object-fit: contain; display: block; }
+    #gl-lb-caption { margin-top: var(--space-sm); color: rgba(255,255,255,0.7); font-family: var(--font-body); font-size: var(--text-base); font-style: italic; text-align: center; }
+
+    @media (max-width: 600px) {
+      #gl-lightbox { gap: 8px; padding: 55px 8px 8px; }
+      #gl-lb-prev, #gl-lb-next { width: 36px; height: 36px; font-size: 1rem; }
+    }
+  </style>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+
+    var collections = {};
+
+    var activeLbPhotos = [];
+    var activeLbIndex  = 0;
+
+    var modal     = document.getElementById("gl-modal");
+    var thumbGrid = document.getElementById("gl-thumb-grid");
+    var lightbox  = document.getElementById("gl-lightbox");
+    var backdrop  = document.getElementById("gl-lb-backdrop");
+    var grid      = document.getElementById("collections-grid");
+
+    // ── Build a card element ──────────────────────────────────────────────────
+    function buildCard(key, data) {
+      var card = document.createElement("div");
+      card.className = "collection-card-gl";
+      card.dataset.collection = key;
+
+      var coverSrc = data.coverSrc || (data.photos && data.photos[0] && data.photos[0].src) || "";
+      var imgInner = coverSrc
+        ? '<img src="' + coverSrc + '" alt="' + (data.title || key) + '" style="width:100%;height:100%;object-fit:cover;display:block;">'
+        : '<div class="cgl-ph-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>';
+
+      card.innerHTML =
+        '<div class="cgl-img">' +
+          '<div class="cgl-img-ph">' + imgInner + '</div>' +
+          '<div class="cgl-img-overlay"><span class="cgl-view-btn">View Collection →</span></div>' +
+        '</div>' +
+        '<div class="cgl-body">' +
+          '<span class="cgl-cat">Photo Collection</span>' +
+          '<h3 class="cgl-title">' + (data.title || key) + '</h3>' +
+          '<p class="cgl-desc">' + (data.description || "") + '</p>' +
+          '<div class="cgl-tags">' +
+            '<span class="cgl-tag">' + (data.photos ? data.photos.length : 0) + ' Photos</span>' +
+            '<span class="cgl-tag">' + key.charAt(0).toUpperCase() + key.slice(1) + '</span>' +
+          '</div>' +
+        '</div>';
+
+      card.addEventListener("click", function () {
+        var coll = collections[key];
+        if (!coll || !coll.photos || coll.photos.length === 0) return;
+
+        document.getElementById("gl-modal-title").textContent = coll.title || key;
+        thumbGrid.innerHTML = "";
+
+        coll.photos.forEach(function (photo, idx) {
+          var th    = document.createElement("div");
+          th.className = "gl-thumb";
+          var img   = document.createElement("img");
+          img.src   = photo.src;
+          img.alt   = photo.title || "";
+          var ph    = document.createElement("div");
+          ph.className = "gl-thumb-ph";
+          var ov    = document.createElement("div");
+          ov.className = "gl-thumb-ov";
+          var label = document.createElement("span");
+          label.className = "gl-thumb-label";
+          label.textContent = photo.title || "";
+          ov.appendChild(label);
+          th.appendChild(img);
+          th.appendChild(ph);
+          th.appendChild(ov);
+          th.addEventListener("click", function () { openLightbox(coll.photos, idx); });
+          thumbGrid.appendChild(th);
+        });
+
+        modal.classList.add("open");
+        document.body.style.overflow = "hidden";
+      });
+
+      return card;
+    }
+
+    // ── Load all collections from Firebase and render cards ───────────────────
+    try {
+      var db = firebase.firestore();
+      db.collection("gallery").get().then(function (snap) {
+        if (snap.empty) return;
+        snap.forEach(function (doc) {
+          var key  = doc.id;
+          var data = doc.data();
+          if (!data.photos || data.photos.length === 0) return;
+          collections[key] = data;
+          grid.appendChild(buildCard(key, data));
+        });
+      }).catch(function (err) {
+        console.warn("Gallery load error:", err);
+      });
+    } catch (e) {
+      console.warn("Firebase unavailable:", e);
+    }
+
+    // ── Modal close ───────────────────────────────────────────────────────────
+    document.getElementById("gl-modal-close").addEventListener("click", closeModal);
+    modal.addEventListener("click", function (e) { if (e.target === modal) closeModal(); });
+    function closeModal() {
+      modal.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    // ── Lightbox ──────────────────────────────────────────────────────────────
+    function openLightbox(photos, index) {
+      activeLbPhotos = photos;
+      activeLbIndex  = index;
+      renderLightbox();
+      lightbox.classList.add("open");
+      backdrop.classList.add("open");
+    }
+
+    function renderLightbox() {
+      var photo = activeLbPhotos[activeLbIndex];
+      var wrap  = document.getElementById("gl-lb-img-wrap");
+      wrap.innerHTML = "";
+      var img = document.createElement("img");
+      img.alt = photo.title || "";
+      img.src = photo.src;
+      wrap.appendChild(img);
+      document.getElementById("gl-lb-caption").textContent = photo.caption || "";
+      document.getElementById("gl-lb-prev").style.visibility = activeLbIndex > 0 ? "visible" : "hidden";
+      document.getElementById("gl-lb-next").style.visibility = activeLbIndex < activeLbPhotos.length - 1 ? "visible" : "hidden";
+    }
+
+    document.getElementById("gl-lb-prev").addEventListener("click", function () {
+      if (activeLbIndex > 0) { activeLbIndex--; renderLightbox(); }
+    });
+    document.getElementById("gl-lb-next").addEventListener("click", function () {
+      if (activeLbIndex < activeLbPhotos.length - 1) { activeLbIndex++; renderLightbox(); }
+    });
+    document.getElementById("gl-lb-close").addEventListener("click", closeLightbox);
+    backdrop.addEventListener("click", closeLightbox);
+    function closeLightbox() {
+      lightbox.classList.remove("open");
+      backdrop.classList.remove("open");
+    }
+
+    document.addEventListener("keydown", function (e) {
+      var lbOpen = lightbox.classList.contains("open");
+      var moOpen = modal.classList.contains("open");
+      if (e.key === "Escape") { if (lbOpen) closeLightbox(); else if (moOpen) closeModal(); }
+      if (lbOpen) {
+        if (e.key === "ArrowLeft"  && activeLbIndex > 0)                          { activeLbIndex--; renderLightbox(); }
+        if (e.key === "ArrowRight" && activeLbIndex < activeLbPhotos.length - 1) { activeLbIndex++; renderLightbox(); }
+      }
+    });
+
+  });
+  </script>
+
+  <section class="section section-alt" id="contact">
+    <div class="container">
+      <div style="text-align:center; margin-bottom: var(--space-lg);">
+        <h2> Get in Touch</h2>
+      </div>
+
+      <div class="contact-container">
+        <!-- Contact Form -->
+        <div class="contact-form-wrapper">
+          <h3 class="form-title">Send Me a Message</h3>
+          <form class="contact-form" id="contactForm">
+            <div class="form-group">
+              <label for="name">Full Name *</label>
+              <input type="text" id="name" name="name" required placeholder="John Doe">
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email" required placeholder="john@example.com">
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject *</label>
+              <input type="text" id="subject" name="subject" required placeholder="Project Collaboration">
+            </div>
+            <div class="form-group">
+              <label for="message">Message *</label>
+              <textarea id="message" name="message" rows="6" required placeholder="Tell me about your project or inquiry..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-submit">
+              Send Message
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M2 21L23 12L2 3V10L17 12L2 14V21Z" fill="currentColor"/>
+              </svg>
+            </button>
+          </form>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="contact-info-wrapper">
+          <h3 class="info-title">Contact Information</h3>
+          <div class="contact-details">
+            <div class="contact-detail-item">
+              <div class="detail-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z" fill="currentColor"/>
+                </svg>
+              </div>
+              <div class="detail-content">
+                <h4>Email</h4>
+                <a href="mailto:lixverino@gmail.com">lixverino@gmail.com</a>
+              </div>
+            </div>
+            <div class="contact-detail-item">
+              <div class="detail-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5C13.38 6.5 14.5 7.62 14.5 9C14.5 10.38 13.38 11.5 12 11.5Z" fill="currentColor"/>
+                </svg>
+              </div>
+              <div class="detail-content">
+                <h4>Location</h4>
+                <p>Caloocan City, Philippines</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="social-links">
+            <h4>Follow Me</h4>
+            <div class="social-icons">
+              <a href="https://github.com/LysValenforth" class="social-icon" aria-label="GitHub">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C6.477 2 2 6.477 2 12C2 16.418 4.865 20.166 8.839 21.489C9.339 21.579 9.521 21.269 9.521 21.004C9.521 20.769 9.513 20.146 9.508 19.318C6.726 19.91 6.139 17.846 6.139 17.846C5.685 16.699 5.029 16.39 5.029 16.39C4.121 15.784 5.098 15.797 5.098 15.797C6.101 15.867 6.629 16.814 6.629 16.814C7.521 18.341 8.97 17.896 9.539 17.641C9.631 16.993 9.889 16.548 10.175 16.299C7.955 16.048 5.62 15.204 5.62 11.349C5.62 10.263 6.01 9.373 6.649 8.674C6.546 8.423 6.204 7.434 6.747 6.067C6.747 6.067 7.586 5.798 9.497 7.066C10.31 6.849 11.16 6.74 12.01 6.736C12.86 6.74 13.71 6.849 14.524 7.066C16.434 5.798 17.272 6.067 17.272 6.067C17.816 7.434 17.474 8.423 17.371 8.674C18.011 9.373 18.398 10.263 18.398 11.349C18.398 15.214 16.058 16.045 13.832 16.292C14.191 16.604 14.512 17.219 14.512 18.156C14.512 19.507 14.5 20.596 14.5 21.004C14.5 21.271 14.679 21.584 15.186 21.488C19.158 20.163 22 16.417 22 12C22 6.477 17.523 2 12 2Z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="response-time">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM12.5 7H11V13L16.25 16.15L17 14.92L12.5 12.25V7Z" fill="currentColor"/>
+            </svg>
+            <p>I typically respond within 24-48 hours</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <span class="footer-logo">
+         LINESBYLIN
+      </span>
+      <div class="footer-links">
+        <a href="blog.html">Blog</a>
+        <a href="poems.html">Poems</a>
+        <a href="stories.html">Stories</a>
+        <a href="mediahub.html">MediaHub</a>
+      </div>
+      <p style="color:var(--soft-blue); font-size:var(--text-sm); margin:0;">Handcrafted with care</p>
+    </div>
+  </footer>
+
+  <div class="progress-wrap" id="progressWrap">
+    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+      <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+    </svg>
+    <span class="progress-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="19" x2="12" y2="5"></line>
+        <polyline points="5 12 12 5 19 12"></polyline>
+      </svg>
+    </span>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+  <script src="js/firebase.js"></script>
+  <script src="js/mediahub.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

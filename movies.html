@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movies</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-mediahub="movies">
+
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/icons/logo.svg" class="nav-icon" alt="" style="width: 50px; height: 50px;"> LINESBYLIN
+      </a>
+      <ul class="nav-menu" id="nav-menu">
+        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="index.html#about" class="nav-link">About</a></li>
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle">
+            <img src="assets/icons/work.svg" class="nav-icon" alt=""> Work
+          </a>
+          <div class="dropdown-menu">
+            <a href="blog.html" class="dropdown-item">
+              <img src="assets/icons/blog.svg" class="nav-icon" alt=""> Blog
+            </a>
+            <a href="poems.html" class="dropdown-item">
+              <img src="assets/icons/poem.svg" class="nav-icon" alt=""> Poems
+            </a>
+            <a href="stories.html" class="dropdown-item">
+              <img src="assets/icons/story.svg" class="nav-icon" alt=""> Stories
+            </a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle">
+            <img src="assets/icons/media.svg" class="nav-icon" alt=""> MediaHub
+          </a>
+          <div class="dropdown-menu">
+            <a href="beats.html" class="dropdown-item">
+              <img src="assets/icons/music.svg" class="nav-icon" alt=""> Beats
+            </a>
+            <a href="movies.html" class="dropdown-item">
+              <img src="assets/icons/movie.svg" class="nav-icon" alt=""> Movies
+            </a>
+            <a href="tvshows.html" class="dropdown-item">
+              <img src="assets/icons/tv.svg" class="nav-icon" alt=""> Shows
+            </a>
+          </div>
+        </li>
+        <li class="nav-item"><a href="dream-map.html" class="nav-link">Dreams</a></li>
+        <li class="nav-item"><a href="index.html#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-content">
+      <h1>Movies</h1>
+      <p>A collection of films that I like</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="search-wrap">
+        <input type="text" id="search-input" class="search-input" placeholder="Search films, directors, genres...">
+      </div>
+      <div class="mediahub-grid" id="mediahub-grid">
+        <div class="loading">
+          <div class="loading-spinner"></div>
+          <p>Loading films...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <span class="footer-logo">
+        LINESBYLIN
+      </span>
+      <div class="footer-links">
+        <a href="mediahub.html">MediaHub</a>
+        <a href="beats.html">Beats</a>
+        <a href="tvshows.html">TV Shows</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="progress-wrap" id="progressWrap">
+    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+      <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+    </svg>
+    <span class="progress-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="19" x2="12" y2="5"></line>
+        <polyline points="5 12 12 5 19 12"></polyline>
+      </svg>
+    </span>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+  <script src="js/firebase.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

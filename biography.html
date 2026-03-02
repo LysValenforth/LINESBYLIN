@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biography — LINESBYLIN</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ── Bio Hero ───────────────────────────────── */
+    .bio-hero {
+      background-color: var(--dark-moss);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .bio-hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 420px; height: 420px;
+      background: var(--forest-green);
+      opacity: 0.12;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .bio-hero-inner {
+      max-width: var(--container-width);
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+      display: flex;
+      justify-content: center;
+    }
+
+    .bio-hero-text {
+      padding: var(--space-xl) 0 var(--space-xl);
+      text-align: center;
+      max-width: 640px;
+    }
+    .bio-hero-eyebrow {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      font-weight: var(--font-semibold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--soft-blue);
+      margin-bottom: var(--space-sm);
+    }
+
+    .bio-hero-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      color: var(--cream);
+      line-height: 1.1;
+      margin-bottom: var(--space-md);
+    }
+
+    .bio-hero-subtitle {
+      font-size: var(--text-lg);
+      color: var(--soft-blue);
+      line-height: 1.7;
+      margin-bottom: var(--space-lg);
+    }
+
+    .bio-chapter-pills {
+      display: flex;
+      gap: var(--space-xs);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .bio-chapter-pill {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      font-weight: var(--font-semibold);
+      color: var(--cream);
+      padding: 7px 18px;
+      border: 1.5px solid rgba(255,255,255,0.2);
+      border-radius: var(--radius-full);
+      background: rgba(255,255,255,0.06);
+      transition: all var(--transition-fast);
+    }
+
+    .bio-chapter-pill:hover {
+      background: rgba(255,255,255,0.16);
+      border-color: rgba(255,255,255,0.5);
+      color: var(--cream);
+      transform: translateY(-2px);
+    }
+
+    /* responsive placeholder */
+
+    /* ── Chapters ───────────────────────────────── */
+    .bio-content {
+      padding: var(--space-xl) 0;
+    }
+
+    .bio-content .container {
+      max-width: 920px;
+    }
+
+    .chapter {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 0 var(--space-lg);
+      margin-bottom: var(--space-xl);
+      padding-bottom: var(--space-xl);
+      border-bottom: var(--border-width) solid var(--warm-beige);
+    }
+
+    .chapter:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .chapter-label {
+      position: sticky;
+      top: calc(var(--nav-height) + var(--space-md));
+      height: fit-content;
+      text-align: right;
+      padding-right: var(--space-md);
+      border-right: 3px solid var(--warm-beige);
+    }
+
+    .chapter-number {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 4.5rem;
+      line-height: 1;
+      color: var(--warm-beige);
+      margin-bottom: var(--space-xs);
+    }
+
+    .chapter-name {
+      font-family: var(--font-heading);
+      font-size: var(--text-base);
+      color: var(--forest-green);
+      line-height: 1.3;
+      margin: 0 0 var(--space-xs);
+    }
+
+    .chapter-era {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      font-weight: var(--font-semibold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    /* Chapter body */
+    .chapter-img-placeholder {
+      width: 100%;
+      height: 260px;
+      background: var(--warm-beige);
+      border-radius: var(--radius-lg);
+      border: var(--border-width) solid var(--warm-beige);
+      margin-bottom: var(--space-xs);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      font-style: italic;
+    }
+
+    .chapter-img-caption {
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+      font-style: italic;
+      text-align: center;
+      margin-bottom: var(--space-md);
+    }
+
+    .chapter-text p {
+      font-size: var(--text-lg);
+      line-height: 1.9;
+      color: var(--text-primary);
+      margin-bottom: var(--space-md);
+      text-align: justify;
+    }
+
+    .chapter-text p:last-child { margin-bottom: 0; }
+
+    .pull-quote {
+      margin: var(--space-md) 0;
+      padding: var(--space-md) var(--space-lg);
+      background: var(--soft-blue);
+      border-left: 4px solid var(--forest-green);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    }
+
+    .pull-quote p {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: var(--text-xl) !important;
+      color: var(--dark-moss) !important;
+      line-height: 1.6 !important;
+      margin: 0 !important;
+    }
+
+    /* ── CSS Lightbox ───────────────────────────── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0,0,0,0.93);
+      backdrop-filter: blur(14px);
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 70px 24px 24px;
+    }
+
+    .lightbox:target { display: flex; }
+
+    .lightbox img {
+      max-width: min(860px, 90vw);
+      max-height: 72vh;
+      object-fit: contain;
+      border-radius: var(--radius-lg);
+      border: var(--border-width) solid rgba(255,255,255,0.15);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+    }
+
+    .lightbox-caption {
+      color: rgba(255,255,255,0.5);
+      font-size: var(--text-sm);
+      font-style: italic;
+      text-align: center;
+      margin-top: var(--space-sm);
+    }
+
+    .lightbox-close {
+      position: fixed;
+      top: 18px; right: 22px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 20px;
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      font-weight: var(--font-semibold);
+      background: rgba(255,255,255,0.1);
+      border: 1.5px solid rgba(255,255,255,0.35);
+      border-radius: var(--radius-full);
+      text-decoration: none;
+      transition: background var(--transition-fast);
+    }
+
+    .lightbox-close:hover { background: rgba(255,255,255,0.22); color: #fff; }
+
+    @media (max-width: 768px) {
+      .bio-hero-inner { justify-content: center; }
+      .bio-hero-text { text-align: center; }
+
+      .chapter { grid-template-columns: 1fr; gap: var(--space-md); }
+
+      .chapter-label {
+        position: static;
+        text-align: left;
+        padding-right: 0;
+        padding-left: var(--space-md);
+        border-right: none;
+        border-left: 3px solid var(--warm-beige);
+        display: flex;
+        align-items: center;
+        gap: var(--space-sm);
+      }
+
+      .chapter-number { font-size: 2.8rem; margin-bottom: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/icons/logo.svg" class="nav-icon" alt="" style="width: 50px; height: 50px;"> LINESBYLIN
+      </a>
+      <ul class="nav-menu" id="nav-menu">
+        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="biography.html" class="nav-link active">About</a></li>
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle">
+            <img src="assets/icons/work.svg" class="nav-icon" alt=""> Work
+          </a>
+          <div class="dropdown-menu">
+            <a href="blog.html" class="dropdown-item"><img src="assets/icons/blog.svg" class="nav-icon" alt=""> Blog</a>
+            <a href="poems.html" class="dropdown-item"><img src="assets/icons/poem.svg" class="nav-icon" alt=""> Poems</a>
+            <a href="stories.html" class="dropdown-item"><img src="assets/icons/story.svg" class="nav-icon" alt=""> Stories</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle">
+            <img src="assets/icons/media.svg" class="nav-icon" alt=""> MediaHub
+          </a>
+          <div class="dropdown-menu">
+            <a href="beats.html" class="dropdown-item"><img src="assets/icons/music.svg" class="nav-icon" alt=""> Beats</a>
+            <a href="movies.html" class="dropdown-item"><img src="assets/icons/movie.svg" class="nav-icon" alt=""> Movies</a>
+            <a href="tvshows.html" class="dropdown-item"><img src="assets/icons/tv.svg" class="nav-icon" alt=""> Shows</a>
+          </div>
+        </li>
+        <li class="nav-item"><a href="dream-map.html" class="nav-link">Dreams</a></li>
+        <li class="nav-item"><a href="index.html#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="bio-hero">
+    <div class="bio-hero-inner">
+      <div class="bio-hero-text">
+        <span class="bio-hero-eyebrow">The Story Behind the Words</span>
+        <h1 class="bio-hero-title">My Journey</h1>
+        <p class="bio-hero-subtitle">From the quiet fields of the province to the complex logic of code — a life told in chapters.</p>
+        <div class="bio-chapter-pills">
+          <a href="#childhood" class="bio-chapter-pill">Childhood Roots</a>
+          <a href="#teenage" class="bio-chapter-pill">The Teenage Years</a>
+          <a href="#college" class="bio-chapter-pill">College &amp; Code</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <section class="bio-content">
+    <div class="container">
+
+      <!-- Chapter 01 -->
+      <div class="chapter" id="childhood">
+        <div class="chapter-label">
+          <span class="chapter-number">01</span>
+          <h2 class="chapter-name">Childhood Roots</h2>
+          <span class="chapter-era">Early Years</span>
+        </div>
+        <div class="chapter-body">
+          <img src="assets/images/art2.png" style="width:100%;height:260px;object-fit:cover;border-radius:var(--radius-lg);" alt="Childhood">
+          <p class="chapter-img-caption">The quiet, open fields of Mahayag, Zamboanga del Sur.</p>
+          <div class="chapter-text">
+            <p>My story began in <strong>Mahayag, Zamboanga del Sur</strong>, a place where time seemed to move a little slower. With my parents away working to provide for us, I was raised by my <em>Lolo</em> and <em>Lola</em> in their humble home on the farm. It was a life of simplicity — surrounded by open fields, the smell of earth, and the sounds of nature — but it was also a life of isolation. Our neighbors were distant, and often, my only companions were the cats and dogs roaming our yard.</p>
+            <p>Because I lacked playmates, I learned to find joy in the mundane. I would spend hours sitting on the porch, mesmerized by the chickens pecking at their feed. My fondest memories were the quiet afternoons spent fishing with my grandfather. Whether we caught something or came home empty-handed didn't matter; it was the silence we shared that I cherished.</p>
+            <div class="pull-quote">
+              <p>I stole my cousin's slippers and threw them away, thinking that if they couldn't walk, they couldn't leave.</p>
+            </div>
+            <p>The house only truly felt alive when my cousins visited. There was magic there too — a season when the house would fill with butterflies of every color. Walking home alongside my grandfather to the smell of my grandmother's cooking is a memory I still hold close.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chapter 02 -->
+      <div class="chapter" id="teenage">
+        <div class="chapter-label">
+          <span class="chapter-number">02</span>
+          <h2 class="chapter-name">The Teenage Years</h2>
+          <span class="chapter-era">High School</span>
+        </div>
+        <div class="chapter-body">
+          <img src="assets/images/art3.png" style="width:100%;height:260px;object-fit:cover;object-position:bottom center;border-radius:var(--radius-lg);" alt="Teenage">
+          <p class="chapter-img-caption">Moments of laughter and chaos with high school friends.</p>
+          <div class="chapter-text">
+            <p>Transitioning into high school was a shock to the system. I went from the quiet isolation of the farm to a world of noise, chaos, and social awkwardness. In Grade 8, in a desperate attempt to get exempted from some subject requirements, I made the terrifying decision to join the school pageant. I remember standing on that stage, knees shaking uncontrollably, blinded by the lights, instantly regretting my choice. Yet, looking back, that moment of vulnerability was my first step out of my shell.</p>
+            <p>I eventually found my tribe — a group of friends who were loud, chaotic, and always ready for adventure. Our sanctuary was the local <strong>Lemon Square</strong>, where we'd hoard snacks and scream over intense matches of mobile games.</p>
+            <div class="pull-quote">
+              <p>I would study late into the night just for the brief moment of validation when I could raise my hand and answer correctly.</p>
+            </div>
+            <p>But just as we were hitting our stride, the world stopped. The <em>COVID-19</em> pandemic hit, and our high school life was cut short without a proper goodbye. The prom, the graduation rites, the final days of just being kids — all canceled. It taught me to value the memories we did manage to make before the world went quiet.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chapter 03 -->
+      <div class="chapter" id="college">
+        <div class="chapter-label">
+          <span class="chapter-number">03</span>
+          <h2 class="chapter-name">College &amp; Code</h2>
+          <span class="chapter-era">University</span>
+        </div>
+        <div class="chapter-body">
+          <div class="chapter-img-placeholder">No image yet</div>
+          <p class="chapter-img-caption">The new reality: sleepless nights and syntax errors.</p>
+          <div class="chapter-text">
+            <p>College was supposed to be the start of my dream to become a nurse. I had a vision of myself in white, taking care of people, healing them. I applied to <strong>PLM</strong> and <strong>UE</strong>, holding onto that hope. But life had a different plot twist waiting for me. PLM ran out of slots, and with my options limited, I found myself enrolling at <strong>UE</strong> for a course I barely understood: <strong>Computer Science</strong>.</p>
+            <p>I walked into this field thinking it would be about computers; I didn't realize it would be about logic, patience, and failure. The learning curve was brutal. I remember the rush of my first "Hello World," followed immediately by nights where I stared at a monitor for six hours hunting for a single missing semicolon.</p>
+            <div class="pull-quote">
+              <p>It is a love-hate relationship; the frustration is overwhelming, but the dopamine rush when a code finally runs is addictive.</p>
+            </div>
+            <p>Along the way, I discovered that Computer Science isn't just about math and logic — it's a canvas. My interest in <strong>Game Development</strong> and <strong>Web Design</strong> allowed me to bridge my technical skills with my creative side. I may not be a nurse, but I am learning to build things that help people in a different way — one syntax error at a time.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Lightboxes -->
+
+  <footer class="footer">
+    <div class="footer-content">
+      <span class="footer-logo">LINESBYLIN</span>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="mediahub.html">MediaHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="progress-wrap" id="progressWrap">
+    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+      <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+    </svg>
+    <span class="progress-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="19" x2="12" y2="5"></line>
+        <polyline points="5 12 12 5 19 12"></polyline>
+      </svg>
+    </span>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

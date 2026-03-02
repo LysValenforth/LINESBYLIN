@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editor</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/editor.css">
+</head>
+<body>
+
+  <!-- TOP NAV -->
+  <nav class="nav editor-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/icons/edit.svg" class="nav-icon" alt=""> Editor
+      </a>
+
+      <!-- Save status indicator -->
+      <div class="editor-save-status">
+        <div class="status-indicator" id="status-dot"></div>
+        <span id="save-status-text"></span>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:var(--space-xs);">
+        <button id="btn-save-post" class="btn btn-primary btn-small">
+          <img src="assets/icons/save.svg" class="icon-btn" alt=""> Save
+        </button>
+        <button id="btn-delete-post" class="btn btn-danger btn-small">
+          <img src="assets/icons/delete.svg" class="icon-btn-dark" style="filter:none;opacity:.8;" alt=""> Delete
+        </button>
+        <a href="index.html" class="btn btn-secondary btn-small">← Site</a>
+        <!-- Mobile panel toggles (hidden on desktop) -->
+        <button class="mobile-toolbar-btn" id="btn-toggle-sidebar" style="display:none;"><img src="assets/icons/menu.svg" style="width:18px;height:18px;" alt="menu"></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 3-PANEL EDITOR -->
+  <div class="editor-container">
+
+    <!-- ── LEFT PANEL: Content Manager ────────────── -->
+    <aside class="editor-sidebar" id="editor-sidebar">
+      <div class="sidebar-header">
+        <h2 class="sidebar-title">
+          <img src="assets/icons/work.svg" class="nav-icon" alt=""> My Posts
+        </h2>
+      </div>
+
+      <!-- Tab switcher: Posts / MediaHub -->
+      <div class="sidebar-tabs">
+        <button class="sidebar-tab active" data-tab="posts">Posts</button>
+        <button class="sidebar-tab" data-tab="mediahub">MediaHub</button>
+      </div>
+
+      <div class="sidebar-search-wrap">
+        <input type="text" id="sidebar-search" class="sidebar-search" placeholder="Search...">
+      </div>
+
+      <div class="sidebar-actions">
+        <button id="btn-new-post" class="btn btn-primary btn-small" style="flex:1;">
+          <img src="assets/icons/add.svg" class="icon-btn" alt=""> New
+        </button>
+        <button id="btn-delete-post-side" class="btn btn-danger btn-small">
+          <img src="assets/icons/delete.svg" class="icon-btn-dark" style="filter:none;opacity:.8;" alt="">
+        </button>
+      </div>
+
+      <div class="posts-list-container" id="posts-list">
+        <div class="loading">
+          <div class="loading-spinner"></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── CENTER PANEL: Visual Editor ────────────── -->
+    <main class="editor-main">
+
+      <!-- Top toolbar bar -->
+      <div class="editor-toolbar-top">
+        <!-- Formatting buttons -->
+        <div class="formatting-bar">
+          <button class="format-btn" data-cmd="bold"          title="Bold"><b>B</b></button>
+          <button class="format-btn" data-cmd="italic"        title="Italic"><i>I</i></button>
+          <button class="format-btn" data-cmd="underline"     title="Underline"><u>U</u></button>
+          <button class="format-btn" data-cmd="strikeThrough" title="Strikethrough"><s>S</s></button>
+          <button class="format-btn" data-cmd="formatBlock" data-val="h1" title="H1">H1</button>
+          <button class="format-btn" data-cmd="formatBlock" data-val="h2" title="H2">H2</button>
+          <button class="format-btn" data-cmd="formatBlock" data-val="h3" title="H3">H3</button>
+          <button class="format-btn" data-cmd="formatBlock" data-val="p"  title="Paragraph">¶</button>
+          <button class="format-btn" data-cmd="insertUnorderedList" title="Bullet list">•</button>
+          <button class="format-btn" data-cmd="insertOrderedList"   title="Numbered list">1.</button>
+          <button class="format-btn" data-cmd="justifyLeft"   title="Left">⇤</button>
+          <button class="format-btn" data-cmd="justifyCenter" title="Center">≡</button>
+          <button class="format-btn" data-cmd="justifyRight"  title="Right">⇥</button>
+          <button class="format-btn" id="btn-insert-link"     title="Link">Ln</button>
+          <button class="format-btn" data-cmd="removeFormat"  title="Clear">X</button>
+        </div>
+
+        <!-- Editor status + actions -->
+        <div class="editor-actions">
+          <div class="editor-status">
+            <div class="status-indicator" id="status-dot2"></div>
+            <span id="save-status-text2"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Canvas area -->
+      <div class="editor-canvas">
+        <div class="editor-preview" id="editor-preview">
+          <div class="no-post-selected" id="no-post-msg">
+            <div class="no-post-icon">
+              <img src="assets/icons/edit.svg" style="width:48px;height:48px;opacity:0.4;" alt="">
+            </div>
+            <h3>Select a post to start editing</h3>
+            <p>Choose from the left panel or create a new post.</p>
+          </div>
+          <div id="editor-canvas-inner" style="display:none;">
+            <div class="editor-sections" id="editor-sections"></div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- ── RIGHT PANEL: Controls ───────────────────── -->
+    <aside class="editor-controls" id="editor-controls">
+      <div class="controls-header">
+        <h2 class="controls-title">
+          <img src="assets/icons/menu.svg" class="nav-icon" alt=""> Post Settings
+        </h2>
+      </div>
+
+      <div class="controls-content">
+
+        <!-- Post Settings -->
+        <div class="control-section">
+          <div class="control-section-title">Post Details</div>
+          <label class="field-label">Title</label>
+          <input type="text" id="post-title-input" class="field-input" placeholder="Post title...">
+          <label class="field-label">Category</label>
+          <select id="post-category" class="field-select">
+            <optgroup label="Writing">
+              <option value="blog">Blog</option>
+              <option value="poem">Poem</option>
+              <option value="story">Story</option>
+            </optgroup>
+            <optgroup label="MediaHub">
+              <option value="beats">My Beats</option>
+              <option value="movies">Film Movies</option>
+              <option value="tvshows">TV Shows</option>
+            </optgroup>
+          </select>
+          <label class="field-label">Date</label>
+          <input type="date" id="post-date" class="field-input">
+        </div>
+
+        <!-- MediaHub: My Beats fields -->
+        <div class="control-section" id="mediahub-beats-fields" style="display:none;">
+          <div class="control-section-title">
+            <img src="assets/icons/music.svg" class="nav-icon" alt=""> Beat Details
+          </div>
+          <label class="field-label">Artist Name <span style="color:var(--alert-red);">*</span></label>
+          <input type="text" id="beats-creator" class="field-input" placeholder="Artist or producer name...">
+          <label class="field-label">Genre</label>
+          <input type="text" id="beats-genre" class="field-input" placeholder="e.g. Hip-Hop, Lo-Fi...">
+          <label class="field-label">Album / Cover Image URL</label>
+          <input type="text" id="beats-image-url" class="field-input" placeholder="https://...">
+          <label class="field-label">Song Description</label>
+          <textarea id="beats-description" class="field-input" rows="3" style="resize:vertical;" placeholder="About the track..."></textarea>
+          <label class="field-label">Song Link</label>
+          <input type="url" id="beats-song-link" class="field-input" placeholder="https://soundcloud.com/...">
+          <p style="font-size:var(--text-xs);color:var(--text-secondary);margin:0 0 var(--space-xs) 0;">Song title will link here on the public page.</p>
+          <label class="field-label">Artist Link</label>
+          <input type="url" id="beats-artist-link" class="field-input" placeholder="https://instagram.com/...">
+          <p style="font-size:var(--text-xs);color:var(--text-secondary);margin:0;">Artist name will link here on the public page.</p>
+
+          <label class="field-label" style="margin-top:var(--space-sm);">Audio File</label>
+          <div id="beats-audio-drop" class="audio-drop-zone">
+            <img src="assets/icons/music.svg" style="width:24px;height:24px;opacity:0.5;" alt="">
+            <span id="beats-audio-drop-label">Drag a Discord audio link here</span>
+          </div>
+          <input type="hidden" id="beats-audio-url">
+          <div id="beats-audio-preview" style="display:none; margin-top:var(--space-xs);">
+            <audio id="beats-audio-player" controls style="width:100%; border-radius:var(--radius-md);"></audio>
+            <button type="button" id="beats-audio-clear" class="btn btn-danger btn-small" style="margin-top:4px; width:100%;">Remove Audio</button>
+          </div>
+        </div>
+
+        <!-- MediaHub: Film Movies fields -->
+        <div class="control-section" id="mediahub-movies-fields" style="display:none;">
+          <div class="control-section-title">
+            <img src="assets/icons/movie.svg" class="nav-icon" alt=""> Movie Details
+          </div>
+          <label class="field-label">Genre</label>
+          <input type="text" id="movies-genre" class="field-input" placeholder="e.g. Drama, Sci-Fi...">
+          <label class="field-label">Poster URL</label>
+          <input type="text" id="movies-image-url" class="field-input" placeholder="https://...">
+          <label class="field-label">Synopsis</label>
+          <textarea id="movies-description" class="field-input" rows="3" style="resize:vertical;" placeholder="Movie synopsis..."></textarea>
+          <label class="field-label">Director</label>
+          <input type="text" id="movies-creator" class="field-input" placeholder="Director name...">
+          <label class="field-label">Stars</label>
+          <input type="text" id="movies-stars" class="field-input" placeholder="Cast, comma-separated...">
+          <label class="field-label">Movie Info Link</label>
+          <input type="url" id="movies-info-link" class="field-input" placeholder="https://imdb.com/title/...">
+          <p style="font-size:var(--text-xs);color:var(--text-secondary);margin:0 0 var(--space-xs) 0;">Movie title will link here on the public page.</p>
+          <label class="field-label">Trailer Embed URL</label>
+          <input type="url" id="movies-video-url" class="field-input" placeholder="https://www.youtube.com/embed/...">
+        </div>
+
+        <!-- MediaHub: TV Shows fields -->
+        <div class="control-section" id="mediahub-tvshows-fields" style="display:none;">
+          <div class="control-section-title">
+            <img src="assets/icons/tv.svg" class="nav-icon" alt=""> Show Details
+          </div>
+          <label class="field-label">Genre</label>
+          <input type="text" id="tvshows-genre" class="field-input" placeholder="e.g. Drama, Comedy...">
+          <label class="field-label">Poster URL</label>
+          <input type="text" id="tvshows-image-url" class="field-input" placeholder="https://...">
+          <label class="field-label">Synopsis</label>
+          <textarea id="tvshows-description" class="field-input" rows="3" style="resize:vertical;" placeholder="Show synopsis..."></textarea>
+          <label class="field-label">Director / Creator</label>
+          <input type="text" id="tvshows-creator" class="field-input" placeholder="Creator or director...">
+          <label class="field-label">Stars</label>
+          <input type="text" id="tvshows-stars" class="field-input" placeholder="Cast, comma-separated...">
+          <label class="field-label">Show Info Link</label>
+          <input type="url" id="tvshows-info-link" class="field-input" placeholder="https://imdb.com/title/...">
+          <p style="font-size:var(--text-xs);color:var(--text-secondary);margin:0 0 var(--space-xs) 0;">Show title will link here on the public page.</p>
+          <label class="field-label">Clip Embed URL</label>
+          <input type="url" id="tvshows-video-url" class="field-input" placeholder="https://www.youtube.com/embed/...">
+        </div>
+
+        <!-- Add Sections -->
+        <div class="control-section">
+          <div class="control-section-title">Add Sections</div>
+          <div class="section-buttons">
+            <button id="btn-add-title" class="section-btn">
+              <span class="section-btn-icon"><img src="assets/icons/edit.svg" style="width:18px;height:18px;" alt=""></span>
+              <span class="section-btn-text">Title Block</span>
+            </button>
+            <button id="btn-add-text" class="section-btn">
+              <span class="section-btn-icon"><img src="assets/icons/blog.svg" style="width:18px;height:18px;" alt=""></span>
+              <span class="section-btn-text">Text Block</span>
+            </button>
+            <button id="btn-add-paragraph" class="section-btn">
+              <span class="section-btn-icon">¶</span>
+              <span class="section-btn-text">Paragraph</span>
+            </button>
+            <button id="btn-add-quote" class="section-btn">
+              <span class="section-btn-icon" style="font-size:1.3em;">"</span>
+              <span class="section-btn-text">Quote Block</span>
+            </button>
+            <button id="btn-add-divider" class="section-btn">
+              <span class="section-btn-icon">—</span>
+              <span class="section-btn-text">Divider</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Image Upload -->
+        <div class="control-section">
+          <div class="control-section-title">Image</div>
+          <div class="image-upload-area" id="btn-upload-image">
+            <div class="upload-icon">
+              <img src="assets/icons/add.svg" style="width:32px;height:32px;" alt="">
+            </div>
+            <div class="upload-text">Click to upload an image<br><small>Stored in Firebase Storage</small></div>
+          </div>
+          <input type="file" id="image-upload-input" accept="image/*" style="display:none">
+        </div>
+
+        <!-- Tips -->
+        <div class="control-section">
+          <div class="control-section-title">Tips</div>
+          <p style="font-size:var(--text-sm); color:var(--text-secondary); line-height:1.7; margin:0;">
+            • Click any section to edit text inline.<br>
+            • Hover a section to reveal drag handle &amp; delete.<br>
+            • Drag the ⠿ handle to reorder sections.<br>
+            • Changes autosave every 5 seconds.<br>
+            • Use the toolbar to format selected text.
+          </p>
+        </div>
+
+        <!-- Navigate -->
+        <div class="control-section">
+          <div class="control-section-title">Navigate</div>
+          <div style="display:flex; flex-direction:column; gap:var(--space-xs);">
+            <a href="blog.html" style="font-size:var(--text-sm); color:var(--forest-green); font-weight:var(--font-semibold); display:flex; align-items:center; gap:5px;">
+              <img src="assets/icons/blog.svg" class="nav-icon" alt=""> View Blog
+            </a>
+            <a href="poems.html" style="font-size:var(--text-sm); color:var(--forest-green); font-weight:var(--font-semibold); display:flex; align-items:center; gap:5px;">
+              <img src="assets/icons/poem.svg" class="nav-icon" alt=""> View Poems
+            </a>
+            <a href="stories.html" style="font-size:var(--text-sm); color:var(--forest-green); font-weight:var(--font-semibold); display:flex; align-items:center; gap:5px;">
+              <img src="assets/icons/story.svg" class="nav-icon" alt=""> View Stories
+            </a>
+            <a href="mediahub.html" style="font-size:var(--text-sm); color:var(--forest-green); font-weight:var(--font-semibold); display:flex; align-items:center; gap:5px;">
+              <img src="assets/icons/media.svg" class="nav-icon" alt=""> View MediaHub
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </aside>
+  </div>
+
+  <!-- Mobile Bottom Toolbar -->
+  <div class="mobile-toolbar" id="mobile-toolbar">
+    <button class="mobile-toolbar-btn" onclick="document.getElementById('editor-sidebar').classList.toggle('open')">
+      <img src="assets/icons/work.svg" style="width:20px;height:20px;" alt=""> Posts
+    </button>
+    <button class="mobile-toolbar-btn" onclick="document.getElementById('editor-controls').classList.toggle('open')">
+      <img src="assets/icons/menu.svg" style="width:20px;height:20px;" alt=""> Settings
+    </button>
+    <button class="mobile-toolbar-btn" id="btn-save-mobile">
+      <img src="assets/icons/save.svg" style="width:20px;height:20px;" alt=""> Save
+    </button>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+  <script src="js/firebase.js"></script>
+  <script src="js/builder.js"></script>
+  <script src="js/editor.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/firebase-gallery.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('btn-save-mobile')?.addEventListener('click', saveCurrentPost);
+      document.getElementById('btn-delete-post-side')?.addEventListener('click', deleteCurrentPost);
+      document.getElementById('btn-insert-link')?.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        const url = prompt('Enter URL:');
+        if (url) document.execCommand('createLink', false, url);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beats</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/beats.css">
+</head>
+<body data-mediahub="beats">
+
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/icons/logo.svg" class="nav-icon" alt="" style="width: 50px; height: 50px;"> LINESBYLIN
+      </a>
+      <ul class="nav-menu" id="nav-menu">
+        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="index.html#about" class="nav-link">About</a></li>
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle">
+            <img src="assets/icons/work.svg" class="nav-icon" alt=""> Work
+          </a>
+          <div class="dropdown-menu">
+            <a href="blog.html" class="dropdown-item"><img src="assets/icons/blog.svg" class="nav-icon" alt=""> Blog</a>
+            <a href="poems.html" class="dropdown-item"><img src="assets/icons/poem.svg" class="nav-icon" alt=""> Poems</a>
+            <a href="stories.html" class="dropdown-item"><img src="assets/icons/story.svg" class="nav-icon" alt=""> Stories</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle">
+            <img src="assets/icons/media.svg" class="nav-icon" alt=""> MediaHub
+          </a>
+          <div class="dropdown-menu">
+            <a href="beats.html" class="dropdown-item"><img src="assets/icons/music.svg" class="nav-icon" alt=""> Beats</a>
+            <a href="movies.html" class="dropdown-item"><img src="assets/icons/movie.svg" class="nav-icon" alt=""> Movies</a>
+            <a href="tvshows.html" class="dropdown-item"><img src="assets/icons/tv.svg" class="nav-icon" alt=""> Shows</a>
+          </div>
+        </li>
+        <li class="nav-item"><a href="dream-map.html" class="nav-link">Dreams</a></li>
+        <li class="nav-item"><a href="index.html#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-content">
+      <h1>Beats</h1>
+      <p>A Collection of songs that I like to listen.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="search-wrap">
+        <input type="text" id="search-input" class="search-input" placeholder="Search beats, artists, genres...">
+      </div>
+      <div id="mediahub-grid">
+        <div class="beats-loading">
+          <div class="beats-loading-spinner"></div>
+          <p>Loading beats...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <span class="footer-logo">LINESBYLIN</span>
+      <div class="footer-links">
+        <a href="mediahub.html">MediaHub</a>
+        <a href="movies.html">Movies</a>
+        <a href="tvshows.html">TV Shows</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="progress-wrap" id="progressWrap">
+    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+      <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+    </svg>
+    <span class="progress-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="19" x2="12" y2="5"></line>
+        <polyline points="5 12 12 5 19 12"></polyline>
+      </svg>
+    </span>
+  </div>
+  
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+  <script src="js/firebase.js"></script>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const { useState, useRef, useEffect } = React;
+
+    // ── Format seconds ──────────────────────────────────────────────
+    function fmtTime(s) {
+      if (!s || isNaN(s)) return '0:00';
+      const m   = Math.floor(s / 60);
+      const sec = Math.floor(s % 60).toString().padStart(2, '0');
+      return `${m}:${sec}`;
+    }
+
+    // ── Play/Pause Button ───────────────────────────────────────
+    function PlayPauseBtn({ isPlaying, onClick }) {
+      return (
+        <button
+          className="play-pause-btn"
+          type="button"
+          aria-label={isPlaying ? 'Pause' : 'Play'}
+          data-playing={isPlaying}
+          onClick={onClick}
+        >
+          <svg viewBox="0 0 100 100" width="54" height="54" aria-hidden="true"
+               fill="none" stroke="currentColor" strokeLinecap="round"
+               strokeLinejoin="round" strokeWidth="7">
+            <circle cx="50" cy="50" r="46" opacity="0.15" />
+            <line className="pp-line1" x1="42" y1="30" x2="42" y2="70" />
+            <line className="pp-line2" x1="42" y1="70" x2="70" y2="50" />
+            <line className="pp-line3" x1="70" y1="50" x2="42" y2="30" />
+            <circle className="pp-ring1" cx="50" cy="50" r="46" />
+            <path
+              className="pp-ring2"
+              strokeDasharray="55 365"
+              strokeDashoffset="55"
+              d="M 41.996 4.631 C 41.996 4.631 47.464 3.48 52.3 7.107 C 58.062 11.43 58 18 58 18 L 58 70"
+            />
+            <path
+              className="pp-ring3"
+              strokeDasharray="40 365"
+              strokeDashoffset="40"
+              d="M 41.996 4.631 C 41.996 4.631 47.464 3.48 52.3 7.107 C 58.062 11.43 58 18 58 18 L 58 76"
+              transform="scale(1, -1)"
+            />
+          </svg>
+        </button>
+      );
+    }
+
+    // ── Progress Bar ─────────────────────────────────────────────────────────
+    function ProgressBar({ progress, duration, currentTime, onSeek }) {
+      const trackRef = useRef(null);
+
+      function handleClick(e) {
+        if (!trackRef.current || !duration) return;
+        const rect = trackRef.current.getBoundingClientRect();
+        const pct  = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        onSeek(pct * duration);
+      }
+
+      const pct = (progress * 100).toFixed(2) + '%';
+
+      return (
+        <div className="beat-progress-area">
+          <span className="beat-time">{fmtTime(currentTime)}</span>
+          <div className="beat-progress-track" ref={trackRef} onClick={handleClick}>
+            <div className="beat-progress-fill" style={{ width: pct }} />
+            <div className="beat-progress-thumb" style={{ left: pct }} />
+          </div>
+          <span className="beat-time">{fmtTime(duration)}</span>
+        </div>
+      );
+    }
+
+    // ── Beat Card ────────────────────────────────────────────────────────────
+    function BeatCard({ item, activeId, onActivate }) {
+      const [isPlaying,   setIsPlaying]   = useState(false);
+      const [progress,    setProgress]    = useState(0);
+      const [currentTime, setCurrentTime] = useState(0);
+      const [duration,    setDuration]    = useState(0);
+      const [volume,      setVolume]      = useState(0.85);
+      const audioRef = useRef(null);
+
+      useEffect(() => {
+        if (activeId !== item.id && isPlaying) {
+          audioRef.current?.pause();
+          setIsPlaying(false);
+        }
+      }, [activeId]);
+
+      useEffect(() => {
+        const audio = audioRef.current;
+        if (!audio) return;
+        const onTime  = () => {
+          setCurrentTime(audio.currentTime);
+          setProgress(audio.duration ? audio.currentTime / audio.duration : 0);
+        };
+        const onLoad  = () => setDuration(audio.duration);
+        const onEnded = () => { setIsPlaying(false); setProgress(0); setCurrentTime(0); };
+        audio.addEventListener('timeupdate',     onTime);
+        audio.addEventListener('loadedmetadata', onLoad);
+        audio.addEventListener('ended',          onEnded);
+        return () => {
+          audio.removeEventListener('timeupdate',     onTime);
+          audio.removeEventListener('loadedmetadata', onLoad);
+          audio.removeEventListener('ended',          onEnded);
+        };
+      }, []);
+
+      function togglePlay() {
+        const audio = audioRef.current;
+        if (!audio) return;
+        if (isPlaying) {
+          audio.pause();
+          setIsPlaying(false);
+        } else {
+          onActivate(item.id);
+          audio.play().catch(() => {});
+          setIsPlaying(true);
+        }
+      }
+
+      const waveBars = Array.from({ length: 26 }, (_, i) => (
+        <span key={i} className="wave-bar" style={{
+          animationDelay: `${(i * 0.065).toFixed(3)}s`,
+          height: `${22 + Math.sin(i * 0.85) * 14 + Math.cos(i * 0.5) * 8}%`,
+        }} />
+      ));
+
+      const title       = item.title       || 'Untitled';
+      const artist      = item.creator     || '';
+      const genre       = item.genre       || 'Beat';
+      const description = item.description || '';
+      const coverURL    = item.imageURL    || '';
+      const audioSrc    = item.audioURL    || '';
+
+      return (
+        <article className={`beat-card${isPlaying ? ' is-playing' : ''}`}>
+          {audioSrc && <audio ref={audioRef} src={audioSrc} preload="metadata" />}
+          <div className="beat-waveform" aria-hidden="true">{waveBars}</div>
+          <div className="beat-inner">
+            <div className="beat-cover-wrap">
+              {coverURL
+                ? <img className="beat-cover" src={coverURL} alt={title} />
+                : <div className="beat-cover-fallback">🎵</div>
+              }
+              <div className="beat-cover-glow" />
+            </div>
+            <div className="beat-body">
+              <span className="beat-genre">{genre}</span>
+              <div className="beat-title-row">
+                <h3 className="beat-title">{title}</h3>
+                {artist && <span className="beat-artist">{artist}</span>}
+              </div>
+              {description && <p className="beat-desc">{description}</p>}
+              <div className="beat-controls">
+                <PlayPauseBtn isPlaying={isPlaying} onClick={togglePlay} />
+                <div className="beat-right-controls">
+                  <ProgressBar
+                    progress={progress}
+                    duration={duration}
+                    currentTime={currentTime}
+                    onSeek={(t) => { if (audioRef.current) audioRef.current.currentTime = t; }}
+                  />
+                  <div className="beat-volume-row">
+                    <span className="beat-vol-icon">♪</span>
+                    <input type="range" className="beat-volume-slider"
+                      min="0" max="1" step="0.02" value={volume}
+                      onChange={(e) => {
+                        const v = parseFloat(e.target.value);
+                        setVolume(v);
+                        if (audioRef.current) audioRef.current.volume = v;
+                      }}
+                      aria-label="Volume"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      );
+    }
+
+    // ── Beats App ────────────────────────────────────────────────────────────
+    const BEATS_PER_PAGE = 5;
+
+    function BeatsApp() {
+      const [items,    setItems]    = useState([]);
+      const [filtered, setFiltered] = useState([]);
+      const [loading,  setLoading]  = useState(true);
+      const [activeId, setActiveId] = useState(null);
+      const [page,     setPage]     = useState(1);
+
+      useEffect(() => {
+        getMediaHubByCategory('beats')
+          .then(beats => {
+            setItems(beats);
+            setFiltered(beats);
+            setLoading(false);
+          })
+          .catch(err => {
+            console.error('Beats load error:', err);
+            setLoading(false);
+          });
+      }, []);
+
+      useEffect(() => {
+        const input = document.getElementById('search-input');
+        if (!input) return;
+        const handler = () => {
+          const q = input.value.toLowerCase().trim();
+          setFiltered(q
+            ? items.filter(i =>
+                (i.title   || '').toLowerCase().includes(q) ||
+                (i.creator || '').toLowerCase().includes(q) ||
+                (i.genre   || '').toLowerCase().includes(q)
+              )
+            : items
+          );
+          setPage(1);
+        };
+        input.addEventListener('input', handler);
+        return () => input.removeEventListener('input', handler);
+      }, [items]);
+
+      if (loading) return (
+        <div className="beats-loading">
+          <div className="beats-loading-spinner" />
+          <p>Loading beats...</p>
+        </div>
+      );
+
+      if (!filtered.length) return (
+        <div className="beats-empty">
+          <p style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>🎵</p>
+          <p>{items.length ? 'No beats match your search.' : 'No beats added yet.'}</p>
+        </div>
+      );
+
+      const totalPages = Math.ceil(filtered.length / BEATS_PER_PAGE);
+      const start      = (page - 1) * BEATS_PER_PAGE;
+      const pageBeats  = filtered.slice(start, start + BEATS_PER_PAGE);
+
+      function scrollTop() {
+        document.getElementById('mediahub-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      function goTo(p) { setPage(p); scrollTop(); }
+
+      return (
+        <div>
+          <div className="beats-list-wrap">
+            {pageBeats.map(item => (
+              <BeatCard key={item.id} item={item} activeId={activeId} onActivate={setActiveId} />
+            ))}
+          </div>
+
+          {totalPages > 1 && (
+            <div className="pagination" style={{ marginTop: '2rem' }}>
+              <button
+                className={'pagination-btn' + (page === 1 ? ' disabled' : '')}
+                disabled={page === 1}
+                onClick={() => goTo(page - 1)}
+              >← Prev</button>
+
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(n => (
+                <button
+                  key={n}
+                  className={'pagination-btn pagination-num' + (n === page ? ' active' : '')}
+                  onClick={() => goTo(n)}
+                >{n}</button>
+              ))}
+
+              <button
+                className={'pagination-btn' + (page === totalPages ? ' disabled' : '')}
+                disabled={page === totalPages}
+                onClick={() => goTo(page + 1)}
+              >Next →</button>
+
+              <span className="pagination-info">Page {page} of {totalPages}</span>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    // ── Mount ─────────────────────────────────────────────────────────────────
+    const container = document.getElementById('mediahub-grid');
+    if (container) {
+      container.innerHTML = '';
+      ReactDOM.createRoot(container).render(<BeatsApp />);
+    }
+  </script>
+
+  <!-- main.js last: nav toggle, back-to-top, AIM shortcut -->
+  <script src="js/main.js"></script>
+</body>
+</html>
