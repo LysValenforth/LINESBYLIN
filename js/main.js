@@ -38,15 +38,31 @@ function initNav() {
     });
   }
 
-  document.querySelectorAll('.dropdown').forEach(dd => {
+  const allDropdowns = document.querySelectorAll('.dropdown');
+
+  allDropdowns.forEach(dd => {
     const link = dd.querySelector('.dropdown-toggle');
     if (link) {
       link.addEventListener('click', (e) => {
         if (window.innerWidth <= 768) {
           e.preventDefault();
-          dd.classList.toggle('open');
+          const isOpen = dd.classList.contains('open');
+          // Close all first (accordion)
+          allDropdowns.forEach(d => d.classList.remove('open'));
+          // Then open this one if it was closed
+          if (!isOpen) dd.classList.add('open');
         }
       });
+    }
+  });
+
+  // Close menu + dropdowns when tapping outside
+  document.addEventListener('click', (e) => {
+    if (window.innerWidth > 768) return;
+    const nav = document.querySelector('.nav');
+    if (nav && !nav.contains(e.target)) {
+      document.getElementById('nav-menu')?.classList.remove('open');
+      allDropdowns.forEach(d => d.classList.remove('open'));
     }
   });
 }

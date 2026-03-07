@@ -772,44 +772,115 @@ a:hover { color: var(--dark-moss); }
 }
 
 @media (max-width: 768px) {
+
+  /* ── Logo ── */
+  .nav-logo { font-size: var(--text-lg); gap: 4px; }
+  .nav-logo img { width: 34px !important; height: 34px !important; }
+
+  /* ── Hamburger ── */
+  .nav-toggle { display: flex; }
+
+  /* ── Mobile menu panel ── */
   .nav-menu {
     position: fixed;
     top: var(--nav-height);
-    left: 0; right: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
     background: var(--bg-primary);
     flex-direction: column;
-    padding: var(--space-md);
+    align-items: stretch;
+    gap: 0;
+    padding: var(--space-sm) 0;
     border-bottom: var(--border-width) solid var(--warm-beige);
-    transform: translateY(-100%);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    /* slide up when closed */
+    transform: translateY(-110%);
     opacity: 0;
     visibility: hidden;
-    transition: all var(--transition-normal);
+    transition: transform 0.28s ease, opacity 0.28s ease, visibility 0.28s;
     z-index: 999;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: calc(100vh - var(--nav-height));
   }
-  .nav-menu.open { transform: translateY(0); opacity: 1; visibility: visible; }
-  .nav-toggle { display: flex; }
-
-  .dropdown-menu {
-    position: static;
-    box-shadow: none;
-    border: none;
-    padding-left: var(--space-md);
+  .nav-menu.open {
+    transform: translateY(0);
     opacity: 1;
     visibility: visible;
-    transform: none;
+  }
+
+  /* ── Nav items full-width ── */
+  .nav-item {
+    width: 100%;
+    position: static;
+  }
+  .nav-link {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px var(--space-md);
+    border-radius: 0;
+    justify-content: flex-start;
+    font-size: var(--text-base);
+    border-bottom: var(--border-width) solid var(--warm-beige);
+  }
+  .nav-link:last-child { border-bottom: none; }
+  .nav-link:hover { border-radius: 0; }
+
+  /* ── Dropdown toggle arrow ── */
+  .dropdown-toggle::after {
+    margin-left: auto;   /* push arrow to right edge */
+    flex-shrink: 0;
+  }
+  .dropdown.open .dropdown-toggle::after {
+    transform: rotate(225deg) translateY(2px);
+  }
+
+  /* ── Dropdown menu: inline accordion, not absolute ── */
+  .dropdown-menu {
+    position: static !important;
+    display: block;
+    width: 100%;
+    background: var(--warm-beige);
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: var(--space-xs) 0;
+    opacity: 1;
+    visibility: visible;
+    transform: none !important;
+    /* collapsed by default */
     max-height: 0;
     overflow: hidden;
-    transition: max-height var(--transition-normal);
+    transition: max-height 0.28s ease, padding 0.28s ease;
   }
-  .dropdown.open .dropdown-menu { max-height: 200px; }
+  .dropdown.open .dropdown-menu {
+    /* enough for up to 6 items at ~52px each */
+    max-height: 360px;
+    padding: var(--space-xs) 0;
+  }
 
+  /* ── Dropdown items ── */
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: 12px var(--space-lg);
+    border-radius: 0;
+    font-size: var(--text-base);
+    color: var(--text-primary);
+    border-bottom: var(--border-width) solid rgba(0,0,0,0.05);
+  }
+  .dropdown-item:last-child { border-bottom: none; }
+  .dropdown-item:hover { background: rgba(0,0,0,0.05); }
+
+  /* ── Other responsive ── */
   .grid-2, .grid-3 { grid-template-columns: 1fr; }
   .hero { text-align: center; }
   .hero-content { max-width: 100%; }
   .hero-actions { justify-content: center; }
-  .hero-bg { width: 100%; opacity: 0.1; border-radius: 0; }
+  .hero-bg { display: none; }
   .footer-content { flex-direction: column; text-align: center; }
-  .about-art { font-size: 4rem; }
 }
 
 @media (max-width: 480px) {
@@ -1441,35 +1512,7 @@ img {
 }
 
 /* ── Nav: overflow & logo clamping ───────────── */
-@media (max-width: 768px) {
-  .nav-logo {
-    font-size: var(--text-lg);
-    gap: 4px;
-  }
-  .nav-logo img {
-    width: 34px !important;
-    height: 34px !important;
-  }
-  /* Mobile nav full-screen scroll */
-  .nav-menu {
-    overflow-y: auto;
-    max-height: calc(100vh - var(--nav-height));
-  }
-  .nav-item {
-    width: 100%;
-  }
-  .nav-link {
-    width: 100%;
-    justify-content: flex-start;
-  }
-  .dropdown-menu {
-    width: 100%;
-    background: transparent;
-  }
-  .dropdown-item {
-    padding-left: var(--space-lg);
-  }
-}
+/* nav mobile — consolidated above */
 
 /* ── Hero ─────────────────────────────────────── */
 @media (max-width: 768px) {
