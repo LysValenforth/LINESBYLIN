@@ -199,10 +199,6 @@ function buildMovieCard(item, category) {
     ? `<img class="media-card-poster" src="${item.imageURL}" alt="${item.title}" loading="lazy">`
     : `<div class="media-card-poster-placeholder"><img src="assets/icons/movie.svg" style="width:48px;height:48px;opacity:0.3;" alt=""></div>`;
 
-  const trailerBtn = item.videoURL
-    ? `<button class="media-trailer-btn" aria-label="Watch trailer"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg> Trailer</button>`
-    : '';
-
   const titleHTML = item.infoLink
     ? `<a href="${item.infoLink}" target="_blank" rel="noopener noreferrer" class="media-card-title media-card-title-link">${item.title}</a>`
     : `<h3 class="media-card-title">${item.title}</h3>`;
@@ -214,10 +210,8 @@ function buildMovieCard(item, category) {
   card.innerHTML = `
     <div class="media-card-poster-wrap">
       ${posterHTML}
-      <div class="media-card-poster-badges">
-        ${statusBadge}
-        ${trailerBtn ? `<div class="media-card-poster-overlay">${trailerBtn}</div>` : ''}
-      </div>
+      ${statusBadge}
+      ${item.videoURL ? `<button class="media-trailer-btn" aria-label="Watch trailer"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg> Watch</button>` : ''}
     </div>
     <div class="media-trailer-embed hidden"></div>
     <div class="media-card-body">
