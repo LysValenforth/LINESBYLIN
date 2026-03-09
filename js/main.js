@@ -315,17 +315,12 @@ function stripHTML(html) {
   return d.textContent || d.innerText || '';
 }
 
-// ─── AIM Shortcut (Editor Access) ─────────────────────────────────────────────
+// ─── Editor Access ─────────────────────────────────────────────────────────────
+// Editor is at editor.html — protected by Firebase Authentication.
 
 (function() {
   let aimBuffer = '';
   let aimTimer  = null;
-
-  function checkAccess(input) {
-    try {
-      return btoa(unescape(encodeURIComponent(input))) === 'QWJpZ2FpbDI1KzIw';
-    } catch(e) { return false; }
-  }
 
   document.addEventListener('keydown', function(e) {
     const el  = document.activeElement;
@@ -347,12 +342,7 @@ function stripHTML(html) {
       aimBuffer = '';
       clearTimeout(aimTimer);
       if (window.location.pathname.endsWith('editor.html')) return;
-      const pwd = prompt('Enter access code:');
-      if (checkAccess(pwd)) {
-        window.location.href = 'editor.html';
-      } else if (pwd !== null) {
-        alert('Access Denied');
-      }
+      window.location.href = 'editor.html';
     }
   });
 }());

@@ -4,10 +4,82 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Editor</title>
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/editor.css">
 </head>
 <body>
+
+  <!-- ── LOGIN OVERLAY ──────────────────────────────────────────────────── -->
+  <div id="login-overlay" style="
+    position:fixed;inset:0;z-index:9999;
+    background:#1E3D36;
+    display:flex;align-items:center;justify-content:center;
+  ">
+    <div style="
+      width:100%;max-width:380px;padding:2.5rem 2rem;
+      background:#F6F1E7;
+      border:2px solid #1E3D36;
+      border-radius:18px;
+      box-shadow:6px 6px 0px #1E3D36;
+      text-align:center;
+      margin:1rem;
+    ">
+      <p style="font-family:'Patrick Hand',cursive;font-size:2rem;color:#1E3D36;margin:0 0 .2rem;">linesbylin</p>
+      <p style="font-family:'Nunito',sans-serif;font-size:.85rem;color:#6b7a6e;margin:0 0 2rem;letter-spacing:.04em;">editor access</p>
+
+      <div id="login-error" style="
+        display:none;
+        background:#fff0f0;color:#D66B6B;
+        border:2px solid #D66B6B;border-radius:10px;
+        padding:.6rem 1rem;
+        font-family:'Nunito',sans-serif;font-size:.85rem;
+        margin-bottom:1rem;text-align:left;
+      "></div>
+
+      <input id="login-email" type="email" placeholder="email"
+        autocomplete="email" style="
+          width:100%;box-sizing:border-box;
+          padding:.65rem 1rem;
+          border:2px solid #E8DCC8;
+          border-radius:10px;
+          font-family:'Nunito',sans-serif;font-size:.95rem;
+          color:#1E3D36;background:#FDFAF4;
+          margin-bottom:.75rem;outline:none;
+          transition:border-color .15s ease;
+        "
+        onfocus="this.style.borderColor='#2F5D50'"
+        onblur="this.style.borderColor='#E8DCC8'">
+
+      <input id="login-password" type="password" placeholder="password"
+        autocomplete="current-password" style="
+          width:100%;box-sizing:border-box;
+          padding:.65rem 1rem;
+          border:2px solid #E8DCC8;
+          border-radius:10px;
+          font-family:'Nunito',sans-serif;font-size:.95rem;
+          color:#1E3D36;background:#FDFAF4;
+          margin-bottom:1.5rem;outline:none;
+          transition:border-color .15s ease;
+        "
+        onfocus="this.style.borderColor='#2F5D50'"
+        onblur="this.style.borderColor='#E8DCC8'">
+
+      <button id="login-btn" style="
+        width:100%;padding:.7rem 1rem;
+        background:#2F5D50;color:#F6F1E7;
+        border:2px solid #1E3D36;
+        border-radius:18px;
+        font-family:'Nunito',sans-serif;font-size:1rem;font-weight:700;
+        cursor:pointer;
+        box-shadow:4px 4px 0px #1E3D36;
+        transition:transform .15s ease,box-shadow .15s ease;
+      "
+        onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='6px 6px 0px #1E3D36'"
+        onmouseout="this.style.transform='';this.style.boxShadow='4px 4px 0px #1E3D36'"
+      >Sign in</button>
+    </div>
+  </div>
 
   <!-- TOP NAV -->
   <nav class="nav editor-nav">
@@ -30,6 +102,7 @@
           <img src="assets/icons/delete.svg" class="icon-btn-dark" style="filter:none;opacity:.8;" alt=""> Delete
         </button>
         <a href="index.html" class="btn btn-secondary btn-small">Site</a>
+        <button id="btn-sign-out" class="btn btn-secondary btn-small" title="Sign out">Sign Out</button>
         <!-- Mobile panel toggles (hidden on desktop) -->
         <button class="mobile-toolbar-btn" id="btn-toggle-sidebar" style="display:none;"><img src="assets/icons/menu.svg" style="width:18px;height:18px;" alt="menu"></button>
       </div>
@@ -293,25 +366,6 @@
           <p style="font-size:var(--text-xs);color:var(--text-secondary);margin:0 0 var(--space-xs) 0;">Movie title will link here on the public page.</p>
           <label class="field-label">Trailer Embed URL</label>
           <input type="url" id="movies-video-url" class="field-input" placeholder="https://www.youtube.com/embed/...">
-
-          <label class="field-label" style="margin-top:var(--space-sm);">Watch Status</label>
-          <select id="movies-status" class="field-select">
-            <option value="">— Not set —</option>
-            <option value="watched">✓ Watched</option>
-            <option value="watching">▶ Watching</option>
-            <option value="want">♡ Want to Watch</option>
-          </select>
-
-          <label class="field-label" style="margin-top:var(--space-sm);">My Rating</label>
-          <div class="rating-input-row" id="movies-rating-row">
-            <button type="button" class="rating-star-btn" data-val="1">♥</button>
-            <button type="button" class="rating-star-btn" data-val="2">♥</button>
-            <button type="button" class="rating-star-btn" data-val="3">♥</button>
-            <button type="button" class="rating-star-btn" data-val="4">♥</button>
-            <button type="button" class="rating-star-btn" data-val="5">♥</button>
-            <button type="button" class="rating-clear-btn" id="movies-rating-clear">✕</button>
-          </div>
-          <input type="hidden" id="movies-rating" value="">
         </div>
 
         <!-- MediaHub: TV Shows fields -->
@@ -334,25 +388,6 @@
           <p style="font-size:var(--text-xs);color:var(--text-secondary);margin:0 0 var(--space-xs) 0;">Show title will link here on the public page.</p>
           <label class="field-label">Clip Embed URL</label>
           <input type="url" id="tvshows-video-url" class="field-input" placeholder="https://www.youtube.com/embed/...">
-
-          <label class="field-label" style="margin-top:var(--space-sm);">Watch Status</label>
-          <select id="tvshows-status" class="field-select">
-            <option value="">— Not set —</option>
-            <option value="watched">✓ Watched</option>
-            <option value="watching">▶ Watching</option>
-            <option value="want">♡ Want to Watch</option>
-          </select>
-
-          <label class="field-label" style="margin-top:var(--space-sm);">My Rating</label>
-          <div class="rating-input-row" id="tvshows-rating-row">
-            <button type="button" class="rating-star-btn" data-val="1">♥</button>
-            <button type="button" class="rating-star-btn" data-val="2">♥</button>
-            <button type="button" class="rating-star-btn" data-val="3">♥</button>
-            <button type="button" class="rating-star-btn" data-val="4">♥</button>
-            <button type="button" class="rating-star-btn" data-val="5">♥</button>
-            <button type="button" class="rating-clear-btn" id="tvshows-rating-clear">✕</button>
-          </div>
-          <input type="hidden" id="tvshows-rating" value="">
         </div>
 
 
@@ -497,6 +532,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="js/firebase.js"></script>
   <script src="js/builder.js"></script>
   <script src="js/editor.js"></script>

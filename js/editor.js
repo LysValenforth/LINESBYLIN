@@ -1,3 +1,66 @@
+// ── Auth Guard ────────────────────────────────────────────────────────────────
+(function() {
+  const auth     = firebase.auth();
+  const overlay  = document.getElementById('login-overlay');
+  const loginBtn = document.getElementById('login-btn');
+  const emailEl  = document.getElementById('login-email');
+  const passEl   = document.getElementById('login-password');
+  const errorEl  = document.getElementById('login-error');
+  const signOutBtn = document.getElementById('btn-sign-out');
+
+  function showError(msg) {
+    errorEl.textContent = msg;
+    errorEl.style.display = 'block';
+  }
+
+  // Watch auth state — hide overlay when signed in, show when signed out
+  auth.onAuthStateChanged(function(user) {
+    if (user) {
+      overlay.style.display = 'none';
+    } else {
+      overlay.style.display = 'flex';
+      setTimeout(() => emailEl && emailEl.focus(), 100);
+    }
+  });
+
+  // Login button
+  loginBtn && loginBtn.addEventListener('click', async function() {
+    const email    = emailEl.value.trim();
+    const password = passEl.value;
+    errorEl.style.display = 'none';
+
+    if (!email || !password) { showError('Please enter your email and password.'); return; }
+
+    loginBtn.disabled    = true;
+    loginBtn.textContent = 'Signing in…';
+
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+      passEl.value = '';
+    } catch (err) {
+      loginBtn.disabled    = false;
+      loginBtn.textContent = 'Sign in';
+      const msgs = {
+        'auth/user-not-found':   'No account found with that email.',
+        'auth/wrong-password':   'Incorrect password.',
+        'auth/invalid-email':    'Invalid email address.',
+        'auth/too-many-requests':'Too many attempts. Try again later.',
+      };
+      showError(msgs[err.code] || 'Sign in failed. Please try again.');
+    }
+  });
+
+  // Allow Enter key to submit
+  [emailEl, passEl].forEach(el => el && el.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') loginBtn.click();
+  }));
+
+  // Sign out button
+  signOutBtn && signOutBtn.addEventListener('click', function() {
+    auth.signOut();
+  });
+}());
+
 let currentPostId     = null;
 let currentCollection = 'posts';
 let isSaving          = false;
@@ -124,39 +187,6 @@ document.addEventListener('DOMContentLoaded', () => {
   bindCategoryChange();
   bindSlugAutoFill();
   bindTipsCollapse();
-
-  // ── Rating heart buttons ────────────────────────────────────────────────────
-  ['movies', 'tvshows'].forEach(cat => {
-    const row      = document.getElementById(`${cat}-rating-row`);
-    const hidden   = document.getElementById(`${cat}-rating`);
-    const clearBtn = document.getElementById(`${cat}-rating-clear`);
-    if (!row || !hidden) return;
-
-    function setRating(val) {
-      hidden.value = val;
-      row.querySelectorAll('.rating-star-btn').forEach(btn => {
-        btn.classList.toggle('active', parseInt(btn.dataset.val) <= parseInt(val));
-      });
-      markDirty();
-    }
-
-    row.querySelectorAll('.rating-star-btn').forEach(btn => {
-      btn.addEventListener('click', () => setRating(btn.dataset.val));
-      btn.addEventListener('mouseenter', () => {
-        row.querySelectorAll('.rating-star-btn').forEach(b => {
-          b.classList.toggle('hover', parseInt(b.dataset.val) <= parseInt(btn.dataset.val));
-        });
-      });
-      btn.addEventListener('mouseleave', () => {
-        row.querySelectorAll('.rating-star-btn').forEach(b => b.classList.remove('hover'));
-      });
-    });
-    clearBtn?.addEventListener('click', () => {
-      hidden.value = '';
-      row.querySelectorAll('.rating-star-btn').forEach(b => b.classList.remove('active','hover'));
-      markDirty();
-    });
-  });
 
   // Load item from URL params
   const params   = new URLSearchParams(window.location.search);
@@ -382,16 +412,6 @@ function showMediaHubFields(category) {
   }
 }
 
-function _loadRating(cat, val) {
-  const hidden = document.getElementById(`${cat}-rating`);
-  const row    = document.getElementById(`${cat}-rating-row`);
-  if (!hidden || !row) return;
-  hidden.value = val;
-  row.querySelectorAll('.rating-star-btn').forEach(btn => {
-    btn.classList.toggle('active', val && parseInt(btn.dataset.val) <= parseInt(val));
-  });
-}
-
 function fillMediaHubFields(category, item) {
   if (category === 'beats') {
     safeSet('beats-creator',     item.creator     || item.artistName || '');
@@ -409,9 +429,6 @@ function fillMediaHubFields(category, item) {
     safeSet('movies-stars',       item.stars       || '');
     safeSet('movies-info-link',   item.infoLink    || '');
     safeSet('movies-video-url',   item.videoURL    || '');
-    const mStatus = document.getElementById('movies-status');
-    if (mStatus) mStatus.value = item.status || '';
-    _loadRating('movies', item.rating || '');
   } else if (category === 'tvshows') {
     safeSet('tvshows-genre',       item.genre       || '');
     safeSet('tvshows-image-url',   item.imageURL    || '');
@@ -420,9 +437,6 @@ function fillMediaHubFields(category, item) {
     safeSet('tvshows-stars',       item.stars       || '');
     safeSet('tvshows-info-link',   item.infoLink    || '');
     safeSet('tvshows-video-url',   item.videoURL    || '');
-    const tStatus = document.getElementById('tvshows-status');
-    if (tStatus) tStatus.value = item.status || '';
-    _loadRating('tvshows', item.rating || '');
   } else if (category === 'code') {
     safeSet('code-description', item.description || '');
     safeSet('code-image-url',   item.imageURL    || '');
@@ -608,8 +622,6 @@ function gatherPostData() {
       stars:       document.getElementById('movies-stars').value.trim(),
       infoLink:    document.getElementById('movies-info-link').value.trim(),
       videoURL:    document.getElementById('movies-video-url').value.trim(),
-      status:      document.getElementById('movies-status').value,
-      rating:      document.getElementById('movies-rating').value,
       // Clear unused fields
       songLink: '', artistLink: ''
     };
@@ -625,8 +637,6 @@ function gatherPostData() {
       stars:       document.getElementById('tvshows-stars').value.trim(),
       infoLink:    document.getElementById('tvshows-info-link').value.trim(),
       videoURL:    document.getElementById('tvshows-video-url').value.trim(),
-      status:      document.getElementById('tvshows-status').value,
-      rating:      document.getElementById('tvshows-rating').value,
       // Clear unused fields
       songLink: '', artistLink: ''
     };
