@@ -186,6 +186,12 @@ async function loadPageContent(category) {
   let sortOrder     = 'newest';
 
   // ── Sort controls ─────────────────────────────────────────────────────────
+  // Wrap sort + grid in a shared column so they always align
+  const colWrap = document.createElement('div');
+  colWrap.className = 'posts-col-wrap';
+  grid.parentNode.insertBefore(colWrap, grid);
+  colWrap.appendChild(grid);
+
   const sortWrap = document.createElement('div');
   sortWrap.className = 'sort-wrap';
   sortWrap.innerHTML = `
@@ -193,7 +199,7 @@ async function loadPageContent(category) {
     <button class="sort-btn active" data-sort="newest">Newest</button>
     <button class="sort-btn" data-sort="oldest">Oldest</button>
   `;
-  grid.parentNode.insertBefore(sortWrap, grid);
+  colWrap.insertBefore(sortWrap, grid);
 
   sortWrap.querySelectorAll('.sort-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -219,7 +225,7 @@ async function loadPageContent(category) {
     paginationEl = document.createElement('div');
     paginationEl.id = 'pagination';
     paginationEl.className = 'pagination';
-    grid.parentNode.insertBefore(paginationEl, grid.nextSibling);
+    colWrap.appendChild(paginationEl);
   }
 
   function renderPage(posts, page) {

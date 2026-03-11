@@ -449,6 +449,9 @@ function fillMediaHubFields(category, item) {
     safeSet('movies-notes',       item.notes       || '');
     safeSet('movies-info-link',   item.infoLink    || '');
     safeSet('movies-video-url',   item.videoURL    || '');
+    const mRatingWrap = document.getElementById('movies-star-rating');
+    if (mRatingWrap && mRatingWrap._setRating) mRatingWrap._setRating(parseInt(item.rating) || 0);
+    else safeSet('movies-rating', item.rating || '');
   } else if (category === 'tvshows') {
     safeSet('tvshows-genre',       item.genre       || '');
     safeSet('tvshows-image-url',   item.imageURL    || '');
@@ -458,6 +461,9 @@ function fillMediaHubFields(category, item) {
     safeSet('tvshows-notes',       item.notes       || '');
     safeSet('tvshows-info-link',   item.infoLink    || '');
     safeSet('tvshows-video-url',   item.videoURL    || '');
+    const tvRatingWrap = document.getElementById('tvshows-star-rating');
+    if (tvRatingWrap && tvRatingWrap._setRating) tvRatingWrap._setRating(parseInt(item.rating) || 0);
+    else safeSet('tvshows-rating', item.rating || '');
   } else if (category === 'code') {
     safeSet('code-description', item.description || '');
     safeSet('code-image-url',   item.imageURL    || '');
@@ -645,6 +651,7 @@ function gatherPostData() {
       notes:       document.getElementById('movies-notes').value.trim(),
       infoLink:    document.getElementById('movies-info-link').value.trim(),
       videoURL:    document.getElementById('movies-video-url').value.trim(),
+      rating:      document.getElementById('movies-rating')?.value || '',
       // Clear unused fields
       songLink: '', artistLink: ''
     };
@@ -661,6 +668,7 @@ function gatherPostData() {
       notes:       document.getElementById('tvshows-notes').value.trim(),
       infoLink:    document.getElementById('tvshows-info-link').value.trim(),
       videoURL:    document.getElementById('tvshows-video-url').value.trim(),
+      rating:      document.getElementById('tvshows-rating')?.value || '',
       // Clear unused fields
       songLink: '', artistLink: ''
     };

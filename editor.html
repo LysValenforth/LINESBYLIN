@@ -371,6 +371,15 @@
           <input type="text" id="movies-creator" class="field-input" placeholder="Director name...">
           <label class="field-label">Stars</label>
           <input type="text" id="movies-stars" class="field-input" placeholder="Cast, comma-separated...">
+          <label class="field-label">My Rating <span style="font-size:10px;font-weight:400;opacity:.6;">1–10 stars</span></label>
+          <div class="star-rating-input" id="movies-star-rating" data-field="movies-rating">
+            <input type="hidden" id="movies-rating" value="">
+            <div class="star-rating-row">
+              <span class="sri-star" data-val="1">★</span><span class="sri-star" data-val="2">★</span><span class="sri-star" data-val="3">★</span><span class="sri-star" data-val="4">★</span><span class="sri-star" data-val="5">★</span><span class="sri-star" data-val="6">★</span><span class="sri-star" data-val="7">★</span><span class="sri-star" data-val="8">★</span><span class="sri-star" data-val="9">★</span><span class="sri-star" data-val="10">★</span>
+            </div>
+            <span class="sri-value-label" id="movies-rating-label">Not rated</span>
+            <button type="button" class="rating-clear-btn" onclick="clearStarRating('movies')">Clear</button>
+          </div>
           <label class="field-label">Why I Like It</label>
           <textarea id="movies-notes" class="field-input" rows="3" style="resize:vertical;" placeholder="What makes this movie special to you..."></textarea>
           <label class="field-label">Movie Info Link</label>
@@ -400,6 +409,15 @@
           <input type="text" id="tvshows-creator" class="field-input" placeholder="Creator or director...">
           <label class="field-label">Stars</label>
           <input type="text" id="tvshows-stars" class="field-input" placeholder="Cast, comma-separated...">
+          <label class="field-label">My Rating <span style="font-size:10px;font-weight:400;opacity:.6;">1–10 stars</span></label>
+          <div class="star-rating-input" id="tvshows-star-rating" data-field="tvshows-rating">
+            <input type="hidden" id="tvshows-rating" value="">
+            <div class="star-rating-row">
+              <span class="sri-star" data-val="1">★</span><span class="sri-star" data-val="2">★</span><span class="sri-star" data-val="3">★</span><span class="sri-star" data-val="4">★</span><span class="sri-star" data-val="5">★</span><span class="sri-star" data-val="6">★</span><span class="sri-star" data-val="7">★</span><span class="sri-star" data-val="8">★</span><span class="sri-star" data-val="9">★</span><span class="sri-star" data-val="10">★</span>
+            </div>
+            <span class="sri-value-label" id="tvshows-rating-label">Not rated</span>
+            <button type="button" class="rating-clear-btn" onclick="clearStarRating('tvshows')">Clear</button>
+          </div>
           <label class="field-label">Why I Like It</label>
           <textarea id="tvshows-notes" class="field-input" rows="3" style="resize:vertical;" placeholder="What makes this show special to you..."></textarea>
           <label class="field-label">Show Info Link</label>
@@ -586,6 +604,88 @@
         if (url) document.execCommand('createLink', false, url);
       });
     });
+  </script>
+
+  <!-- ── Star Rating Widget ─────────────────────────────── -->
+  <style>
+    .star-rating-input {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: var(--space-xs);
+      flex-wrap: wrap;
+    }
+    .star-rating-row {
+      display: flex;
+      gap: 3px;
+    }
+    .sri-star {
+      font-size: 1.4rem;
+      color: var(--warm-beige);
+      cursor: pointer;
+      transition: color 0.12s ease, transform 0.1s ease;
+      user-select: none;
+      line-height: 1;
+    }
+    .sri-star.active  { color: #f5c431; }
+    .sri-star.hover   { color: #f5c431; opacity: 0.7; }
+    .sri-star:hover   { transform: scale(1.15); }
+    .sri-value-label  {
+      font-size: var(--text-xs);
+      color: var(--text-secondary);
+      min-width: 52px;
+    }
+    .rating-clear-btn {
+      background: none;
+      border: none;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      margin-left: 4px;
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      transition: color var(--transition-fast), background var(--transition-fast);
+    }
+    .rating-clear-btn:hover { color: var(--alert-red); background: rgba(214,107,107,0.1); }
+  </style>
+  <script>
+    (function initStarRatings() {
+      ['movies', 'tvshows'].forEach(cat => {
+        const wrap   = document.getElementById(cat + '-star-rating');
+        const hidden = document.getElementById(cat + '-rating');
+        const label  = document.getElementById(cat + '-rating-label');
+        if (!wrap || !hidden || !label) return;
+
+        const stars = wrap.querySelectorAll('.sri-star');
+
+        function setRating(val) {
+          hidden.value = val || '';
+          label.textContent = val ? val + '/10' : 'Not rated';
+          stars.forEach((s, i) => {
+            s.classList.toggle('active', i < val);
+          });
+          if (typeof markDirty === 'function') markDirty();
+        }
+
+        stars.forEach((star, idx) => {
+          star.addEventListener('click', () => setRating(idx + 1));
+          star.addEventListener('mouseenter', () => {
+            stars.forEach((s, i) => s.classList.toggle('hover', i <= idx));
+          });
+        });
+        wrap.addEventListener('mouseleave', () => {
+          stars.forEach(s => s.classList.remove('hover'));
+        });
+
+        // Expose set function so editor.js load can call it
+        wrap._setRating = setRating;
+      });
+    })();
+
+    function clearStarRating(cat) {
+      const wrap = document.getElementById(cat + '-star-rating');
+      if (wrap && wrap._setRating) wrap._setRating(0);
+    }
   </script>
 </body>
 </html>

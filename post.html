@@ -387,7 +387,8 @@
           try { sections = JSON.parse(post.sections); } catch(e) { sections = []; }
         }
 
-        const bodyHTML = sections.map(sec => renderSection(sec, isPoem)).join('');
+        const bodyHTML   = sections.map(sec => renderSection(sec, isPoem)).join('');
+        const bodyHeight = calcBodyHeight(sections);
 
         container.innerHTML = `
           <a href="${backPage}" class="back-link">Back to ${backLabel}s</a>
@@ -398,7 +399,7 @@
           </div>
           <h1 class="post-title">${post.title}</h1>
           <hr class="post-divider">
-          <div class="post-body ${isPoem ? 'poem-style' : ''}">
+        <div class="post-body ${isPoem ? 'poem-style' : ''}" style="position:relative;min-height:${bodyHeight}px;">
             ${bodyHTML || '<p>No content yet.</p>'}
           </div>
         `;
@@ -452,23 +453,35 @@
 
 
     function renderSection(sec, isPoem) {
+      const x   = sec.x != null ? parseInt(sec.x) : 0;
+      const y   = sec.y != null ? parseInt(sec.y) : 0;
+      const w   = sec.w != null ? parseInt(sec.w) : null;
+      const h   = sec.h != null ? parseInt(sec.h) : null;
+      const pos = `position:absolute;left:${x}px;top:${y}px;${w ? 'width:'+w+'px;' : ''}${h ? 'min-height:'+h+'px;' : ''}box-sizing:border-box;`;
       switch (sec.type) {
         case 'title':
-          return `<h2 class="section-title-block">${sec.content || ''}</h2>`;
+          return `<h2 class="section-title-block" style="${pos}">${sec.content || ''}</h2>`;
         case 'text':
-          return `<div class="section-text">${sec.content || ''}</div>`;
+          return `<div class="section-text" style="${pos}">${sec.content || ''}</div>`;
         case 'paragraph':
-          if (isPoem) return `<div class="poem-stanza">${sec.content || ''}</div>`;
-          return `<div class="section-paragraph">${sec.content || ''}</div>`;
+          if (isPoem) return `<div class="poem-stanza" style="${pos}">${sec.content || ''}</div>`;
+          return `<div class="section-paragraph" style="${pos}">${sec.content || ''}</div>`;
         case 'quote':
-          return `<blockquote class="section-quote">${sec.content || ''}</blockquote>`;
+          return `<blockquote class="section-quote" style="${pos}">${sec.content || ''}</blockquote>`;
         case 'image':
-          return sec.content ? `<img class="section-img" src="${sec.content}" alt="">` : '';
+          return sec.content
+            ? `<div style="${pos}"><img src="${sec.content}" alt="" style="width:100%;border-radius:var(--radius-md);"></div>`
+            : '';
         case 'divider':
-          return `<hr class="section-divider-line">`;
+          return `<hr class="section-divider-line" style="${pos}width:${w||'100%'}px;">`;
         default:
-          return `<div>${sec.content || ''}</div>`;
+          return `<div style="${pos}">${sec.content || ''}</div>`;
       }
+    }
+
+    function calcBodyHeight(sections) {
+      if (!sections.length) return 200;
+      return Math.max(...sections.map(s => (parseInt(s.y)||0) + (parseInt(s.h)||48))) + 40;
     }
 
     document.addEventListener('DOMContentLoaded', loadPost);

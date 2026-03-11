@@ -195,6 +195,7 @@
   padding: var(--space-lg);
   min-height: 500px;
   box-shadow: var(--shadow-soft);
+  position: relative; /* needed for absolute children */
 }
 
 .no-post-selected {
@@ -212,30 +213,47 @@
 .no-post-icon { font-size: 4rem; margin-bottom: var(--space-sm); opacity: 0.4; }
 
 /* ── Sections ─────────────────────────────────── */
-.editor-sections { min-height: 300px; }
-
-.editor-section {
+/* ── Sections (absolute canvas) ──────────────── */
+.editor-sections {
   position: relative;
-  padding: var(--space-sm);
-  padding-left: calc(var(--space-sm) + 30px);
-  padding-right: calc(var(--space-sm) + 30px);
-  margin-bottom: var(--space-sm);
-  border: 2px dashed transparent;
-  border-radius: var(--radius-md);
-  transition: all var(--transition-fast);
+  min-height: 500px;
 }
 
-.editor-section:hover { border-color: var(--soft-blue); }
-.editor-section.dragging { opacity: 0.45; border-color: var(--forest-green); }
-.editor-section.drag-over { border-color: var(--forest-green); background-color: rgba(167,196,188,0.2); }
+.editor-section {
+  position: absolute;
+  padding: var(--space-sm);
+  padding-left: calc(var(--space-sm) + 28px);
+  padding-right: calc(var(--space-sm) + 28px);
+  border: 2px dashed transparent;
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  box-sizing: border-box;
+  background: var(--bg-surface);
+}
+.editor-section:hover {
+  border-color: var(--soft-blue);
+  box-shadow: var(--shadow-soft);
+  z-index: 10;
+}
+.editor-section.is-dragging {
+  border-color: var(--forest-green);
+  box-shadow: var(--shadow-floating);
+  opacity: 0.92;
+  cursor: grabbing;
+}
+.editor-section.is-resizing {
+  border-color: var(--forest-green);
+  box-shadow: var(--shadow-medium);
+  user-select: none;
+}
 
-/* Side handles (visible on hover) */
+/* ── Drag handle ──────────────────────────────── */
 .section-handle {
   position: absolute;
   left: 4px;
   top: 50%;
   transform: translateY(-50%);
-  width: 24px; height: 24px;
+  width: 22px; height: 22px;
   background-color: var(--warm-beige);
   border: var(--border-width) solid var(--forest-green);
   border-radius: var(--radius-sm);
@@ -244,14 +262,15 @@
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transition: opacity var(--transition-fast);
-  font-size: 0.9rem;
+  transition: opacity var(--transition-fast), background-color var(--transition-fast);
   color: var(--forest-green);
   user-select: none;
 }
 .section-handle:active { cursor: grabbing; }
 .editor-section:hover .section-handle { opacity: 1; }
+.editor-section:hover .section-handle:hover { background-color: var(--soft-blue); }
 
+/* ── Side controls ────────────────────────────── */
 .section-controls-side {
   position: absolute;
   right: 4px;
@@ -262,26 +281,111 @@
   gap: 3px;
   opacity: 0;
   transition: opacity var(--transition-fast);
+  z-index: 20;
 }
 .editor-section:hover .section-controls-side { opacity: 1; }
 
 .section-btn-side {
-  width: 24px; height: 24px;
-  border: none;
+  width: 22px; height: 22px;
+  border: var(--border-width) solid transparent;
   border-radius: var(--radius-sm);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.7rem;
   transition: all var(--transition-fast);
+  padding: 0;
 }
+.section-btn-up,
+.section-btn-down {
+  background-color: var(--bg-surface);
+  border-color: var(--soft-blue);
+  color: var(--forest-green);
+}
+.section-btn-up:hover,
+.section-btn-down:hover {
+  background-color: var(--soft-blue);
+  border-color: var(--forest-green);
+  transform: scale(1.1);
+}
+.section-btn-del {
+  background-color: var(--alert-red);
+  border-color: var(--alert-red);
+  color: var(--cream);
+  margin-top: 4px;
+}
+.section-btn-del:hover { background-color: #c0494a; transform: scale(1.1); }
 
-.section-btn-up   { background-color: var(--soft-blue); color: var(--dark-moss); }
-.section-btn-down { background-color: var(--soft-blue); color: var(--dark-moss); }
-.section-btn-del  { background-color: var(--alert-red); color: var(--cream); }
+/* ── Resize handles ───────────────────────────── */
+.sec-resize {
+  position: absolute;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  z-index: 15;
+}
+.editor-section:hover .sec-resize,
+.editor-section.is-resizing .sec-resize { opacity: 1; }
 
-.section-btn-side:hover { transform: scale(1.15); }
+/* Right edge — horizontal resize */
+.sec-resize-e {
+  right: -4px;
+  top: 20%;
+  height: 60%;
+  width: 8px;
+  cursor: ew-resize;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sec-resize-e::before {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 100%;
+  background: var(--forest-green);
+  border-radius: 4px;
+  opacity: 0.45;
+  transition: opacity var(--transition-fast);
+}
+.sec-resize-e:hover::before { opacity: 1; }
+
+/* Bottom edge — vertical resize */
+.sec-resize-s {
+  bottom: -4px;
+  left: 20%;
+  width: 60%;
+  height: 8px;
+  cursor: ns-resize;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sec-resize-s::before {
+  content: '';
+  display: block;
+  height: 4px;
+  width: 100%;
+  background: var(--forest-green);
+  border-radius: 4px;
+  opacity: 0.45;
+  transition: opacity var(--transition-fast);
+}
+.sec-resize-s:hover::before { opacity: 1; }
+
+/* Bottom-right corner — both axes */
+.sec-resize-se {
+  bottom: -4px;
+  right: -4px;
+  width: 14px;
+  height: 14px;
+  cursor: se-resize;
+  background: var(--forest-green);
+  border: 2px solid var(--bg-surface);
+  border-radius: 3px;
+  opacity: 0;
+}
+.editor-section:hover .sec-resize-se { opacity: 0.7; }
+.sec-resize-se:hover { opacity: 1 !important; }
 
 /* ── Section Content Types ────────────────────── */
 [contenteditable="true"] {

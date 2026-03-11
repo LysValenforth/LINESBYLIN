@@ -161,10 +161,25 @@ async function loadMediaHubFeatured() {
   container.innerHTML = '<div class="loading"><div class="loading-spinner"></div></div>';
   if (typeof getAllMediaHub !== 'function') { container.innerHTML = '<p class="error-text">Firebase not configured.</p>'; return; }
   try {
-    const items = (await getAllMediaHub()).filter(i => i.category !== 'code');
-    if (!items.length) { container.innerHTML = '<div class="empty-state"><p>No media added yet.</p></div>'; return; }
+    const all = (await getAllMediaHub()).filter(i => i.category !== 'code');
+    if (!all.length) { container.innerHTML = '<div class="empty-state"><p>No media added yet.</p></div>'; return; }
     container.innerHTML = '';
-    items.slice(0, 9).forEach(item => container.appendChild(buildMediaCard(item, item.category)));
+    const sections = [
+      { key: 'movies',  label: 'Movies',  icon: 'assets/icons/movie.svg', items: all.filter(i => i.category === 'movies'),  href: 'movies.html',  gridCls: 'mhf-movie-grid', max: 6 },
+      { key: 'tvshows', label: 'TV Shows', icon: 'assets/icons/tv.svg',    items: all.filter(i => i.category === 'tvshows'), href: 'tvshows.html', gridCls: 'mhf-movie-grid', max: 6 },
+      { key: 'beats',   label: 'Beats',    icon: 'assets/icons/music.svg', items: all.filter(i => i.category === 'beats'),   href: 'beats.html',   gridCls: 'mhf-beats-grid', max: 9 },
+    ];
+    sections.forEach(({ key, label, icon, items, href, gridCls, max }) => {
+      if (!items.length) return;
+      const header = document.createElement('div');
+      header.className = 'mhf-section-header';
+      header.innerHTML = `<div class="mhf-section-title"><img src="${icon}" alt="" style="width:20px;height:20px;opacity:0.7;"><span>${label}</span></div><a href="${href}" class="mhf-view-all">View all →</a>`;
+      container.appendChild(header);
+      const g = document.createElement('div');
+      g.className = gridCls;
+      items.slice(0, max).forEach(item => g.appendChild(key === 'beats' ? buildBeatCard(item) : buildMovieCard(item, key)));
+      container.appendChild(g);
+    });
   } catch (e) {
     container.innerHTML = '<p class="error-text">Could not load media. Check Firebase config.</p>';
   }
@@ -178,98 +193,123 @@ function buildMediaCard(item, category) {
 
 function buildMovieCard(item, category) {
   const card = document.createElement('div');
-  card.className = 'media-card';
+  card.className = 'media-card media-card-vertical';
+  const statusMap = { watched:{label:'Watched',cls:'status-watched'}, watching:{label:'Watching',cls:'status-watching'}, want:{label:'Want to Watch',cls:'status-want'} };
+  const si = statusMap[item.status];
+  const badge = si ? `<span class="media-status-badge ${si.cls}">${si.label}</span>` : '';
+  const poster = item.imageURL
+    ? `<img class="media-card-poster" src="${item.imageURL}" alt="${item.title}" loading="lazy">`
+    : `<div class="media-card-poster-placeholder"><img src="assets/icons/${category==='tvshows'?'tv':'movie'}.svg" style="width:48px;height:48px;opacity:0.3;" alt=""></div>`;
+  const genres = (item.genre||'').split(',').map(g=>g.trim()).filter(Boolean).slice(0,2);
+  const pills = genres.map(g=>`<span class="mc-genre-pill">${g}</span>`).join('');
+  card.innerHTML = `
+    <div class="mc-poster-wrap">
+      ${poster}${badge}
+      <div class="mc-poster-overlay"><span class="mc-view-hint">View Details</span></div>
+    </div>
+    <div class="mc-body">
+      ${pills?`<div class="mc-genres">${pills}</div>`:''}
+      <h3 class="mc-title">${item.title}</h3>
+      ${item.creator?`<p class="mc-director"><span class="mc-meta-label">Dir.</span> ${item.creator.split(',')[0].trim()}</p>`:''}
+      ${item.stars?`<p class="mc-stars-row"><span class="mc-meta-label">Stars</span> ${item.stars.split(',').slice(0,2).join(', ')}</p>`:''}
+    </div>`;
+  card.addEventListener('click', () => openMediaModal(item, category));
+  return card;
+}
 
-  const catLabel = { movies: 'Film', tvshows: 'TV Show' }[category] || category;
+function ensureMediaModal() {
+  if (document.getElementById('media-detail-modal')) return;
+  const modal = document.createElement('div');
+  modal.id = 'media-detail-modal';
+  modal.className = 'mdm-backdrop';
+  modal.innerHTML = `
+    <div class="mdm-box" role="dialog" aria-modal="true">
+      <button class="mdm-close" aria-label="Close">&times;</button>
+      <div class="mdm-left" id="mdm-poster-col"></div>
+      <div class="mdm-right" id="mdm-info-col"></div>
+    </div>`;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeMediaModal(); });
+  modal.querySelector('.mdm-close').addEventListener('click', closeMediaModal);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMediaModal(); });
+}
 
-  const statusMap = {
-    watched:  { label: 'Watched',       cls: 'status-watched'  },
-    watching: { label: 'Watching',      cls: 'status-watching' },
-    want:     { label: 'Want to Watch', cls: 'status-want'     },
-  };
-  const statusInfo  = statusMap[item.status];
-  const statusBadge = statusInfo ? `<span class="media-status-badge ${statusInfo.cls}">${statusInfo.label}</span>` : '';
+function openMediaModal(item, category) {
+  ensureMediaModal();
+  const modal     = document.getElementById('media-detail-modal');
+  const posterCol = document.getElementById('mdm-poster-col');
+  const infoCol   = document.getElementById('mdm-info-col');
 
+  posterCol.innerHTML = item.imageURL
+    ? `<img class="mdm-poster" src="${item.imageURL}" alt="${item.title}">`
+    : `<div class="mdm-poster-fallback"><img src="assets/icons/${category==='tvshows'?'tv':'movie'}.svg" style="width:56px;opacity:0.3;" alt=""></div>`;
+
+  const statusMap = { watched:{label:'Watched',cls:'status-watched'}, watching:{label:'Watching',cls:'status-watching'}, want:{label:'Want to Watch',cls:'status-want'} };
+  const si    = statusMap[item.status];
+  const badge = si ? `<span class="media-status-badge ${si.cls}" style="position:static;display:inline-block;margin-bottom:8px;">${si.label}</span>` : '';
+  const genres = (item.genre||'').split(',').map(g=>g.trim()).filter(Boolean);
+  const pills  = genres.map(g=>`<span class="mc-genre-pill">${g}</span>`).join('');
+  const titleEl = item.infoLink
+    ? `<a href="${item.infoLink}" target="_blank" rel="noopener noreferrer" class="mdm-title-link">${item.title}</a>`
+    : item.title;
   let ratingHTML = '';
   if (item.rating) {
     const r = parseInt(item.rating);
-    ratingHTML = `<div class="media-rating">${[1,2,3,4,5].map(n => `<span class="media-heart${n <= r ? ' filled' : ''}">♥</span>`).join('')}</div>`;
+    ratingHTML = `<div class="mdm-rating-row"><span class="mdm-section-label">My Rating</span><div class="mdm-stars">${Array.from({length:10},(_,i)=>`<span class="mdm-star${i<r?' filled':''}">★</span>`).join('')}</div><span class="mdm-rating-num">${r}/10</span></div>`;
   }
 
-  const posterHTML = item.imageURL
-    ? `<img class="media-card-poster" src="${item.imageURL}" alt="${item.title}" loading="lazy">`
-    : `<div class="media-card-poster-placeholder"><img src="assets/icons/movie.svg" style="width:48px;height:48px;opacity:0.3;" alt=""></div>`;
-
-  const titleHTML = item.infoLink
-    ? `<a href="${item.infoLink}" target="_blank" rel="noopener noreferrer" class="media-card-title media-card-title-link">${item.title}</a>`
-    : `<h3 class="media-card-title">${item.title}</h3>`;
-
-  const infoBtn = item.infoLink
-    ? `<a href="${item.infoLink}" target="_blank" rel="noopener noreferrer" class="media-info-btn">More Info ↗</a>`
-    : '';
-
-  card.innerHTML = `
-    <div class="media-card-poster-wrap">
-      ${posterHTML}
-      ${statusBadge}
-      ${item.videoURL ? `<button class="media-trailer-btn" aria-label="Watch trailer"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg> Watch</button>` : ''}
-    </div>
-    <div class="media-trailer-embed hidden"></div>
-    <div class="media-card-body">
-      <div class="media-card-meta-row">
-        <span class="media-card-genre">${item.genre || catLabel}</span>
-        ${ratingHTML}
-      </div>
-      <div class="media-card-title-row">${titleHTML}</div>
-      ${item.creator     ? `<p class="media-card-creator">${item.creator}</p>` : ''}
-      ${item.description ? `<p class="media-card-description">${item.description}</p>` : ''}
-      ${item.stars       ? `<p class="media-card-stars"><span class="media-stars-label">Starring</span> ${item.stars}</p>` : ''}
-      ${infoBtn}
-    </div>
-  `;
+  infoCol.innerHTML = `
+    ${badge}
+    <h2 class="mdm-title">${titleEl}</h2>
+    ${pills?`<div class="mc-genres" style="margin-bottom:6px;">${pills}</div>`:''}
+    ${item.creator?`<p class="mdm-meta"><span class="mc-meta-label">${category==='tvshows'?'Creator':'Director'}</span> ${item.creator}</p>`:''}
+    ${item.stars?`<p class="mdm-meta"><span class="mc-meta-label">Starring</span> ${item.stars}</p>`:''}
+    ${ratingHTML}
+    ${item.notes?`<div class="mdm-review-block"><span class="mdm-section-label">Why I Like It</span><p class="mdm-review-text">${item.notes}</p></div>`:''}
+    ${item.videoURL?`<button class="mdm-trailer-btn" id="mdm-trailer-btn"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg> Watch Trailer</button><div class="mdm-trailer-embed hidden" id="mdm-trailer-embed"></div>`:''}`;
 
   if (item.videoURL) {
-    const btn        = card.querySelector('.media-trailer-btn');
-    const embedWrap  = card.querySelector('.media-trailer-embed');
-    const posterWrap = card.querySelector('.media-card-poster-wrap');
+    const btn   = infoCol.querySelector('#mdm-trailer-btn');
+    const embed = infoCol.querySelector('#mdm-trailer-embed');
     btn.addEventListener('click', () => {
-      const isOpen = !embedWrap.classList.contains('hidden');
-      if (isOpen) {
-        embedWrap.innerHTML = '';
-        embedWrap.classList.add('hidden');
-        posterWrap.style.display = '';
-        btn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg> Trailer`;
-      } else {
-        embedWrap.innerHTML = `<div class="video-embed"><iframe src="${item.videoURL}" allowfullscreen loading="lazy" title="${item.title} — trailer"></iframe></div>`;
-        embedWrap.classList.remove('hidden');
-        posterWrap.style.display = 'none';
-        btn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Close`;
-      }
+      const isOpen = !embed.classList.contains('hidden');
+      embed.innerHTML = isOpen ? '' : `<div class="video-embed"><iframe src="${item.videoURL}" allowfullscreen loading="lazy"></iframe></div>`;
+      embed.classList.toggle('hidden', isOpen);
+      btn.innerHTML = isOpen
+        ? `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg> Watch Trailer`
+        : `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Close Trailer`;
     });
   }
 
-  return card;
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeMediaModal() {
+  const modal = document.getElementById('media-detail-modal');
+  if (!modal) return;
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+  const embed = document.getElementById('mdm-trailer-embed');
+  if (embed) embed.innerHTML = '';
 }
 
 function buildBeatCard(item) {
   const card = document.createElement('article');
-  card.className = 'beat-card';
-  const cover    = item.imageURL ? `<img class="beat-cover" src="${item.imageURL}" alt="${item.title}">` : `<div class="beat-cover-fallback">🎵</div>`;
-  const titleEl  = item.songLink ? `<a href="${item.songLink}" target="_blank" rel="noopener noreferrer" class="beat-title">${item.title}</a>` : `<h3 class="beat-title">${item.title}</h3>`;
+  card.className = 'mh-beat-card';
+  const cover   = item.imageURL ? `<img class="mh-beat-cover" src="${item.imageURL}" alt="${item.title}">` : `<div class="mh-beat-cover-fallback">🎵</div>`;
+  const titleEl = item.songLink ? `<a href="${item.songLink}" target="_blank" rel="noopener noreferrer" class="mh-beat-title">${item.title}</a>` : `<span class="mh-beat-title">${item.title}</span>`;
   const artistEl = item.creator
-    ? (item.artistLink ? `<a href="${item.artistLink}" target="_blank" rel="noopener noreferrer" class="beat-artist">${item.creator}</a>` : `<span class="beat-artist">${item.creator}</span>`)
+    ? (item.artistLink ? `<a href="${item.artistLink}" target="_blank" rel="noopener noreferrer" class="mh-beat-artist">${item.creator}</a>` : `<span class="mh-beat-artist">${item.creator}</span>`)
     : '';
-  const audioEl  = item.audioURL ? `<audio class="beat-audio-player" controls preload="none" src="${item.audioURL}" style="width:100%;margin-top:8px;height:36px;border-radius:var(--radius-md);"></audio>` : '';
-
+  const audioEl = item.audioURL ? `<audio class="mh-beat-audio" controls preload="none" src="${item.audioURL}"></audio>` : '';
   card.innerHTML = `
-    <div class="beat-inner">
-      <div class="beat-cover-wrap">${cover}<div class="beat-cover-glow"></div></div>
-      <div class="beat-body">
-        ${item.genre ? `<span class="beat-genre">${item.genre}</span>` : ''}
-        <div class="beat-title-row">${titleEl}${artistEl}</div>
-        ${item.description ? `<p class="beat-desc">${item.description}</p>` : ''}
-        ${audioEl}
-      </div>
+    ${cover}
+    <div class="mh-beat-body">
+      ${item.genre?`<span class="mc-genre-pill" style="align-self:flex-start;">${item.genre}</span>`:''}
+      <div class="mh-beat-title-row">${titleEl}${artistEl?`<span class="mh-beat-sep">·</span>${artistEl}`:''}</div>
+      ${item.description?`<p class="mh-beat-desc">${item.description}</p>`:''}
+      ${audioEl}
     </div>`;
   return card;
 }

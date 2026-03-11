@@ -310,7 +310,7 @@ a:hover { color: var(--dark-moss); }
 .page-header p { color: var(--soft-blue); font-size: var(--text-xl); margin-bottom: 0; }
 
 /* ── Search ───────────────────────────────────── */
-.search-wrap { max-width: 480px; margin: 0 auto var(--space-md); }
+.search-wrap { max-width: 720px; margin: 0 auto var(--space-md); }
 .search-input {
   width: 100%;
   padding: 12px 18px;
@@ -1306,6 +1306,15 @@ main, .section {
   margin-top: 0;
 }
 /* ── Sort Controls ────────────────────────────────── */
+/* ── Posts column wrapper — keeps sort, grid, pagination aligned ── */
+.posts-col-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
 .sort-wrap {
   display: flex;
   align-items: center;
@@ -1990,4 +1999,320 @@ img {
   .mh-pill          { font-size: 11px; padding: 4px 11px; }
   .media-card-poster,
   .media-card-poster-placeholder { height: 180px; }
+}
+/* ══════════════════════════════════════════════
+   CONTACT SECTION — mobile fix
+══════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  /* Stack the Let's Connect layout vertically and center everything */
+  #contact .container > div:last-child {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  /* Left side: center-align heading */
+  #contact .container > div:last-child > div:first-child {
+    min-width: unset !important;
+    text-align: center !important;
+  }
+
+  /* Right side: center-align links and social */
+  #contact .container > div:last-child > div:last-child {
+    min-width: unset !important;
+    width: 100% !important;
+    text-align: center !important;
+    align-items: center !important;
+  }
+
+  /* Email/phone links — center instead of right-align */
+  #contact .container > div:last-child > div:last-child a {
+    justify-content: center !important;
+  }
+
+  /* Location text */
+  #contact .container > div:last-child > div:last-child p {
+    text-align: center !important;
+    width: 100% !important;
+  }
+
+  /* "Find me on" social row */
+  #contact .container > div:last-child > div:last-child > div {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+}
+/* ╔══════════════════════════════════════════════════════╗
+   ║  NEW MEDIA CARDS + MODAL — full mobile support       ║
+   ╚══════════════════════════════════════════════════════╝ */
+
+/* ── movies.html / tvshows.html grid ─────────────────── */
+body[data-mediahub="movies"] .mediahub-grid,
+body[data-mediahub="tvshows"] .mediahub-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+@media (max-width: 768px) {
+  body[data-mediahub="movies"] .mediahub-grid,
+  body[data-mediahub="tvshows"] .mediahub-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
+  }
+}
+@media (max-width: 400px) {
+  body[data-mediahub="movies"] .mediahub-grid,
+  body[data-mediahub="tvshows"] .mediahub-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+}
+
+/* ── Vertical movie/tv card ──────────────────────────── */
+.media-card-vertical {
+  background: var(--bg-surface);
+  border: var(--border-width) solid var(--warm-beige);
+  border-radius: 0;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+.media-card-vertical:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-floating);
+  border-color: var(--forest-green);
+}
+.mc-poster-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  background: var(--warm-beige);
+  flex-shrink: 0;
+}
+.mc-poster-wrap .media-card-poster {
+  width: 100%;
+  height: 100% !important;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+.media-card-vertical:hover .mc-poster-wrap .media-card-poster { transform: scale(1.04); }
+.mc-poster-wrap .media-card-poster-placeholder {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--warm-beige), var(--soft-blue));
+}
+.mc-poster-wrap .media-status-badge { position: absolute; top: 8px; left: 8px; z-index: 2; }
+.mc-poster-overlay {
+  position: absolute; inset: 0;
+  background: rgba(30,61,54,0);
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.22s ease; z-index: 1;
+}
+.media-card-vertical:hover .mc-poster-overlay { background: rgba(30,61,54,0.5); }
+.mc-view-hint {
+  color: #fff; font-family: var(--font-body); font-size: var(--text-sm); font-weight: 600;
+  opacity: 0; transform: translateY(6px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.media-card-vertical:hover .mc-view-hint { opacity: 1; transform: translateY(0); }
+.mc-body { padding: 10px 12px 14px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.mc-genres { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 2px; }
+.mc-genre-pill {
+  font-family: var(--font-body); font-size: 9px; font-weight: 700;
+  letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--forest-green); background: rgba(47,93,80,0.1);
+  border: 1px solid rgba(47,93,80,0.2); padding: 2px 7px; border-radius: 0;
+}
+.mc-title { font-family: var(--font-heading); font-size: var(--text-base); color: var(--text-primary); margin: 2px 0 0; line-height: 1.25; }
+.mc-director, .mc-stars-row { font-family: var(--font-body); font-size: 11px; color: var(--text-secondary); margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mc-meta-label { font-weight: 700; color: var(--forest-green); margin-right: 3px; font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* mobile: hide hover hint on touch */
+@media (max-width: 768px) {
+  .mc-view-hint { display: none; }
+  .mc-body { padding: 8px 10px 10px; }
+  .mc-title { font-size: var(--text-sm); }
+}
+
+/* ── Mediahub featured — sectioned layout ────────────── */
+#mediahub-featured { display: flex; flex-direction: column; gap: var(--space-lg); }
+.mhf-section-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: var(--space-sm); padding-bottom: 10px;
+  border-bottom: var(--border-width) solid var(--warm-beige);
+}
+.mhf-section-title { display: flex; align-items: center; gap: 8px; font-family: var(--font-heading); font-size: var(--text-2xl); color: var(--text-primary); }
+.mhf-view-all { font-family: var(--font-body); font-size: var(--text-sm); color: var(--forest-green); font-weight: 600; text-decoration: none; white-space: nowrap; }
+.mhf-view-all:hover { color: var(--dark-moss); text-decoration: underline; }
+
+.mhf-movie-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
+.mhf-beats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
+
+@media (max-width: 768px) {
+  .mhf-movie-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-sm); }
+  .mhf-beats-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-sm); }
+  .mhf-section-title { font-size: var(--text-xl); }
+}
+@media (max-width: 400px) {
+  .mhf-movie-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .mhf-beats-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+}
+
+/* ── Beat cards (beats.html page grid) ───────────────── */
+body[data-mediahub="beats"] .mediahub-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+@media (max-width: 768px) {
+  body[data-mediahub="beats"] .mediahub-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-sm); }
+}
+@media (max-width: 400px) {
+  body[data-mediahub="beats"] .mediahub-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+}
+
+.mh-beat-card {
+  display: flex; flex-direction: column;
+  background: var(--bg-surface);
+  border: var(--border-width) solid var(--warm-beige);
+  border-radius: 0; overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+.mh-beat-card:hover { border-color: var(--forest-green); box-shadow: var(--shadow-medium); transform: translateY(-3px); }
+.mh-beat-cover { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; flex-shrink: 0; }
+.mh-beat-cover-fallback { width: 100%; aspect-ratio: 1/1; background: var(--warm-beige); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
+.mh-beat-body { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.mh-beat-title-row { display: flex; align-items: baseline; gap: 5px; flex-wrap: wrap; }
+.mh-beat-title { font-family: var(--font-heading); font-size: var(--text-base); color: var(--text-primary); text-decoration: none; font-weight: 600; }
+a.mh-beat-title:hover { color: var(--forest-green); text-decoration: underline; }
+.mh-beat-sep { color: var(--text-secondary); font-size: var(--text-sm); }
+.mh-beat-artist { font-family: var(--font-body); font-size: var(--text-sm); color: var(--text-secondary); text-decoration: none; }
+a.mh-beat-artist:hover { color: var(--forest-green); }
+.mh-beat-desc { font-family: var(--font-body); font-size: var(--text-xs); color: var(--text-secondary); margin: 0; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.mh-beat-audio { width: 100%; height: 32px; margin-top: 4px; border-radius: 0; accent-color: var(--forest-green); }
+
+@media (max-width: 768px) {
+  .mh-beat-body { padding: 8px 10px 10px; }
+  .mh-beat-title { font-size: var(--text-sm); }
+  .mh-beat-desc { display: none; } /* hide desc on small screens to save space */
+}
+
+/* ── Media detail modal ──────────────────────────────── */
+.mdm-backdrop {
+  position: fixed; inset: 0; z-index: 4000;
+  background: rgba(0,0,0,0.72); backdrop-filter: blur(6px);
+  display: none; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.mdm-backdrop.open { display: flex; }
+
+.mdm-box {
+  position: relative;
+  width: 100%; max-width: 760px;
+  background: var(--bg-primary);
+  border: var(--border-width) solid var(--warm-beige);
+  border-radius: 0;
+  box-shadow: 6px 6px 0 var(--dark-moss);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+}
+.mdm-close {
+  position: absolute; top: 10px; right: 10px; z-index: 20;
+  width: 32px; height: 32px;
+  border: var(--border-width) solid var(--warm-beige);
+  background: var(--bg-surface); color: var(--text-primary);
+  border-radius: 0; font-size: 1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--transition-fast);
+}
+.mdm-close:hover { background: var(--forest-green); color: var(--cream); border-color: var(--forest-green); }
+
+/* Poster: position:absolute so it always fills its column
+   no matter how tall the right side grows */
+.mdm-left {
+  position: relative;
+  width: 220px;
+  min-width: 220px;
+  flex-shrink: 0;
+}
+.mdm-left .mdm-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  border: none; border-radius: 0;
+}
+.mdm-left .mdm-poster-fallback {
+  position: absolute; inset: 0;
+  background: var(--warm-beige);
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* Info panel: defines modal height, scrolls if tall */
+.mdm-right {
+  flex: 1; min-width: 0;
+  padding: 24px 48px 24px 24px; /* right pad makes room for close btn */
+  display: flex; flex-direction: column; gap: 10px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.mdm-title { font-family: var(--font-heading); font-size: clamp(1.3rem, 3vw, 1.9rem); color: var(--text-primary); line-height: 1.2; margin: 0; }
+.mdm-title-link { color: var(--text-primary); text-decoration: underline; text-underline-offset: 3px; transition: color var(--transition-fast); }
+.mdm-title-link:hover { color: var(--forest-green); }
+.mdm-meta { font-family: var(--font-body); font-size: var(--text-sm); color: var(--text-secondary); margin: 0; line-height: 1.5; }
+.mdm-rating-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.mdm-section-label { font-family: var(--font-body); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--forest-green); }
+.mdm-stars { display: flex; gap: 1px; }
+.mdm-star { font-size: 1rem; color: var(--warm-beige); }
+.mdm-star.filled { color: #f5c431; }
+.mdm-rating-num { font-family: var(--font-body); font-size: var(--text-sm); font-weight: 700; color: var(--text-secondary); }
+.mdm-review-block { display: flex; flex-direction: column; gap: 5px; background: var(--bg-surface); border: var(--border-width) solid var(--warm-beige); padding: 12px 14px; }
+.mdm-review-text { font-family: var(--font-body); font-size: var(--text-sm); color: var(--text-primary); line-height: 1.7; margin: 0; }
+.mdm-trailer-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--forest-green); color: var(--cream);
+  font-family: var(--font-body); font-size: var(--text-sm); font-weight: 600;
+  padding: 9px 18px; border-radius: 0; border: none; cursor: pointer;
+  transition: background var(--transition-fast); align-self: flex-start;
+}
+.mdm-trailer-btn:hover { background: var(--dark-moss); }
+.mdm-trailer-embed.hidden { display: none; }
+
+/* ── Modal mobile: poster on top, info below ─────────── */
+@media (max-width: 600px) {
+  .mdm-backdrop { padding: 0; align-items: flex-end; }
+  .mdm-box {
+    flex-direction: column;
+    max-width: 100%; width: 100%;
+    max-height: 92vh;
+    border-radius: 0;
+  }
+  /* On mobile, poster is a fixed-height banner at top */
+  .mdm-left {
+    width: 100%;
+    min-width: unset;
+    height: 200px;       /* fixed height so it's not too tall */
+    flex-shrink: 0;
+  }
+  .mdm-left .mdm-poster { object-position: top center; } /* show top of poster */
+  .mdm-right {
+    padding: 16px;
+    padding-right: 16px;
+    max-height: none;
+    flex: 1;
+    overflow-y: auto;
+  }
+  .mdm-close { top: 8px; right: 8px; }
+  .mdm-title { font-size: var(--text-xl); }
+  .mdm-stars { flex-wrap: wrap; }
 }
