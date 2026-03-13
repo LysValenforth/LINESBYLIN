@@ -6,15 +6,17 @@
   <title>Biography — LINESBYLIN</title>
   <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/page-enhancements.css">
   <style>
     /* ── Bio Hero ───────────────────────────────── */
     .bio-hero {
       background-color: var(--dark-moss);
+      background-image: none !important;
       overflow: hidden;
       position: relative;
     }
 
-    .bio-hero::before { display: none; }
+    .bio-hero::before { display: none !important; }
 
     .bio-hero-inner {
       max-width: var(--container-width);
@@ -308,7 +310,7 @@
   <nav class="nav">
     <div class="nav-container">
       <a href="index.html" class="nav-logo">
-        <img src="assets/icons/logo.svg" class="nav-icon" alt="" style="width: 50px; height: 50px;"> LINESBYLIN
+        <img src="assets/icons/logo.svg" class="nav-icon" alt="" style="width: 22px; height: 22px;"> LINESBYLIN
       </a>
       <ul class="nav-menu" id="nav-menu">
         <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>

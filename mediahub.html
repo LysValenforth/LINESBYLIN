@@ -119,43 +119,59 @@
   </div>
 </div>
 
-  <!-- Category previews -->
   <section class="section">
     <div class="container">
-      <div class="grid grid-3" style="margin-bottom:var(--space-lg);">
-        <a href="beats.html" class="card mediahub-cat-card" style="text-align:center; text-decoration:none;">
-          <div class="cat-icon-wrap"><img src="assets/icons/music.svg" alt=""></div>
-          <h3>My Beats</h3>
-          <p style="color:var(--text-secondary); font-size:var(--text-sm); margin:0 0 var(--space-sm);">Original music and tracks</p>
-          <span class="card-link">View All</span>
-        </a>
-        <a href="movies.html" class="card mediahub-cat-card" style="text-align:center; text-decoration:none;">
-          <div class="cat-icon-wrap"><img src="assets/icons/movie.svg" alt=""></div>
-          <h3>Film Movies</h3>
-          <p style="color:var(--text-secondary); font-size:var(--text-sm); margin:0 0 var(--space-sm);">Curated film collection</p>
-          <span class="card-link">View All</span>
-        </a>
-        <a href="tvshows.html" class="card mediahub-cat-card" style="text-align:center; text-decoration:none;">
-          <div class="cat-icon-wrap"><img src="assets/icons/tv.svg" alt=""></div>
-          <h3>TV Shows</h3>
-          <p style="color:var(--text-secondary); font-size:var(--text-sm); margin:0 0 var(--space-sm);">Series and shows</p>
-          <span class="card-link">View All</span>
-        </a>
-      </div>
 
-      <div class="section-header">
-        <h2 class="section-title">All Media</h2>
-        <p class="section-subtitle">Everything in the hub.</p>
-      </div>
-      <div class="search-wrap">
-        <input type="text" id="search-input" class="search-input" placeholder="Search media...">
-      </div>
-      <div class="mediahub-grid" id="mediahub-featured">
-        <div class="loading">
-          <div class="loading-spinner"></div>
-          <p>Loading media...</p>
+      <!-- Movies section — loads independently -->
+      <div class="mhf-section-wrap" id="mhf-movies-wrap">
+        <div class="mhf-section-header">
+          <div class="mhf-section-title">
+            <img src="assets/icons/movie.svg" alt="" style="width:20px;height:20px;opacity:0.7;">
+            <span>Movies</span>
+          </div>
+          <a href="movies.html" class="mhf-view-all">View all</a>
+        </div>
+        <div class="mhf-movie-grid mhf-skeleton-grid" id="mhf-movies-grid">
+          <div class="mhf-skeleton-card"></div>
+          <div class="mhf-skeleton-card"></div>
+          <div class="mhf-skeleton-card"></div>
+          <div class="mhf-skeleton-card"></div>
         </div>
       </div>
+
+      <!-- TV Shows section — loads independently -->
+      <div class="mhf-section-wrap" id="mhf-tvshows-wrap">
+        <div class="mhf-section-header">
+          <div class="mhf-section-title">
+            <img src="assets/icons/tv.svg" alt="" style="width:20px;height:20px;opacity:0.7;">
+            <span>TV Shows</span>
+          </div>
+          <a href="tvshows.html" class="mhf-view-all">View all</a>
+        </div>
+        <div class="mhf-movie-grid mhf-skeleton-grid" id="mhf-tvshows-grid">
+          <div class="mhf-skeleton-card"></div>
+          <div class="mhf-skeleton-card"></div>
+          <div class="mhf-skeleton-card"></div>
+          <div class="mhf-skeleton-card"></div>
+        </div>
+      </div>
+
+      <!-- Beats section — loads independently -->
+      <div class="mhf-section-wrap" id="mhf-beats-wrap">
+        <div class="mhf-section-header">
+          <div class="mhf-section-title">
+            <img src="assets/icons/music.svg" alt="" style="width:20px;height:20px;opacity:0.7;">
+            <span>Beats</span>
+          </div>
+          <a href="beats.html" class="mhf-view-all">View all</a>
+        </div>
+        <div class="mhf-beats-grid mhf-skeleton-grid" id="mhf-beats-grid">
+          <div class="mhf-skeleton-card mhf-skeleton-beat"></div>
+          <div class="mhf-skeleton-card mhf-skeleton-beat"></div>
+          <div class="mhf-skeleton-card mhf-skeleton-beat"></div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -193,18 +209,36 @@
   <script src="js/main.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const searchInput = document.getElementById('search-input');
-      if (searchInput) {
-        let allItems = [];
-        const grid = document.getElementById('mediahub-featured');
-        const observer = new MutationObserver(() => {
-          if (grid.querySelectorAll('.media-card, .beat-card').length > 0) {
-            observer.disconnect();
-          }
-        });
-        observer.observe(grid, { childList: true });
-      }
+      // Load each section independently so they render as soon as their data arrives
+      loadMhSection('movies',  'mhf-movies-grid',  6);
+      loadMhSection('tvshows', 'mhf-tvshows-grid', 6);
+      loadMhSection('beats',   'mhf-beats-grid',   9);
     });
+
+    async function loadMhSection(category, gridId, max) {
+      const grid = document.getElementById(gridId);
+      if (!grid) return;
+      if (typeof getMediaHubByCategory !== 'function') {
+        grid.innerHTML = '<p class="error-text" style="grid-column:1/-1;">Firebase not configured.</p>';
+        return;
+      }
+      try {
+        const items = (await getMediaHubByCategory(category)).slice(0, max);
+        grid.classList.remove('mhf-skeleton-grid');
+        grid.innerHTML = '';
+        if (!items.length) {
+          grid.innerHTML = '<p style="color:var(--text-muted);font-family:var(--font-body);font-size:var(--text-sm);grid-column:1/-1;padding:var(--space-md) 0;">Nothing added yet.</p>';
+          return;
+        }
+        items.forEach(item => {
+          const card = category === 'beats' ? buildBeatCard(item) : buildMovieCard(item, category);
+          if (card) grid.appendChild(card);
+        });
+      } catch(e) {
+        grid.classList.remove('mhf-skeleton-grid');
+        grid.innerHTML = '<p class="error-text" style="grid-column:1/-1;">Could not load.</p>';
+      }
+    }
   </script>
 </body>
 </html>

@@ -6,6 +6,7 @@
   <title>Post — LINESBYLIN</title>
   <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/page-enhancements.css">
   <style>
     .post-hero {
       width: 100%;
@@ -77,7 +78,7 @@
       font-family: var(--font-heading);
       font-style: italic;
       text-align: center;
-      max-width: 520px;
+      max-width: 520px;       /* narrower column — poems breathe better */
       margin: 0 auto;
     }
 
@@ -93,7 +94,7 @@
       opacity: 0.7;
     }
 
-    /* Stanza separator */
+    /* Stanza separator — visible gap with a faint dot between stanzas */
     .post-body.poem-style .poem-stanza {
       margin-bottom: 0;
       padding-bottom: var(--space-lg);
@@ -115,7 +116,7 @@
       transform: translateX(-50%);
     }
 
-    /* Lines within a stanza */
+    /* Lines within a stanza — tighter than the gap between stanzas */
     .post-body.poem-style .poem-stanza p {
       margin: 0;
       line-height: 2.05;
@@ -201,6 +202,7 @@
     }
 
     /* ── Prev / Next navigation ─────────────────────────── */
+    /* ── Prev / Next navigation ─────────────────────────── */
     .post-nav {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -257,9 +259,34 @@
       .post-nav { grid-template-columns: 1fr; }
       .post-nav-next { align-items: flex-start; }
     }
+
+    /* ── Reading progress bar ─────────────────────────── */
+    #reading-progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--forest-green), var(--soft-blue));
+      z-index: 9999;
+      transition: width 0.1s linear;
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* ── Reading time ─────────────────────────────────── */
+    .post-read-time {
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
   </style>
 </head>
 <body>
+
+  <div id="reading-progress-bar"></div>
 
   <nav class="nav">
     <div class="nav-container">
@@ -388,13 +415,26 @@
 
         const bodyHTML = sections.map(sec => renderSection(sec, isPoem)).join('');
 
-        // Sections render as normal document flow — no absolute positioning or height guessing.
+        // Calculate reading time from plain text content
+        const plainText  = sections.map(s => {
+          const d = document.createElement('div'); d.innerHTML = s.content || ''; return d.textContent || '';
+        }).join(' ');
+        const wordCount  = plainText.trim().split(/\s+/).filter(Boolean).length;
+        const readMins   = Math.max(1, Math.round(wordCount / 200));
+        const readLabel  = `${readMins} min read`;
+
+        document.title = `${post.title} — LINESBYLIN`;
+
         container.innerHTML = `
           <a href="${backPage}" class="back-link">Back to ${backLabel}s</a>
           ${post.imageURL ? `<img class="post-hero" src="${post.imageURL}" alt="${post.title}">` : ''}
           <div class="post-meta">
             <span class="post-category-badge">${icon} ${catNames[post.category] || post.category}</span>
             ${date ? `<span class="post-date">${date}</span>` : ''}
+            <span class="post-read-time">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              ${readLabel}
+            </span>
           </div>
           <h1 class="post-title">${post.title}</h1>
           <hr class="post-divider">
@@ -402,8 +442,9 @@
             ${bodyHTML || '<p>No content yet.</p>'}
           </div>
         `;
+        initReadingProgress();
 
-        // Nav appended after content in normal flow — no overlap possible
+        // Load prev/next after rendering
         loadAdjacentPosts(post);
 
       } catch (e) {
@@ -446,14 +487,11 @@
           nav.innerHTML += '<div class="post-nav-empty"></div>';
         }
 
-        // ── FIX: append to post-container (inside the wrapper), not post-wrapper directly.
-        // This keeps the nav inside the content flow, after the post body.
-        document.getElementById('post-container').appendChild(nav);
+        document.querySelector('.post-wrapper').appendChild(nav);
       } catch(e) { /* silent */ }
     }
 
-    // Renders each section as normal document flow — no absolute positioning.
-    // builder.js sorts sections by Y before saving, so order is always correct here.
+
     function renderSection(sec, isPoem) {
       switch (sec.type) {
         case 'title':
@@ -467,13 +505,30 @@
           return `<blockquote class="section-quote">${sec.content || ''}</blockquote>`;
         case 'image':
           return sec.content
-            ? `<div class="section-image-wrap"><img src="${sec.content}" alt="${sec.alt || ''}" style="width:100%;border-radius:var(--radius-md);"></div>`
+            ? `<img src="${sec.content}" alt="${sec.alt || ''}" style="width:100%;border-radius:var(--radius-md);margin:var(--space-md) 0;display:block;">`
             : '';
         case 'divider':
           return `<hr class="section-divider-line">`;
         default:
-          return `<div class="section-text">${sec.content || ''}</div>`;
+          return `<div>${sec.content || ''}</div>`;
       }
+    }
+
+    function initReadingProgress() {
+      const bar     = document.getElementById('reading-progress-bar');
+      const body    = document.querySelector('.post-body');
+      if (!bar || !body) return;
+      function update() {
+        const bodyTop    = body.getBoundingClientRect().top + window.scrollY;
+        const bodyBottom = body.getBoundingClientRect().bottom + window.scrollY;
+        const viewH      = window.innerHeight;
+        const scrolled   = window.scrollY + viewH - bodyTop;
+        const total      = bodyBottom - bodyTop;
+        const pct        = Math.min(100, Math.max(0, (scrolled / total) * 100));
+        bar.style.width  = pct + '%';
+      }
+      window.addEventListener('scroll', update, { passive: true });
+      update();
     }
 
     document.addEventListener('DOMContentLoaded', loadPost);

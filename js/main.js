@@ -18,6 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
     loadPageContent(pageCategory);
   }
 
+  // Media pages (movies, tvshows) are now handled by mediahub.js
+  // Beats page uses its own inline React component
+
   if (document.getElementById('featured-grid')) {
     loadFeaturedPosts();
   }
@@ -304,7 +307,9 @@ async function loadPageContent(category) {
 
 function buildCard(post, compact) {
   const card = document.createElement('div');
+  const isPoem = post.category === 'poem';
   card.className = 'card';
+  card.dataset.postcat = post.category || '';
 
   const date = post.date
     ? new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
@@ -319,16 +324,32 @@ function buildCard(post, compact) {
     tvshows: 'assets/icons/tv.svg'
   };
   const catNames = { blog: 'Blog', poem: 'Poem', story: 'Story', beats: 'Beats', movies: 'Movie', tvshows: 'TV Show' };
-  const icon = catIcons[post.category] ? `<img src="${catIcons[post.category]}" class="nav-icon" alt="">` : '';
-  const catLabel = `${icon} ${catNames[post.category] || post.category}`;
-  const preview  = stripHTML(post.content || '').slice(0, 140);
+  const icon     = catIcons[post.category]
+    ? `<img src="${catIcons[post.category]}" style="width:14px;height:14px;display:block;opacity:0.8;flex-shrink:0;" alt="">`
+    : '';
+  const catLabel = `${icon}${catNames[post.category] || post.category}`;
+
+  // Reading time
+  const plainText = stripHTML(post.content || '');
+  const words     = plainText.trim().split(/\s+/).filter(Boolean).length;
+  const mins      = Math.max(1, Math.round(words / 200));
+  const readTime  = `${mins} min read`;
+
+  // Preview — 2 lines for poems, 120 chars for others
+  const maxChars  = 120;
+  const preview   = isPoem
+    ? (() => { const lines = plainText.split('\n').filter(l => l.trim()); return lines.slice(0,2).join(' / ').slice(0, maxChars); })()
+    : plainText.slice(0, maxChars);
 
   card.innerHTML = `
-    ${post.imageURL ? `<img class="card-image" src="${post.imageURL}" alt="${post.title}">` : ''}
+    ${!isPoem && post.imageURL ? `<img class="card-image" src="${post.imageURL}" alt="${post.title}" loading="lazy">` : ''}
     <span class="card-category">${catLabel}</span>
     <h3 class="card-title">${post.title}</h3>
-    <p class="card-date">${date}</p>
-    ${!compact && preview ? `<p class="card-preview">${preview}${preview.length >= 140 ? '&hellip;' : ''}</p>` : ''}
+    <div class="card-meta-row">
+      ${date ? `<span class="card-date">${date}</span>` : ''}
+      <span class="card-read-time">${readTime}</span>
+    </div>
+    ${!compact && preview ? `<p class="card-preview">${preview.slice(0,120)}&hellip;</p>` : ''}
     <a href="post.html?id=${post.id}" class="card-link">Read</a>
   `;
   return card;
@@ -343,6 +364,7 @@ function stripHTML(html) {
 }
 
 // ─── Editor Access ─────────────────────────────────────────────────────────────
+// Editor is at editor.html — protected by Firebase Authentication.
 
 (function() {
   let aimBuffer = '';
