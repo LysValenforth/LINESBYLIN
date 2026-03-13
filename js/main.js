@@ -26,24 +26,76 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// ─── Navigation ───────────────────────────────────────────────────────────────
+// ─── Navigation (sidebar drawer on mobile) ────────────────────────────────────
 
 function initNav() {
   const toggle = document.getElementById('nav-toggle');
   const menu   = document.getElementById('nav-menu');
 
+  // ── Inject backdrop dimmer ───────────────────────────────────────────────
+  let backdrop = document.querySelector('.nav-backdrop');
+  if (!backdrop) {
+    backdrop = document.createElement('div');
+    backdrop.className = 'nav-backdrop';
+    document.body.appendChild(backdrop);
+  }
+
+  // ── Inject close (X) button INSIDE the sidebar ───────────────────────────
+  if (menu && !menu.querySelector('.nav-close-btn')) {
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'nav-close-btn';
+    closeBtn.setAttribute('aria-label', 'Close menu');
+    closeBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+      <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+    </svg>`;
+    menu.insertBefore(closeBtn, menu.firstChild);
+    closeBtn.addEventListener('click', closeSidebar);
+  }
+
+  const allDropdowns = document.querySelectorAll('.dropdown');
+
+  function openSidebar() {
+    menu?.classList.add('open');
+    toggle?.classList.add('is-open');      // fades out hamburger via CSS
+    backdrop.classList.add('visible');
+    // iOS scroll-lock: fix body so page doesn't jump
+    const scrollY = window.scrollY;
+    document.body.dataset.scrollY = scrollY;
+    document.body.style.top = `-${scrollY}px`;
+    document.body.classList.add('sidebar-open');
+  }
+
+  function closeSidebar() {
+    menu?.classList.remove('open');
+    toggle?.classList.remove('is-open');   // restores hamburger
+    backdrop.classList.remove('visible');
+    document.body.classList.remove('sidebar-open');
+    const scrollY = parseInt(document.body.dataset.scrollY || '0');
+    document.body.style.top = '';
+    window.scrollTo(0, scrollY);
+    allDropdowns.forEach(d => d.classList.remove('open'));
+  }
+
   if (toggle && menu) {
-    toggle.addEventListener('click', () => {
-      menu.classList.toggle('open');
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      menu.classList.contains('open') ? closeSidebar() : openSidebar();
     });
   }
+
+  // Tap backdrop → close
+  backdrop.addEventListener('click', closeSidebar);
+
+  // Close on resize to desktop
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) closeSidebar();
+  });
 
   // ── Set active nav link based on current page ────────────────────────────
   const currentPath = window.location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav-link').forEach(link => {
     const href = link.getAttribute('href') || '';
     link.classList.remove('active');
-    // Only match real page links, not anchor links
     if (!href.startsWith('#') && href !== '' && href !== 'javascript:void(0)') {
       const linkPage = href.split('/').pop().split('?')[0].split('#')[0];
       if (linkPage === currentPath) link.classList.add('active');
@@ -62,32 +114,29 @@ function initNav() {
     });
   });
 
-  const allDropdowns = document.querySelectorAll('.dropdown');
-
+  // ── Dropdown: accordion on mobile, hover on desktop ──────────────────────
   allDropdowns.forEach(dd => {
     const link = dd.querySelector('.dropdown-toggle');
     if (link) {
       link.addEventListener('click', (e) => {
         if (window.innerWidth <= 768) {
           e.preventDefault();
+          e.stopPropagation();
           const isOpen = dd.classList.contains('open');
-          // Close all first (accordion)
           allDropdowns.forEach(d => d.classList.remove('open'));
-          // Then open this one if it was closed
           if (!isOpen) dd.classList.add('open');
         }
       });
     }
   });
 
-  // Close menu + dropdowns when tapping outside
-  document.addEventListener('click', (e) => {
-    if (window.innerWidth > 768) return;
-    const nav = document.querySelector('.nav');
-    if (nav && !nav.contains(e.target)) {
-      document.getElementById('nav-menu')?.classList.remove('open');
-      allDropdowns.forEach(d => d.classList.remove('open'));
-    }
+  // Close sidebar when a nav destination link or dropdown item is tapped
+  menu?.querySelectorAll('.nav-link:not(.dropdown-toggle), .dropdown-item').forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 768) {
+        setTimeout(closeSidebar, 60);
+      }
+    });
   });
 }
 

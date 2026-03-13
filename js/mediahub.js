@@ -374,6 +374,7 @@ function openMediaModal(item, category) {
 
   modal.classList.add('open');
   document.body.style.overflow = 'hidden';
+  document.body.classList.add('modal-open');
 }
 
 function closeMediaModal() {
@@ -381,6 +382,7 @@ function closeMediaModal() {
   if (!modal) return;
   modal.classList.remove('open');
   document.body.style.overflow = '';
+  document.body.classList.remove('modal-open');
   const embed = document.getElementById('mdm-trailer-embed');
   if (embed) { embed.innerHTML = ''; embed.classList.add('hidden'); }
 }
