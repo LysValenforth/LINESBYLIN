@@ -9,6 +9,24 @@ function debounce(fn, delay) {
   };
 }
 
+// ─── Card entrance animation helper ───────────────────────────────────────────
+// Stamps data-sa-card="N" on each card so scroll-animations.css
+// fires the sa-card-in keyframe with a staggered animation-delay.
+// Called after every Firebase render and every pagination re-render.
+function stampCards(containerEl) {
+  if (!containerEl) return;
+  const cards = containerEl.querySelectorAll(
+    '.card, .media-card, .beat-card, .mh-beat-card, .code-preview-card, .collection-card-gl, article'
+  );
+  cards.forEach((el, i) => {
+    // Remove then re-add to restart the animation on re-render
+    el.removeAttribute('data-sa-card');
+    // Force reflow so the browser registers the removal
+    void el.offsetWidth;
+    el.dataset.saCard = String(Math.min(i, 15));
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initNav();
   initBackToTop();
@@ -191,6 +209,7 @@ async function loadFeaturedPosts() {
     }
     grid.innerHTML = '';
     posts.slice(0, 6).forEach(post => grid.appendChild(buildCard(post, true)));
+    stampCards(grid);
   } catch (e) {
     grid.innerHTML = '<p class="error-text">Could not load posts. Check your Firebase config in js/firebase.js.</p>';
   }
@@ -294,6 +313,7 @@ async function loadPageContent(category) {
     const pagePosts  = posts.slice(start, start + POSTS_PER_PAGE);
 
     pagePosts.forEach(post => grid.appendChild(buildCard(post, false)));
+    stampCards(grid);
 
     if (totalPages <= 1) return;
 
@@ -463,7 +483,7 @@ document.querySelectorAll('a').forEach(link => {
     ) {
       e.preventDefault();
       document.body.classList.add('page-exit');
-      setTimeout(() => window.location.href = href, 280);
+      setTimeout(() => window.location.href = href, 300);
     }
   });
 });

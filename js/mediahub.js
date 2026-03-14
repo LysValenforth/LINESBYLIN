@@ -204,6 +204,8 @@ async function loadMediaHubPage(category) {
     if (!list.length) { grid.innerHTML = buildEmptyState(category, activeGenre, activeStatus, searchQuery); return; }
     grid.innerHTML = '';
     list.forEach(item => { const c = buildMediaCard(item, category); if (c) grid.appendChild(c); });
+    // Animate cards in with staggered entrance
+    if (typeof stampCards === 'function') stampCards(grid);
   }
 
   buildFilterBar();

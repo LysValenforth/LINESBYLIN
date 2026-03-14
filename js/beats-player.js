@@ -1,4 +1,3 @@
-
 const { useState, useRef, useEffect } = React;
 
 function fmtTime(s) {
@@ -78,7 +77,7 @@ function ProgressBar({ progress, duration, currentTime, onSeek }) {
 }
 
 // ─── Single Beat Card ─────────────────────────────────────────────────────────
-function BeatCard({ item, activeId, onActivate }) {
+function BeatCard({ item, activeId, onActivate, index }) {
   const [isPlaying,   setIsPlaying]   = useState(false);
   const [progress,    setProgress]    = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
@@ -160,7 +159,10 @@ function BeatCard({ item, activeId, onActivate }) {
   const audioSrc    = item.audioURL    || '';  
 
   return (
-    <article className={`beat-card${isPlaying ? ' is-playing' : ''}`}>
+    <article
+      className={`beat-card${isPlaying ? ' is-playing' : ''}`}
+      data-sa-card={String(Math.min(index || 0, 15))}
+    >
       {audioSrc && <audio ref={audioRef} src={audioSrc} preload="metadata" />}
 
       {/* Animated waveform backdrop (shows when playing) */}
@@ -224,6 +226,19 @@ function BeatsApp({ initialItems }) {
   const [filtered, setFiltered] = useState(initialItems || []);
   const [loading,  setLoading]  = useState(!initialItems);
   const [activeId, setActiveId] = useState(null);
+  const listRef = useRef(null);
+
+  // Re-stamp data-sa-card whenever filtered list changes so each
+  // re-render (search, initial load) gets the staggered entrance.
+  useEffect(() => {
+    if (!listRef.current) return;
+    const cards = listRef.current.querySelectorAll('.beat-card');
+    cards.forEach((el, i) => {
+      el.removeAttribute('data-sa-card');
+      void el.offsetWidth;
+      el.dataset.saCard = String(Math.min(i, 15));
+    });
+  }, [filtered]);
 
   useEffect(() => {
     if (initialItems) return;
@@ -280,13 +295,14 @@ function BeatsApp({ initialItems }) {
   }
 
   return (
-    <div className="beats-list-wrap">
-      {filtered.map(item => (
+    <div className="beats-list-wrap" ref={listRef}>
+      {filtered.map((item, idx) => (
         <BeatCard
           key={item.id}
           item={item}
           activeId={activeId}
           onActivate={setActiveId}
+          index={idx}
         />
       ))}
     </div>

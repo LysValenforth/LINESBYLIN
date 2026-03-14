@@ -31,8 +31,8 @@
       --bd:        1.5px solid rgba(46,64,40,.13);
       --tr:        0.18s ease;
       --nav:       64px;
-      --bnav:      60px;
-      --map-default:  #c8dfc0;
+      --bnav:      62px;
+      --map-default:  #b0d4a8;
       --map-dream:    #e8b84b;
       --map-visited:  #4a6741;
       --map-border:   #a0be98;
@@ -505,7 +505,7 @@
     .btn-d:hover { background:var(--red); color:var(--cream) }
 
     /* ── Map ─────────────────────────────────────────────────────────────── */
-    .map-area { flex:1; background:#e8f4ec; position:relative; overflow:hidden }
+    .map-area { flex:1; background:#ddefd5; position:relative; overflow:hidden }
     #main { width:100%; height:100% }
 
     .map-hint {
@@ -1060,7 +1060,7 @@
       transition: all var(--tr);
       color: var(--txt2);
       font-family: var(--b);
-      font-size: .62rem;
+      font-size: .7rem;
       font-weight: 600;
       min-height: var(--bnav);
       letter-spacing: .02em;
@@ -1122,6 +1122,132 @@
     ::-webkit-scrollbar-thumb { background:var(--beige); border-radius:3px }
     ::-webkit-scrollbar-thumb:hover { background:rgba(74,103,65,.3) }
 
+    /* ── HOME btn: hide label on mobile ───────────────────────────────────── */
+    @media (max-width: 768px) {
+      .home-label { display: none; }
+      .home-btn   { padding: 7px 10px; min-width: 0; }
+    }
+
+    /* ── Bottom sheet drag row + preview header ───────────────────────────── */
+    .bs-drag-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px 0;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .bs-drag-row .bs-handle {
+      /* override absolute positioning from original */
+      position: static;
+      margin: 0;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+    .bs-drag-row .bs-close {
+      position: static;
+      margin-left: auto;
+    }
+    .bs-preview {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 18px 10px;
+      flex-shrink: 0;
+      border-bottom: 1px solid rgba(46,64,40,.08);
+      min-height: 36px;
+    }
+    .bs-preview:empty { display: none; }
+    .bs-preview-name {
+      font-family: var(--h);
+      font-size: 1.05rem;
+      color: var(--moss);
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* ── List stats summary line ──────────────────────────────────────────── */
+    .list-stats {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: .82rem;
+      color: var(--txt2);
+      margin-top: 3px;
+    }
+
+    /* ── List card letter tile ────────────────────────────────────────────── */
+    .list-card-letter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .list-card-initial {
+      font-family: var(--h);
+      font-size: 2.4rem;
+      color: rgba(255,255,255,.85);
+      text-shadow: 0 2px 8px rgba(0,0,0,.18);
+      line-height: 1;
+      user-select: none;
+    }
+
+    /* ── Map empty state (first-visit prompt) ─────────────────────────────── */
+    .map-empty-state {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -58%);
+      background: rgba(253,250,245,.93);
+      border: var(--bd);
+      border-radius: var(--r3);
+      padding: 20px 24px 16px;
+      text-align: center;
+      max-width: 260px;
+      width: 85%;
+      pointer-events: none;
+      box-shadow: 0 4px 24px rgba(46,64,40,.12);
+      z-index: 10;
+      animation: popIn .4s cubic-bezier(.32,.72,0,1) .6s both;
+    }
+    .map-empty-state.hidden { display: none; }
+    .mes-icon  { font-size: 2rem; margin-bottom: 8px; }
+    .mes-title {
+      font-family: var(--h);
+      font-size: 1.1rem;
+      color: var(--moss);
+      margin-bottom: 6px;
+    }
+    .mes-sub {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: .82rem;
+      color: var(--txt2);
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+    .mes-arrow {
+      animation: floatUp 1.2s ease-in-out infinite alternate;
+      opacity: .5;
+    }
+
+    /* ── Dim backdrop behind bottom sheet ─────────────────────────────────── */
+    .map-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(20,32,18,.35);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s ease;
+      z-index: 5;
+    }
+    .map-backdrop.vis {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
     /* ── Responsive ──────────────────────────────────────────────────────── */
     @media (max-width: 900px) {
       .vp { display:none }
@@ -1131,12 +1257,39 @@
     @media (max-width: 768px) {
       :root { --nav:50px }
       .layout { flex-direction:column }
-      .map-area { flex:1 }
+      .map-area { flex:1; background:#d4ecda }
       .bnav { display:flex }
       body { padding-bottom:var(--bnav) }
       #toast { bottom:calc(var(--bnav) + 14px) }
-      .map-hint { bottom:calc(var(--bnav) + 16px) }
-      .map-legend { bottom:calc(var(--bnav) + 16px) }
+
+      /* Hint pill — larger, more readable */
+      .map-hint {
+        bottom: calc(var(--bnav) + 18px);
+        font-size: .95rem;
+        padding: 10px 22px;
+        gap: 8px;
+        background: rgba(30,40,24,.88);
+      }
+
+      /* Legend — compact horizontal strip pinned top-right on mobile */
+      .map-legend {
+        bottom: auto;
+        top: 10px;
+        right: 10px;
+        left: auto;
+        flex-direction: row;
+        align-items: center;
+        padding: 6px 10px;
+        gap: 10px;
+        border-radius: 20px;
+        background: rgba(253,250,245,.95);
+        box-shadow: 0 2px 10px rgba(0,0,0,.12);
+      }
+      /* Hide the "MAP KEY" title label on mobile — no space for it */
+      .map-legend::before { display: none; }
+      .legend-item { font-size: .78rem; gap: 5px; font-weight: 600; }
+      .legend-dot  { width: 12px; height: 12px; border-radius: 3px; }
+
       .ep { width:100%; min-width:0; height:92vh; top:auto; bottom:0; transform:translateY(100%); border-right:none; border-top:var(--bd); border-radius:22px 22px 0 0 }
       .ep.open { transform:translateY(0); animation:slideUp .35s cubic-bezier(.32,.72,0,1) }
       .ep-hd { border-radius:22px 22px 0 0 }
@@ -1176,7 +1329,10 @@
     My Dream Map
   </div>
   <div class="sep"></div>
-  <a href="index.html" class="icon-btn" style="text-decoration:none;">HOME</a>
+  <a href="index.html" class="icon-btn home-btn" style="text-decoration:none;" title="Home">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    <span class="home-label">HOME</span>
+  </a>
   <span class="top-sub" id="topSub">Click a country to explore</span>
   <div class="top-right">
     <button class="icon-btn" id="listBtn" onclick="openList()">
@@ -1325,6 +1481,17 @@
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
       Tap a country to explore
     </div>
+    <!-- First-visit empty state overlay (hidden once a country is tapped or data exists) -->
+    <div class="map-empty-state" id="mapEmptyState">
+      <div class="mes-icon">🌍</div>
+      <div class="mes-title">Start your dream map</div>
+      <div class="mes-sub">Tap any country to mark it as a dream destination or a place you've visited</div>
+      <div class="mes-arrow">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--fg)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+      </div>
+    </div>
+    <!-- Dim backdrop behind bottom sheet -->
+    <div id="map-backdrop" class="map-backdrop"></div>
     <div class="map-legend" id="mapLegend">
       <div class="legend-item"><div class="legend-dot" style="background:var(--map-dream)"></div>Dream</div>
       <div class="legend-item"><div class="legend-dot" style="background:var(--map-visited)"></div>Visited</div>
@@ -1373,18 +1540,21 @@
 
 <!-- ── Mobile Bottom Sheet (viewer) ─────────────────────────────────────── -->
 <div class="bs" id="bs">
-  <div class="bs-handle" onclick="closeBS()"></div>
-  <button class="bs-close" onclick="closeBS()">
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-  </button>
-  <div class="bs-inner" id="bsInner">
+  <div class="bs-drag-row">
+    <div class="bs-handle" onclick="closeBS()"></div>
+    <button class="bs-close" onclick="closeBS()">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
   </div>
+  <!-- Preview header: name + pill shown before user scrolls in -->
+  <div class="bs-preview" id="bsPreview"></div>
+  <div class="bs-inner" id="bsInner"></div>
 </div>
 
 <!-- ── Mobile Bottom Nav ─────────────────────────────────────────────────── -->
 <nav class="bnav" id="bnav">
   <button class="bnav-btn active" id="bnavMap" onclick="mobileTab('map')">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>
     Map
   </button>
   <button class="bnav-btn" id="bnavList" onclick="openList()">
@@ -1403,9 +1573,12 @@
 <!-- ── Bucket List Overlay ────────────────────────────────────────────────── -->
 <div class="list-overlay" id="listOv">
   <div class="list-hd">
-    <div class="list-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--fg)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-      My Bucket List
+    <div>
+      <div class="list-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--fg)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        My Bucket List
+      </div>
+      <div class="list-stats" id="listStats"></div>
     </div>
     <button class="ep-close" onclick="closeList()">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -1481,6 +1654,7 @@ function startRealtime() {
     console.log('Data Loaded: dreammap', snap.docs.length);
     refreshColors();
     updateCount();
+    if (snap.docs.length > 0) document.getElementById('mapEmptyState')?.classList.add('hidden');
     setFbStatus('ok', `Connected — ${snap.docs.length} destinations`);
     if (current) {
       isMobile() ? renderBS(current) : renderViewer(current);
@@ -1607,22 +1781,28 @@ fetch('https://s3-us-west-2.amazonaws.com/s.cdpn.io/95368/world.json')
   .then(r => r.json())
   .then(json => {
     echarts.registerMap('world', json);
+    const isMob = window.innerWidth <= 768;
     chart.setOption({
-      backgroundColor: '#e8f4ec',
+      backgroundColor: isMob ? '#d4ecda' : '#e8f4ec',
       series: [{
-        type: 'map', map: 'world', roam: true, zoom: 1.2,
-        scaleLimit: { min: 0.6, max: 10 },
+        type: 'map', map: 'world', roam: true,
+        // Zoom in more on mobile so countries are actually visible
+        zoom: isMob ? 1.8 : 1.2,
+        // On mobile, centre on a more balanced lat/lng
+        center: isMob ? [15, 20] : undefined,
+        scaleLimit: { min: isMob ? 1.0 : 0.6, max: 12 },
         label: { show: false },
         emphasis: {
-          label: { show: true, color: '#2e4028', fontWeight: 'bold', fontSize: 11 },
-          itemStyle: { areaColor: '#a7c4bc', borderColor: '#4a6741', borderWidth: 2, shadowColor: 'rgba(74,103,65,.3)', shadowBlur: 8 }
+          label: { show: true, color: '#1a2e1a', fontWeight: 'bold', fontSize: isMob ? 13 : 11 },
+          itemStyle: { areaColor: '#7dbfb0', borderColor: '#3a7060', borderWidth: 2, shadowColor: 'rgba(46,64,40,.35)', shadowBlur: 10 }
         },
         select: {
-          label: { show: true, color: '#fff', fontSize: 11, fontWeight: 'bold' },
+          label: { show: true, color: '#fff', fontSize: isMob ? 13 : 11, fontWeight: 'bold' },
           itemStyle: { areaColor: '#2e4028', borderColor: '#1a2518', borderWidth: 2 }
         },
         selectedMode: 'single',
-        itemStyle: { areaColor: '#c8dfc0', borderColor: '#a0be98', borderWidth: 0.8 }
+        // Stronger country fill + borders so they read clearly on mobile
+        itemStyle: { areaColor: '#b0d4a8', borderColor: '#7aac72', borderWidth: isMob ? 1.2 : 0.8 }
       }]
     });
     chart.on('click', p => { if (p.componentType === 'series') selectCountry(p.name); });
@@ -1647,10 +1827,16 @@ function refreshColors() {
 function selectCountry(name) {
   current = name;
   document.getElementById('mapHint').classList.add('hidden');
+  document.getElementById('mapEmptyState').classList.add('hidden');
+
+  // Brief pulse glow to confirm the tap registered
+  chart.dispatchAction({ type: 'highlight', seriesIndex: 0, name });
+  setTimeout(() => chart.dispatchAction({ type: 'downplay', seriesIndex: 0, name }), 320);
 
   if (isMobile()) {
     renderBS(name);
     openBS();
+    showBackdrop();
   } else {
     renderViewer(name);
   }
@@ -1684,6 +1870,16 @@ function renderViewer(name) {
 function renderBS(name) {
   const dest = cache[name];
   const inner = document.getElementById('bsInner');
+  // Populate the preview header in the drag handle area
+  const preview = document.getElementById('bsPreview');
+  if (preview) {
+    const pill = dest
+      ? (dest.status === 'visited'
+          ? `<span class="status-pill pill-visited" style="font-size:.7rem">${checkSVG()} Visited</span>`
+          : `<span class="status-pill pill-dream"   style="font-size:.7rem">${starSVG()} Dream</span>`)
+      : '';
+    preview.innerHTML = `<span class="bs-preview-name">${esc(displayName(name))}</span>${pill}`;
+  }
   let html = '';
 
   if (dest?.photo) {
@@ -1692,7 +1888,7 @@ function renderBS(name) {
 
   if (!dest) {
     html += `<div style="padding:20px 16px">
-      <div class="vp-cn">${pinSVG(18)} ${esc(name)}</div>
+      <div class="vp-cn">${pinSVG(18)} ${esc(displayName(name))}</div>
       <div class="vp-na" style="display:flex;margin:10px 0 0">${infoSVG()} Not yet added to the dream list.</div>
     </div>`;
   } else {
@@ -1712,7 +1908,7 @@ function buildInfoHTML(name, dest) {
     ? `<span class="status-pill pill-visited">${checkSVG()} Visited</span>`
     : `<span class="status-pill pill-dream">${starSVG()} Dream</span>`;
 
-  let html = `<div class="vp-cn">${pinSVG(18)} ${esc(name)} ${pill}</div>`;
+  let html = `<div class="vp-cn">${pinSVG(18)} ${esc(displayName(name))} ${pill}</div>`;
 
   if (dest.quote) html += `<div class="vp-quote">${esc(dest.quote)}</div>`;
 
@@ -1738,7 +1934,9 @@ function buildInfoHTML(name, dest) {
 }
 
 function openBS()  { document.getElementById('bs').classList.add('open'); }
-function closeBS() { document.getElementById('bs').classList.remove('open'); }
+function closeBS() { document.getElementById('bs').classList.remove('open'); hideBackdrop(); }
+function showBackdrop() { document.getElementById('map-backdrop').classList.add('vis'); }
+function hideBackdrop() { document.getElementById('map-backdrop').classList.remove('vis'); }
 
 // ── List Overlay ─────────────────────────────────────────────────────────────
 function openList()  { document.getElementById('listOv').classList.add('vis'); renderList(); }
@@ -1754,6 +1952,16 @@ function setFilter(f, btn) {
 function renderList() {
   const q = document.getElementById('listSearch').value.toLowerCase();
   const grid = document.getElementById('listGrid');
+  // Update stats summary
+  const statsEl = document.getElementById('listStats');
+  if (statsEl) {
+    const total   = Object.keys(cache).length;
+    const dreams  = Object.values(cache).filter(d => d.status !== 'visited').length;
+    const visited = Object.values(cache).filter(d => d.status === 'visited').length;
+    statsEl.textContent = total
+      ? `${total} place${total!==1?'s':''} · ${dreams} dream${dreams!==1?'s':''} · ${visited} visited`
+      : 'No places added yet';
+  }
   const entries = Object.entries(cache)
     .filter(([name, d]) => {
       const matchF = listFilter === 'all' || d.status === listFilter || (!d.status && listFilter === 'dream');
@@ -1781,14 +1989,11 @@ function renderList() {
     return `<div class="list-card" onclick="listCardClick('${esc(name)}')">
       ${d.photo
         ? `<img class="list-card-img" src="${esc(d.photo)}" alt="${esc(name)}" loading="lazy" onerror="this.className='list-card-img ph';">`
-        : `<div class="list-card-img ph">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--fg)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity=".4">
-              <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-            </svg>
+        : `<div class="list-card-img ph list-card-letter" style="background:${letterBg(name)}">
+            <span class="list-card-initial">${displayName(name).charAt(0).toUpperCase()}</span>
           </div>`}
       <div class="list-card-body">
-        <div class="list-card-name">${esc(name)}</div>
+        <div class="list-card-name">${esc(displayName(name))}</div>
         <div class="list-card-meta">${pill}${spotsN ? `<span>· ${spotsN} spot${spotsN!==1?'s':''}</span>` : ''}</div>
       </div>
     </div>`;
@@ -1807,7 +2012,7 @@ function listCardClick(name) {
 
 // ── Editor fields ────────────────────────────────────────────────────────────
 function loadEditorFields(name) {
-  document.getElementById('epCN').textContent = name;
+  document.getElementById('epCN').textContent = displayName(name);
   const f = document.getElementById('epF');
   f.style.display = 'flex';
   document.getElementById('epTip').style.display = 'none';
@@ -2013,6 +2218,36 @@ function isMobile() { return window.innerWidth <= 768; }
 
 function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
+// Normalise long country names to short display labels
+const NAME_SHORT = {
+  'United States of America': 'USA',
+  'United Kingdom':           'UK',
+  'United Arab Emirates':     'UAE',
+  'Dominican Republic':       'Dom. Republic',
+  'Democratic Republic of the Congo': 'DR Congo',
+  'Central African Republic': 'CAR',
+  'Bosnia and Herzegovina':   'Bosnia & Herz.',
+  'Trinidad and Tobago':      'Trinidad',
+  'Papua New Guinea':         'Papua NG',
+  'New Zealand':              'New Zealand',
+};
+function displayName(name) { return NAME_SHORT[name] || name; }
+
+// Deterministic pastel background from country name
+function letterBg(name) {
+  const palettes = [
+    'linear-gradient(135deg,#b8d8c8,#8fbcac)',
+    'linear-gradient(135deg,#c8d4e8,#94a8cc)',
+    'linear-gradient(135deg,#e8d4b8,#c8a878)',
+    'linear-gradient(135deg,#d4c8e8,#a890cc)',
+    'linear-gradient(135deg,#c8e8d4,#88c4a0)',
+    'linear-gradient(135deg,#e8c8c8,#cc9090)',
+    'linear-gradient(135deg,#e8e4b8,#c8c078)',
+  ];
+  let h = 0; for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) & 0xffff;
+  return palettes[h % palettes.length];
+}
+
 function pinSVG(sz) { return `<svg width="${sz}" height="${sz}" viewBox="0 0 24 24" fill="none" stroke="var(--fg)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`; }
 function starSVG()   { return `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`; }
 function checkSVG()  { return `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>`; }
@@ -2046,6 +2281,11 @@ function mobileTab(t) {
     const dy = e.touches[0].clientY - startY;
     if (dy > 60) closeBS();
   }, { passive: true });
+
+  // Tap the dim backdrop behind the sheet to close it
+  document.getElementById('map-backdrop').addEventListener('click', () => {
+    if (bs.classList.contains('open')) closeBS();
+  });
 })();
 
 // ── Upload drag events ────────────────────────────────────────────────────────

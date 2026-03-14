@@ -323,8 +323,14 @@ body { overflow-x: hidden; }
     height: auto !important; border-radius: var(--radius-lg); object-fit: cover;
   }
   .about-art-frame::after { display: none; }
-  .about-text-col { align-items: flex-start; }
-  .about-body { text-align: left; }
+  .about-text-col { align-items: center; text-align: center; }
+  .about-eyebrow  { text-align: center; }
+  .about-heading  { text-align: center; }
+  .about-quote    { text-align: center; }
+  .about-tags     { justify-content: center; }
+  .about-cta      { align-self: center; }
+  .about-stats    { align-self: center; }
+  .about-body { text-align: justify; }
 }
 @media (max-width: 480px) {
   /* Keep stats as a horizontal row on mobile — 3 items side by side */
